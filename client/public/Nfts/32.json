@@ -1,0 +1,10 @@
+{
+"name": "Balandel",
+"description": "Her magic can heal beasts and humans being a key player in battle.",
+"image": "https://lasthorde.com/NFTs/Imagenes/BalandelV.png",
+"attributes": [{"trait_type": "Card Type", "value": "Skill"},
+{"trait_type": "Heal Objetives", "value": "7"},
+{"trait_type": "Heal Rows", "value": "1"},
+{"trait_type": "Heal", "value": "3"}
+]
+} 

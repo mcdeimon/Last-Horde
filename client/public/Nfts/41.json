@@ -1,0 +1,10 @@
+{
+"name": "Blizzard",
+"description": "Enemies will get cold today.",
+"image": "https://lasthorde.com/NFTs/Imagenes/Blizzard.png",
+"attributes": [{"trait_type": "Card Type", "value": "Skill"},
+{"trait_type": "Attacks", "value": "7"},
+{"trait_type": "Attacks Rows", "value": "2"},
+{"trait_type": "Attack Cold", "value": " 3"}
+]
+} 

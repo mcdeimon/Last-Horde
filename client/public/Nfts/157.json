@@ -1,0 +1,10 @@
+{
+"name": "Meteor",
+"description": "We still have days to live, but the opponent, no.",
+"image": "https://lasthorde.com/NFTs/Imagenes/MeteorV.png",
+"attributes": [{"trait_type": "Card Type", "value": "Skill"},
+{"trait_type": "Attacks", "value": "11"},
+{"trait_type": "Attacks Rows", "value": "2"},
+{"trait_type": "Attack Fire",  "value": " 3"}
+]
+} 

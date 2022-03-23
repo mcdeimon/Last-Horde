@@ -1,0 +1,16 @@
+    {
+"name": "Corrupted Dragon",
+"description": "Fear him his fire and his tenacious claws, he does not have to run after you, because he flies through the air and attacks any prey faster than a kite.",
+"image": "https://lasthorde.com/NFTs/Imagenes/CorruptedDragonV.png",
+"attributes": [
+{"trait_type": "Health", "value": "7" },
+{"trait_type": "Points", "value": "16" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 4"},
+{"trait_type": "Resistance Fire", "value": " 1"},
+{"trait_type": "Resistance Poison", "value": " 4"},
+{"trait_type": "Target Poison", "value": "5"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "2"}
+]
+}

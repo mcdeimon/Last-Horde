@@ -1,0 +1,15 @@
+    {
+"name": "Elephant",
+"description": "He may be slow, but he can trample any enemy, and his tusks will dispose of any thickest armor.",
+"image": "https://lasthorde.com/NFTs/Imagenes/ElephantV.png",
+"attributes": [
+{"trait_type": "Health", "value": "16" },
+{"trait_type": "Points", "value": "17" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 3"},
+{"trait_type": "Resistance Cold", "value": " 2"},
+{"trait_type": "Melee Physical", "value": " 9"}
+]
+}

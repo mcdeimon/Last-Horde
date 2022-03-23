@@ -1,0 +1,18 @@
+{
+"name": "Adeom",
+"description": "He is called to war when  strength of the fighters is already exhausted and he heals them, giving life for new battles!",
+"image": "https://lasthorde.com/NFTs/Imagenes/AdeomM.png",
+"attributes": [
+{"trait_type": "Health", "value": "10" },
+{"trait_type": "Points", "value": "5" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Heal Objetives", "value": "5"},
+{"trait_type": "Heal Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 4"},
+{"trait_type": "Resistance Fire",  "value": " 2"},
+{"trait_type": "Resistance Cold", "value": " 2"},
+{"trait_type": "Resistance Poison", "value": " 4"},
+{"trait_type": "Resistance Lightning", "value": " 2"},
+{"trait_type": "Heal", "value": "8"}
+]
+} 

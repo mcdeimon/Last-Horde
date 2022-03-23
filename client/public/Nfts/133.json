@@ -1,0 +1,14 @@
+    {
+"name": "Golden Archer",
+"description": "She appears in the heat of battle as if from nowhere and shoots her arrow at the target!",
+"image": "https://lasthorde.com/NFTs/Imagenes/GoldenArcherD.png",
+"attributes": [
+{"trait_type": "Health", "value": "6" },
+{"trait_type": "Points", "value": "6" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Target Physical", "value": "4"},
+{"trait_type": "Target Fire", "value": "1"},
+{"trait_type": "Target Attacks", "value": "7"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

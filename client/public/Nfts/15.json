@@ -1,0 +1,19 @@
+    {
+"name": "Ademius",
+"description": "For Ademius  there are no laws of physics or any laws at all. \nHis magic staff shakes the earth and the sky and knows no defeat!",
+"image": "https://lasthorde.com/NFTs/Imagenes/AdemiusM.png",
+"attributes": [
+{"trait_type": "Health", "value": "9" },
+{"trait_type": "Points", "value": "10" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "2"},
+{"trait_type": "Resistance Physical", "value": " 1"},
+{"trait_type": "Resistance Fire", "value": " 2"},
+{"trait_type": "Resistance Lightning", "value": " 2"},
+{"trait_type": "Melee Fire", "value": " 10"},
+{"trait_type": "Target Lightning", "value": " 7"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "2"}
+]
+}

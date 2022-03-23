@@ -1,0 +1,16 @@
+    {
+"name": "Forest Witch",
+"description": "The roots of the trees wrap their arms around her, the soil gives her strength, and the crowns whisper spells. Besides, all the forest dwellers are on her side.",
+"image": "https://lasthorde.com/NFTs/Imagenes/ForestWitchR.png",
+"attributes": [
+{"trait_type": "Health", "value": "8" },
+{"trait_type": "Points", "value": "7" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 1"},
+{"trait_type": "Resistance Cold", "value": " 4"},
+{"trait_type": "Resistance Lightning", "value": " 1"},
+{"trait_type": "Target Cold", "value": "8"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

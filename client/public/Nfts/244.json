@@ -1,0 +1,17 @@
+    {
+"name": "Ice Dragon",
+"description": "Suddenly, while no one was expecting it, a north wind blew in, cold as death. A blizzard swirled and out of the white gloom appeared a monster, an ice dragon, freezing everything in its path.",
+"image": "https://lasthorde.com/NFTs/Imagenes/IceDragonR.png",
+"attributes": [
+{"trait_type": "Health", "value": "17" },
+{"trait_type": "Points", "value": "21" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 3"},
+{"trait_type": "Resistance Cold", "value": " 9"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Counter Attack", "value": "Yes"},
+{"trait_type": "Target Cold", "value": "12"},
+{"trait_type": "Target Attacks", "value": "5"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

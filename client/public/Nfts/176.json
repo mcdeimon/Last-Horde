@@ -1,0 +1,15 @@
+    {
+"name": "Red Dragon",
+"description": "A huge creature soars into the sky, blocking out the sun! It doesn't need an army, but can burn an entire city single-handedly, leaving no one alive!",
+"image": "https://lasthorde.com/NFTs/Imagenes/RedDragon.png",
+"attributes": [
+{"trait_type": "Health", "value": "15" },
+{"trait_type": "Points", "value": "21" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 5"},
+{"trait_type": "Resistance Fire", "value": " 3"},
+{"trait_type": "Target Physical", "value": "9"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

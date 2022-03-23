@@ -1,0 +1,18 @@
+    {
+"name": "Griffin",
+"description": "The torso of a lion and the head of an eagle, the griffin is one of the most controversial and dangerous enemies! ",
+"image": "https://lasthorde.com/NFTs/Imagenes/GriffinD.png",
+"attributes": [
+{"trait_type": "Health", "value": "13" },
+{"trait_type": "Points", "value": "11" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical", "value": " 5"},
+{"trait_type": "Resistance Poison", "value": " 3"},
+{"trait_type": "Melee Physical", "value": " 7"},
+{"trait_type": "Target Physical", "value": " 7"},
+{"trait_type": "Target Attacks", "value": "1"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

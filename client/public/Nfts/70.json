@@ -1,0 +1,21 @@
+    {
+"name": "Centaur",
+"description": "A wild creature with the body of a horse and the torso of a man will fight with any enemy and shoot him right in the heart. \n",
+"image": "https://lasthorde.com/NFTs/Imagenes/CentaurM.png",
+"attributes": [
+{"trait_type": "Health", "value": "12" },
+{"trait_type": "Points", "value": "9" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical", "value": " 3"},
+{"trait_type": "Resistance Poison", "value": " 2"},
+{"trait_type": "Resistance Lightning", "value": " 2"},
+{"trait_type": "Melee Physical", "value": " 6"},
+{"trait_type": "Target Physical", "value": " 7"},
+{"trait_type": "Melee Poison", "value": " 1"},
+{"trait_type": "Target Poison", "value": " 1"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "2"}
+]
+}

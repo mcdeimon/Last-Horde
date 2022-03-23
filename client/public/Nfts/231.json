@@ -1,0 +1,13 @@
+    {
+"name": "Witch",
+"description": "Many centuries ago a little girl was struck by lightning. She survived and remained ugly forever, but she became the mistress of lightning!",
+"image": "https://lasthorde.com/NFTs/Imagenes/Witch.png",
+"attributes": [
+{"trait_type": "Health", "value": "7" },
+{"trait_type": "Points", "value": "10" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Target Physical", "value": "3"},
+{"trait_type": "Target Attacks", "value": "1"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

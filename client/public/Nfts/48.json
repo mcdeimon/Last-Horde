@@ -1,0 +1,15 @@
+    {
+"name": "Caley",
+"description": "She wanders along unknown mountain trails and rushes faster than the wind across the steppe. She has no home, no family, and no country. And all the more terrifying Caley is in battle!",
+"image": "https://lasthorde.com/NFTs/Imagenes/CaleyD.png",
+"attributes": [
+{"trait_type": "Health", "value": "8" },
+{"trait_type": "Points", "value": "7" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 2"},
+{"trait_type": "Resistance Poison", "value": " 2"},
+{"trait_type": "Melee Physical", "value": " 5"}
+]
+}

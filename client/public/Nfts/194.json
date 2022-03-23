@@ -1,0 +1,20 @@
+    {
+"name": "Spider",
+"description": "There is no more disgusting monster than a poisonous spider. It has no blades, but eight paws, ready to pierce its enemies through.",
+"image": "https://lasthorde.com/NFTs/Imagenes/SpiderR.png",
+"attributes": [
+{"trait_type": "Health", "value": "12" },
+{"trait_type": "Points", "value": "8" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical", "value": " 3"},
+{"trait_type": "Resistance Poison", "value": " 8"},
+{"trait_type": "Melee Physical", "value": " 2"},
+{"trait_type": "Target Physical", "value": " 2"},
+{"trait_type": "Melee Poison", "value": " 6"},
+{"trait_type": "Target Poison", "value": " 6"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

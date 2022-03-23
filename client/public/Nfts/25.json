@@ -1,0 +1,16 @@
+    {
+"name": "Archer",
+"description": "Archer does not miss and can take out the eye of  a flying bird.  He draws the bowstring and the sound of the released string heralds his enemies a quick and swift death. ",
+"image": "https://lasthorde.com/NFTs/Imagenes/ArcherM.png",
+"attributes": [
+{"trait_type": "Health", "value": "8" },
+{"trait_type": "Points", "value": "6" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 2"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Counter Attack", "value": "Yes"},
+{"trait_type": "Target Physical", "value": "6"},
+{"trait_type": "Target Attacks", "value": "5"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

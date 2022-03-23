@@ -1,0 +1,17 @@
+    {
+"name": "Castle",
+"description": "Thick walls and deep moats - it can only be taken by siege, but many brave men will suffer in the process",
+"image": "https://lasthorde.com/NFTs/Imagenes/CastleD.png",
+"attributes": [
+{"trait_type": "Health", "value": "11" },
+{"trait_type": "Points", "value": "13" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 3"},
+{"trait_type": "Resistance Cold", "value": " 3"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Counter Attack", "value": "Yes"},
+{"trait_type": "Target Physical", "value": "4"},
+{"trait_type": "Target Attacks", "value": "11"}, 
+{"trait_type": "Target Rows", "value": "2"}
+]
+}

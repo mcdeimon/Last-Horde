@@ -1,0 +1,19 @@
+    {
+"name": "The Shadow",
+"description": "How to face the black of the abyss?",
+"image": "https://lasthorde.com/NFTs/Imagenes/ShadowM.png",
+"attributes": [
+{"trait_type": "Health", "value": "7" },
+{"trait_type": "Points", "value": "12" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": "30"},
+{"trait_type": "Resistance Fire",  "value": "30"},
+{"trait_type": "Resistance Cold", "value": "30"},
+{"trait_type": "Resistance Poison", "value": "30"},
+{"trait_type": "Resistance Lightning", "value": "3"},
+{"trait_type": "Counter Attack", "value": "Yes"},
+{"trait_type": "Melee Cold", "value": " 7"}
+]
+}

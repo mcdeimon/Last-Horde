@@ -1,0 +1,17 @@
+    {
+"name": "Timul",
+"description": "He may not be tall, but he is strong on his feet and his axe is sharpened like no other.",
+"image": "https://lasthorde.com/NFTs/Imagenes/TimulV.png",
+"attributes": [
+{"trait_type": "Health", "value": "8" },
+{"trait_type": "Points", "value": "9" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 4"},
+{"trait_type": "Resistance Fire",  "value": " 3"},
+{"trait_type": "Resistance Cold", "value": " 2"},
+{"trait_type": "Resistance Poison", "value": " 2"},
+{"trait_type": "Melee Physical", "value": " 5"}
+]
+}

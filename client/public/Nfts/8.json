@@ -1,0 +1,10 @@
+{
+"name": "Acid Storm",
+"description": "Poison the world, destroy the enemies.",
+"image": "https://lasthorde.com/NFTs/Imagenes/AcidStormD.png",
+"attributes": [{"trait_type": "Card Type", "value": "Skill"},
+{"trait_type": "Attacks", "value": "7"},
+{"trait_type": "Attacks Rows", "value": "2"},
+{"trait_type": "Attack Poison", "value": " 6"}
+]
+} 

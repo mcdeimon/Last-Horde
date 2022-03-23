@@ -1,0 +1,17 @@
+    {
+"name": "Goblin",
+"description": "Once upon a time goblins lived in their underground caves, but the caves have long since been destroyed, and their former inhabitants are not squeamish about a good fight!",
+"image": "https://lasthorde.com/NFTs/Imagenes/GoblinD.png",
+"attributes": [
+{"trait_type": "Health", "value": "6" },
+{"trait_type": "Points", "value": "8" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "1"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Melee Physical", "value": " 7"},
+{"trait_type": "Target Physical", "value": " 6"},
+{"trait_type": "Target Attacks", "value": "1"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

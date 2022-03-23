@@ -1,0 +1,16 @@
+    {
+"name": "Werewolf",
+"description": "There's not much of a man left in a werewolf; his claws will rip your heart out and he'll gladly eat it! ",
+"image": "https://lasthorde.com/NFTs/Imagenes/Werewolf.png",
+"attributes": [
+{"trait_type": "Health", "value": "10" },
+{"trait_type": "Points", "value": "11" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 2"},
+{"trait_type": "Resistance Cold", "value": " 2"},
+{"trait_type": "Resistance Poison", "value": " 2"},
+{"trait_type": "Melee Physical", "value": " 5"}
+]
+}

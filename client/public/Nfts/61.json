@@ -1,0 +1,14 @@
+    {
+"name": "Catapult",
+"description": "Neither armor nor shields nor high walls will protect against Сatapult, it strikes from afar and exactly at the target",
+"image": "https://lasthorde.com/NFTs/Imagenes/Catapult.png",
+"attributes": [
+{"trait_type": "Health", "value": "6" },
+{"trait_type": "Points", "value": "9" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Target Fire", "value": "4"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

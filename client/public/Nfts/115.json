@@ -1,0 +1,17 @@
+{
+"name": "Galed",
+"description": "She uses his holy magic to heal her companion.\n",
+"image": "https://lasthorde.com/NFTs/Imagenes/GaledM.png",
+"attributes": [
+{"trait_type": "Health", "value": "8" },
+{"trait_type": "Points", "value": "4" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Heal Objetives", "value": "5"},
+{"trait_type": "Heal Rows", "value": "2"},
+{"trait_type": "Resistance Physical",  "value": " 1"},
+{"trait_type": "Resistance Cold", "value": " 1"},
+{"trait_type": "Resistance Poison", "value": " 1"},
+{"trait_type": "Resistance Lightning", "value": " 3"},
+{"trait_type": "Heal", "value": "8"}
+]
+} 

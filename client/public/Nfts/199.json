@@ -1,0 +1,16 @@
+    {
+"name": "Telempest",
+"description": "No magic is blacker than the heart of a mage betrayed by his kingdom. He knows no forgiveness or weakness, and his spells cannot be undone or reversed! ",
+"image": "https://lasthorde.com/NFTs/Imagenes/TelempestR.png",
+"attributes": [
+{"trait_type": "Health", "value": "13" },
+{"trait_type": "Points", "value": "16" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": " 3"},
+{"trait_type": "Resistance Lightning", "value": " 6"},
+{"trait_type": "Counter Attack", "value": "Yes"},
+{"trait_type": "Target Lightning", "value": "11"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"}
+]
+}

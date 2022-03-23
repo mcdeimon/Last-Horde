@@ -1,0 +1,16 @@
+    {
+"name": "Knight",
+"description": "No one has ever seen his face, no one knows if he is human, mage or goblin. But when he draws his sword, his enemies scatter in fear. \n",
+"image": "https://lasthorde.com/NFTs/Imagenes/KnightR.png",
+"attributes": [
+{"trait_type": "Health", "value": "10" },
+{"trait_type": "Points", "value": "8" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "3"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 5"},
+{"trait_type": "Resistance Poison", "value": " 2"},
+{"trait_type": "Resistance Lightning", "value": " 3"},
+{"trait_type": "Melee Physical", "value": " 8"}
+]
+}
