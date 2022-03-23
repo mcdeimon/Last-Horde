@@ -23,7 +23,7 @@ const Colection = function ({ collectionId = 1 }) {
     setOpenMenu3(false);
     document.getElementById("Mainbtn").classList.add("active");
     document.getElementById("Mainbtn1").classList.remove("active");
-    document.getElementById("Mainbtn2").classList.remove("active");
+    /* document.getElementById("Mainbtn2").classList.remove("active"); */
     document.getElementById("Mainbtn3").classList.remove("active");
   };
 
@@ -34,7 +34,7 @@ const Colection = function ({ collectionId = 1 }) {
     setOpenMenu3(false);
     document.getElementById("Mainbtn1").classList.add("active");
     document.getElementById("Mainbtn").classList.remove("active");
-    document.getElementById("Mainbtn2").classList.remove("active");
+    /* document.getElementById("Mainbtn2").classList.remove("active"); */
     document.getElementById("Mainbtn3").classList.remove("active");
   };
 
@@ -59,7 +59,7 @@ const Colection = function ({ collectionId = 1 }) {
     document.getElementById("Mainbtn3").classList.add("active");
     document.getElementById("Mainbtn").classList.remove("active");
     document.getElementById("Mainbtn1").classList.remove("active");
-    document.getElementById("Mainbtn2").classList.remove("active");
+    /* document.getElementById("Mainbtn2").classList.remove("active"); */
   };
 
   return (

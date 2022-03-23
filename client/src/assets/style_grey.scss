@@ -5061,3 +5061,71 @@ img.img-rounded {
   height: 100%;
   z-index: 1;
 }
+
+.dCenterCenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 800;
+  color: #fff;
+
+  .navbarContainerItems {
+    @extend .dCenterCenter;
+    width: min-content;
+    padding: 15px 0;
+
+    .navbarImg {
+      width: 100%;
+    }
+
+    .navbarList {
+      @extend .dCenterCenter;
+      list-style-type: none;
+      padding: 0 20px;
+      margin: 0;
+
+      .navbarListItem {
+        margin: 0 10px;
+        @extend .dCenterCenter;
+
+        .navbarLink {
+          @extend .dCenterCenter;
+          font-size: 16px !important;
+          position: relative;
+          transition: all .6s ease-in-out;
+          -o-transition: all .6s ease-in-out;
+          -webkit-transition: all .6s ease-in-out;
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff343f;
+            transition: all .6s ease-in-out;
+            -o-transition: all .6s ease-in-out;
+            -webkit-transition: all .6s ease-in-out;
+          }
+
+          &:hover {
+            &:after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
