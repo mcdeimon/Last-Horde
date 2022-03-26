@@ -31,3 +31,14 @@ export const rarity = [
     label: "Purple",
   },
 ];
+
+export const itemsType = [
+  {
+    value: "single_items",
+    label: "Single Items",
+  },
+  {
+    value: "bundles",
+    label: "Bundles",
+  },
+];
