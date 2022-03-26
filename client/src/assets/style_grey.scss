@@ -5104,6 +5104,7 @@ img.img-rounded {
           transition: all .6s ease-in-out;
           -o-transition: all .6s ease-in-out;
           -webkit-transition: all .6s ease-in-out;
+          cursor: pointer;
 
           &:after {
             content: '';

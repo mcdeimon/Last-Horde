@@ -122,9 +122,9 @@ const Header = function ({ className }) {
             <div className="navbarContainerItems">
               <ul className="navbarList">
                 <li className="navbarListItem">
-                  <NavLink to="https://lasthorde.com/">
+                  <a href="https://lasthorde.com/">
                     <a className="navbarLink">Home</a>
-                  </NavLink>
+                  </a>
                 </li>
 
                 <li className="navbarListItem">
@@ -134,9 +134,9 @@ const Header = function ({ className }) {
                 </li>
 
                 <li className="navbarListItem">
-                  <NavLink to="https://app.lasthorde.com/stake">
+                  <a href="https://app.lasthorde.com/stake">
                     <a className="navbarLink">Stake</a>
-                  </NavLink>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -145,14 +145,14 @@ const Header = function ({ className }) {
           <div className="navbarContainerItems">
             <ul className="navbarList">
               <li className="navbarListItem">
-                <NavLink to="https://app.lasthorde.com/stake">
-                  <a className="navbarLink">Home</a>
+                <NavLink to="/">
+                  <a className="navbarLink">Explore</a>
                 </NavLink>
               </li>
 
               <li className="navbarListItem">
-                <NavLink to="https://app.lasthorde.com/stake">
-                  <a className="navbarLink">Explore</a>
+                <NavLink to="/my-account">
+                  <a className="navbarLink">Account</a>
                 </NavLink>
               </li>
             </ul>

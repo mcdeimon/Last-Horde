@@ -119,7 +119,7 @@ const app = () => (
         <Helpcenter path="/helpcenter" />
         <Helpcentergrey path="/helpcenterGrey" />
         <Colection path="/colection/:collectionId" /> */}
-        <Colectiongrey path="/myaccount" />
+        <Colectiongrey path="/my-account" />
         {/* <ItemDetailRedux path="/ItemDetail/:nftId" /> */}
         <ItemDetailReduxgrey path="/detail/:itemId" />
         {/* <Author path="/Author/:authorId" />
