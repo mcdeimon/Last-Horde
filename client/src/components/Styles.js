@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 // export const StyledHeader = styled(Header)`
 // ${props => props.theme === 'GREY' && '.navbar { background: red; }'}`;
@@ -7,11 +7,13 @@ import { createGlobalStyle } from 'styled-components';
 // export const StyledHeader = styled(newHeader)`
 //    .navbar {
 //        background: red !important;
-//    } 
+//    }
 // `;
 
 export const StyledHeader = createGlobalStyle`
-    ${props => props.theme === 'GREY' && `
+    ${(props) =>
+      props.theme === "GREY" &&
+      `
         header#myHeader.navbar.sticky.white {
             background: #212428;
             border-bottom: 0;
@@ -42,13 +44,22 @@ export const StyledHeader = createGlobalStyle`
         .navbar .navbar-item .lines {
             border-bottom: 2px solid #ff343f;
         }
-        .navbar .mainside a{
+        .navbar .mainside p{
             text-align: center;
             color: #fff !important;
             background: #ff343f;
             border-radius: 30px;
+            width: 150px;
+            max-width: 150px;
+            padding: 5px 10px;
+            margin: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            cursor: pointer;
+
         }
-        .navbar .mainside a:hover {
+        .navbar .mainside p:hover {
             box-shadow: 2px 2px 20px 0 #ff343f;
             transition: all .3s ease;
         }
@@ -94,7 +105,9 @@ export const StyledHeader = createGlobalStyle`
         }
     `}
 
-    ${props => props.theme === 'GREYLOGIN' && `
+    ${(props) =>
+      props.theme === "GREYLOGIN" &&
+      `
         header#myHeader.navbar.sticky.white {
         background: #212428;
         border-bottom: 0;
@@ -195,7 +208,9 @@ export const StyledHeader = createGlobalStyle`
         }
     `}
 
-    ${props => props.theme === 'BlACK' && `
+    ${(props) =>
+      props.theme === "BlACK" &&
+      `
         //WRITE HEADER STYLE FOR BlACK HERE
     `}
 `;

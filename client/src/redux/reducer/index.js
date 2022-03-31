@@ -1,6 +1,7 @@
 import {
   FILTER_RARITY,
   FILTER_TYPE,
+  GET_ACCOUNT,
   GET_ALL_NFT,
   GET_NFT_BY_ID,
   GET_PACKAGES,
@@ -11,22 +12,27 @@ import {
 const initialState = {
   isLoading: true,
   packages: [],
-  nfts: [],
-  filteredNfts: [],
+  nfts: [], // all nfts
+  filteredNfts: [], // filtered by rarity and type all nfts
+  account: "",
   myNfts: [],
   filteredMyNfts: [],
-  nft: {},
-  package: {},
+  nft: {}, //detail of nft
+  package: {}, //detail of package
   typeExplorer: "nfts",
 };
 
 export const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    ////////////////////////////////////////////////////////////// loading
+
     case IS_LOADING:
       return {
         ...state,
         isLoading: payload,
       };
+
+    ////////////////////////////////////////////////////////////// get cards and packages
 
     case GET_ALL_NFT:
       return {
@@ -52,6 +58,8 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         package: payload,
       };
+
+    ////////////////////////////////////////////////////////////// filters
 
     case FILTER_RARITY:
       let filteredNftsAux = [];
@@ -101,6 +109,16 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         typeExplorer: payload ? payload : "nfts",
+      };
+
+    ////////////////////////////////////////////////////////////// account
+
+    case GET_ACCOUNT:
+      return {
+        ...state,
+        account: payload.account,
+        myNfts: payload.deck,
+        filteredMyNfts: payload.deck,
       };
 
     default:

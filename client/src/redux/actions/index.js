@@ -7,7 +7,12 @@ import {
   GET_PACKAGES,
   IS_LOADING,
   GET_PACKAGE_BY_ID,
+  GET_ACCOUNT,
 } from "../constants/index";
+import { web3 } from "../../utils/web3";
+import Contract1155 from "../../contracts/Contract1155";
+
+////////////////////////////////////////////////////////////// loading
 
 export const isLoadingFunction = (isLoading) => {
   return {
@@ -16,14 +21,14 @@ export const isLoadingFunction = (isLoading) => {
   };
 };
 
-////////////////////////////////////////////////////////////// get all
+////////////////////////////////////////////////////////////// get cards and packages
 
 export const getAllNFT = () => async (dispatch) => {
   let nfts = [];
   let nft = {};
 
   try {
-    for (let i = 1; i <= 250; i++) {
+    for (let i = 1; i <= 260; i++) {
       /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
       nfts.push(nft.data); */
 
@@ -96,7 +101,7 @@ export const getPackagesById = (id) => async (dispatch) => {
     type: GET_PACKAGE_BY_ID,
     payload: packageCard,
   });
-}
+};
 
 ////////////////////////////////////////////////////////////// filters
 
@@ -111,5 +116,42 @@ export const filterType = (type) => (dispatch) => {
   dispatch({
     type: FILTER_TYPE,
     payload: type.value,
+  });
+};
+
+////////////////////////////////////////////////////////////// account
+
+export const getAccount = () => async (dispatch) => {
+  const accounts = await web3.eth.getAccounts();
+  const account = accounts[0];
+
+  const pack = await Contract1155.methods.viewDeck2(account).call();
+  console.log(pack);
+  const deck = [];
+
+  for (let i = 1; i <= pack[0].length; i++) {
+    let nft = {};
+
+    if (pack[0][i]) {
+      try {
+        /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${id}.json`);
+        nft = nft.data; */
+
+        nft = await require(`../../../public/Nfts/${i}.json`);
+        for (let j = 0; j < pack[0][i]; j++) {
+          deck.push(nft);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+  dispatch({
+    type: GET_ACCOUNT,
+    payload: {
+      account,
+      deck,
+    },
   });
 };

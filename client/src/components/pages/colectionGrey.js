@@ -1,9 +1,7 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ColumnNewRedux from "../components/ColumnNewRedux";
 import Footer from "../components/footer";
-import * as selectors from "../../store/selectors";
-import api from "../../core/api";
 
 //IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
@@ -11,10 +9,21 @@ import { StyledHeader } from "../Styles";
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
 const Colection = function ({ collectionId = 1 }) {
-  const [openMenu, setOpenMenu] = React.useState(true);
-  const [openMenu1, setOpenMenu1] = React.useState(false);
-  const [openMenu2, setOpenMenu2] = React.useState(false);
-  const [openMenu3, setOpenMenu3] = React.useState(false);
+  const accountState = useSelector((state) => state.account);
+  const myNftsState = useSelector((state) => state.myNfts);
+
+  const [account, setAccount] = useState(accountState);
+  const [myNfts, setMyNfts] = useState(myNftsState);
+
+  useEffect(() => {
+    setAccount(accountState);
+    setMyNfts(myNftsState);
+  }, [accountState, myNftsState]);
+
+  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu1, setOpenMenu1] = useState(false);
+  const [openMenu2, setOpenMenu2] = useState(false);
+  const [openMenu3, setOpenMenu3] = useState(false);
 
   const handleBtnClick = () => {
     setOpenMenu(!openMenu);
@@ -62,6 +71,10 @@ const Colection = function ({ collectionId = 1 }) {
     /* document.getElementById("Mainbtn2").classList.remove("active"); */
   };
 
+  const handleCopyClipboard = () => {
+    navigator.clipboard.writeText(account);
+  };
+
   return (
     <div className="greyscheme">
       <StyledHeader theme={theme} />
@@ -76,10 +89,14 @@ const Colection = function ({ collectionId = 1 }) {
                     <div className="clearfix"></div>
 
                     <span id="wallet" className="profile_wallet">
-                      0x5d5484554d45454454554a544545749949518956285
+                      {account ? account : "Connect your Wallet"}
                     </span>
 
-                    <button id="btn_copy" title="Copy Text">
+                    <button
+                      id="btn_copy"
+                      title="Copy Text"
+                      onClick={handleCopyClipboard}
+                    >
                       Copy
                     </button>
                   </h4>
@@ -115,29 +132,38 @@ const Colection = function ({ collectionId = 1 }) {
           </div>
         </div>
 
-        {openMenu && (
+        {openMenu && myNfts.length ? (
           <div id="zero1" className="onStep fadeIn">
-            <ColumnNewRedux />
+            <ColumnNewRedux type="myNfts" />
           </div>
-        )}
+        ) : null}
 
-        {openMenu1 && (
+        {openMenu1 && myNfts.length ? (
           <div id="zero2" className="onStep fadeIn">
-            <ColumnNewRedux />
+            <ColumnNewRedux type="myOnSaleNfts" />
           </div>
-        )}
+        ) : null}
 
-        {/* {openMenu2 && (
-          <div id="zero2" className="onStep fadeIn">
-            <ColumnNewRedux />
+        {/* {openMenu2 && myNfts.length ? (
+          <div id="zero3" className="onStep fadeIn">
+            <ColumnNewRedux type="myOnRentNfts"/>
           </div>
-        )} */}
+        ): null} */}
 
-        {openMenu3 && (
-          <div id="zero2" className="onStep fadeIn">
-            <ColumnNewRedux />
+        {openMenu3 && myNfts.length ? (
+          <div id="zero4" className="onStep fadeIn">
+            <ColumnNewRedux type="myFavoritesNfts" />
           </div>
-        )}
+        ) : null}
+
+        {!myNfts.length || !account ? (
+          <div id="zero5" className="onStep fadeIn">
+            <div className="d-flex justify-content-center align-items-center flex-column">
+              <h1>No NFTs found</h1>
+              <p>Connect your wallet or buy new nfts</p>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <Footer />

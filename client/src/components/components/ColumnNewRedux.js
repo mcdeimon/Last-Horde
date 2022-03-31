@@ -4,8 +4,9 @@ import Loading from "./Loading";
 import NftCard from "./NftCard";
 
 //react functional component
-const ColumnNewRedux = ({ myAccount }) => {
+const ColumnNewRedux = ({ type }) => {
   const filteredNfts = useSelector((state) => state.filteredNfts);
+  const myNfts = useSelector((state) => state.myNfts);
   const packages = useSelector((state) => state.packages);
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
 
@@ -23,9 +24,35 @@ const ColumnNewRedux = ({ myAccount }) => {
   };
 
   useEffect(() => {
-    setNFTs(filteredNfts);
     setPackagesArr(packages);
-  }, [filteredNfts, packages]);
+
+    switch (type){
+      case "myNfts":{
+        setNFTs(myNfts);
+      }
+      break;
+
+      case "myOnSaleNfts":{
+        setNFTs(myNfts);
+      }
+      break;
+
+      case "myOnRentNfts":{
+        setNFTs(myNfts);
+      }
+      break;
+
+      case "myFavoritesNfts":{
+        setNFTs(myNfts);
+      }
+      break;
+
+      default:{
+        setNFTs(filteredNfts);
+      }
+      break;
+    }
+  }, [filteredNfts, packages, myNfts]);
 
   useEffect(() => {
     if (typeExplorerAux !== typeExplorer) {

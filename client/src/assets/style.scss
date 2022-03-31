@@ -5461,7 +5461,8 @@ blockquote {
 
 //logout menu
 .mainside {
-  width: max-content;
+  width: 145px;
+  max-width: 145px;
   padding-left: 0;
   padding-right: 0;
 
@@ -5489,6 +5490,8 @@ blockquote {
 
   .connect-wal {
     display: block;
+    width: 145px;
+    max-width: 145px;
   }
 
   .logout {
