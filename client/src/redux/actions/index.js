@@ -107,8 +107,6 @@ export const getPackagesById = (id) => async (dispatch) => {
 };
 
 export const getRarity = () => async (dispatch) => {
-  let rarity = [];
-
   const pack = await Contract1155.methods.viewDeck2(REACT_APP_ACCOUNT).call();
 
   dispatch({

@@ -78,7 +78,7 @@ const ColumnNewRedux = ({ type }) => {
               ))
             : nfts?.map((nft, index) => (
                 <NftCard
-                  item={{ ...nft, id: index + 1 }}
+                  item={nft}
                   typeExplorer={typeExplorer}
                   key={index}
                   onImgLoad={onImgLoad}
