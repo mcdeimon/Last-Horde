@@ -1,5 +1,5 @@
 {
-  "name": "gigaland",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
@@ -74,5 +74,6 @@
   },
   "devDependencies": {
     "msw": "^0.35.0"
-  }
+  },
+  "author": "Agustín Arenas"
 }
