@@ -6,20 +6,26 @@ import {
   GET_NFT_BY_ID,
   GET_PACKAGES,
   GET_PACKAGE_BY_ID,
+  GET_RARITY,
   IS_LOADING,
 } from "../constants/index";
 
 const initialState = {
   isLoading: true,
+
+  typeExplorer: "nfts", //nfts or packages
   packages: [],
   nfts: [], // all nfts
   filteredNfts: [], // filtered by rarity and type all nfts
+
   account: "",
   myNfts: [],
   filteredMyNfts: [],
+
   nft: {}, //detail of nft
   package: {}, //detail of package
-  typeExplorer: "nfts",
+
+  rarity: [], //all rarity
 };
 
 export const rootReducer = (state = initialState, { type, payload }) => {
@@ -59,6 +65,12 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         package: payload,
       };
 
+    case GET_RARITY:
+      return {
+        ...state,
+        rarity: payload,
+      };
+
     ////////////////////////////////////////////////////////////// filters
 
     case FILTER_RARITY:
@@ -66,37 +78,37 @@ export const rootReducer = (state = initialState, { type, payload }) => {
 
       switch (payload) {
         case "silver":
-          filteredNftsAux = state.nfts.filter(
-            (nft, index) => parseInt((index + 1) % 5) === 1
+          filteredNftsAux = [...state.nfts].filter(
+            (nft) => rarity[nft.id] === 1
           );
           break;
 
         case "green":
-          filteredNftsAux = state.nfts.filter(
-            (nft, index) => parseInt((index + 1) % 5) === 2
+          filteredNftsAux = [...state.nfts].filter(
+            (nft) => rarity[nft.id] === 2
           );
           break;
 
         case "gold":
-          filteredNftsAux = state.nfts.filter(
-            (nft, index) => parseInt((index + 1) % 5) === 3
+          filteredNftsAux = [...state.nfts].filter(
+            (nft) => rarity[nft.id] === 3
           );
           break;
 
         case "red":
-          filteredNftsAux = state.nfts.filter(
-            (nft, index) => parseInt((index + 1) % 5) === 4
+          filteredNftsAux = [...state.nfts].filter(
+            (nft) => rarity[nft.id] === 4
           );
           break;
 
         case "purple":
-          filteredNftsAux = state.nfts.filter(
-            (nft, index) => parseInt((index + 1) % 5) === 0
+          filteredNftsAux = [...state.nfts].filter(
+            (nft) => rarity[nft.id] === 0
           );
           break;
 
         default:
-          filteredNftsAux = state.nfts;
+          filteredNftsAux = [...state.nfts];
           break;
       }
 

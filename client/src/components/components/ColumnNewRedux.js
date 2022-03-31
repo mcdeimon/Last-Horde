@@ -26,31 +26,26 @@ const ColumnNewRedux = ({ type }) => {
   useEffect(() => {
     setPackagesArr(packages);
 
-    switch (type){
-      case "myNfts":{
+    switch (type) {
+      case "myNfts":
         setNFTs(myNfts);
-      }
-      break;
+        break;
 
-      case "myOnSaleNfts":{
+      case "myOnSaleNfts":
         setNFTs(myNfts);
-      }
-      break;
+        break;
 
-      case "myOnRentNfts":{
+      case "myOnRentNfts":
         setNFTs(myNfts);
-      }
-      break;
+        break;
 
-      case "myFavoritesNfts":{
+      case "myFavoritesNfts":
         setNFTs(myNfts);
-      }
-      break;
+        break;
 
-      default:{
+      default:
         setNFTs(filteredNfts);
-      }
-      break;
+        break;
     }
   }, [filteredNfts, packages, myNfts]);
 

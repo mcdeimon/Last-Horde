@@ -10,6 +10,8 @@ export const GET_NFT_BY_ID = "GET_NFT_BY_ID";
 export const GET_PACKAGES = "GET_PACKAGES";
 export const GET_PACKAGE_BY_ID = "GET_PACKAGE_BY_ID";
 
+export const GET_RARITY = "GET_RARITY";
+
 ////////////////////////////////////////////////////////////// filters
 
 export const FILTER_RARITY = "FILTER_RARITY";

@@ -8,9 +8,12 @@ import {
   IS_LOADING,
   GET_PACKAGE_BY_ID,
   GET_ACCOUNT,
+  GET_RARITY,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import Contract1155 from "../../contracts/Contract1155";
+
+const { REACT_APP_ACCOUNT } = process.env;
 
 ////////////////////////////////////////////////////////////// loading
 
@@ -33,7 +36,7 @@ export const getAllNFT = () => async (dispatch) => {
       nfts.push(nft.data); */
 
       nft = await require(`../../../public/Nfts/${i}.json`);
-      nfts.push(nft);
+      nfts.push({ ...nft, id: i });
     }
   } catch (e) {
     console.log(e);
@@ -100,6 +103,17 @@ export const getPackagesById = (id) => async (dispatch) => {
   dispatch({
     type: GET_PACKAGE_BY_ID,
     payload: packageCard,
+  });
+};
+
+export const getRarity = () => async (dispatch) => {
+  let rarity = [];
+
+  const pack = await Contract1155.methods.viewDeck2(REACT_APP_ACCOUNT).call();
+
+  dispatch({
+    type: GET_RARITY,
+    payload: pack[1],
   });
 };
 
