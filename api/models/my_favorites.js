@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       id_nft: {
         type: DataTypes.INTEGER,
       },
+
+      contract: {
+        type: DataTypes.CHAR,
+      },
     },
 
     {

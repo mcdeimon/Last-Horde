@@ -17,6 +17,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
 
+      contract: {
+        type: Sequelize.CHAR,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

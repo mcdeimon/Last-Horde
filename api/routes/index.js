@@ -10,11 +10,18 @@ module.exports = (app) => {
   );
 
   app.post(
-    "/account/:account/id_nft/:id_nft",
+    "/account/:account/id_nft/:id_nft/contract/:contract",
     myFavoritesController.create
+  );
+
+  app.delete(
+    "/account/:account/id_nft/:id_nft",
+    myFavoritesController.delete
   );
 
   app.get("/all", myFavoritesController.list);
 
   app.get("/account/:account", myFavoritesController.find);
+
+  app.get("/contract/:contract", myFavoritesController.findByContract);
 };
