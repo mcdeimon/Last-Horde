@@ -24,4 +24,8 @@ module.exports = (app) => {
   app.get("/account/:account", myFavoritesController.find);
 
   app.get("/contract/:contract", myFavoritesController.findByContract);
+
+  app.get("/amount-nft", myFavoritesController.list);
+
+  app.put("/amount-nft/:amount", myFavoritesController.update);
 };

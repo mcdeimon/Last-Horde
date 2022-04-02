@@ -7,6 +7,7 @@ import { StyledHeader } from "../Styles";
 import {
   getAllNFT,
   getPackages,
+  getRarity,
   isLoadingFunction,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +27,7 @@ const Explore = () => {
     dispatch(isLoadingFunction(true));
     dispatch(getAllNFT());
     dispatch(getPackages());
+    dispatch(getRarity());
   }, [dispatch]);
 
   useEffect(() => {

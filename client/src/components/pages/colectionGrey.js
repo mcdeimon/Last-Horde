@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getRarity } from "../../redux/actions";
 import ColumnNewRedux from "../components/ColumnNewRedux";
 import Footer from "../components/footer";
 
@@ -8,7 +9,9 @@ import { StyledHeader } from "../Styles";
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
-const Colection = function ({ collectionId = 1 }) {
+const Colection = function () {
+  const dispatch = useDispatch();
+
   const accountState = useSelector((state) => state.account);
   const myNftsState = useSelector((state) => state.myNfts);
 
@@ -74,6 +77,10 @@ const Colection = function ({ collectionId = 1 }) {
   const handleCopyClipboard = () => {
     navigator.clipboard.writeText(account);
   };
+
+  useEffect(() => {
+    dispatch(getRarity());
+  }, [dispatch]);
 
   return (
     <div className="greyscheme">

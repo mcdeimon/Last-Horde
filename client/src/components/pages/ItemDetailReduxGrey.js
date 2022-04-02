@@ -7,7 +7,7 @@ import { FaShareSquare } from "react-icons/fa";
 
 //IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
-import { getNFTById, getPackagesById } from "../../redux/actions";
+import { getNFTById, getPackagesById, getRarity } from "../../redux/actions";
 import { useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
 //SWITCH VARIABLE FOR PAGE STYLE
@@ -28,10 +28,16 @@ const ItemDetailRedux = () => {
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
   const handleCopyClipboard = () => {
-    navigator.clipboard.writeText(`https://app.lasthorde.com/detail/${itemId}${query.get("package") ? "?package=true" : ""}`);
-  }
+    navigator.clipboard.writeText(
+      `https://app.lasthorde.com/detail/${itemId}${
+        query.get("package") ? "?package=true" : ""
+      }`
+    );
+  };
 
   useEffect(() => {
+    dispatch(getRarity());
+
     if (query.get("package")) dispatch(getPackagesById(itemId));
     else dispatch(getNFTById(itemId));
   }, [dispatch]);
@@ -55,7 +61,7 @@ const ItemDetailRedux = () => {
               <div className="item_title">
                 <h2>{item?.name}</h2>
                 <p>#{itemId}</p>
-                <FaShareSquare onClick={handleCopyClipboard}/>
+                <FaShareSquare onClick={handleCopyClipboard} />
               </div>
 
               {!query.get("package") ? (
