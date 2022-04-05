@@ -13,7 +13,7 @@ import {
 const initialState = {
   isLoading: true,
 
-  typeExplorer: "nfts", //nfts or packages
+  typeExplorer: "nfts", //=nfts or packages
   packages: [],
   nfts: [], // all nfts
   filteredNfts: [], // filtered by rarity and type all nfts
@@ -21,6 +21,7 @@ const initialState = {
   account: "",
   myNfts: [],
   filteredMyNfts: [],
+  myFavorites: [],
 
   nft: {}, //detail of nft
   package: {}, //detail of package
@@ -79,31 +80,31 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       switch (payload) {
         case "silver":
           filteredNftsAux = [...state.nfts].filter(
-            (nft) => state.rarity[nft.id] === 1
+            (nft) => state.rarity[nft.id] === "1"
           );
           break;
 
         case "green":
           filteredNftsAux = [...state.nfts].filter(
-            (nft) => state.rarity[nft.id] === 2
+            (nft) => state.rarity[nft.id] === "2"
           );
           break;
 
         case "gold":
           filteredNftsAux = [...state.nfts].filter(
-            (nft) => state.rarity[nft.id] === 3
+            (nft) => state.rarity[nft.id] === "3"
           );
           break;
 
         case "red":
           filteredNftsAux = [...state.nfts].filter(
-            (nft) => state.rarity[nft.id] === 4
+            (nft) => state.rarity[nft.id] === "4"
           );
           break;
 
         case "purple":
           filteredNftsAux = [...state.nfts].filter(
-            (nft) => state.rarity[nft.id] === 0
+            (nft) => state.rarity[nft.id] === "5"
           );
           break;
 
@@ -131,6 +132,7 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         account: payload.account,
         myNfts: payload.deck,
         filteredMyNfts: payload.deck,
+        myFavorites: payload.favorites,
       };
 
     default:

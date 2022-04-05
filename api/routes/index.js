@@ -1,8 +1,21 @@
 /* Controllers */
 const myFavoritesController = require("../controllers/my_favorites");
+const cors = require("cors");
+
+let whiteList = ["https://localhost:3000/"];
+
+let corsOptions = {
+  origin: function (origin, callback) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 
 module.exports = (app) => {
-  app.get("/", (req, res) =>
+  app.get("/", cors(corsOptions),(req, res) =>
     res.status(200).send({
       message:
         "Example project did not give you access to the api web services",
@@ -10,22 +23,27 @@ module.exports = (app) => {
   );
 
   app.post(
-    "/account/:account/id_nft/:id_nft/contract/:contract",
+    "/account/:account/id_nft/:id_nft/contract/:contract", cors(corsOptions),
     myFavoritesController.create
   );
 
+  app.get(
+    "/account/:account/id_nft/:id_nft", cors(corsOptions),
+    myFavoritesController.search
+  );
+
   app.delete(
-    "/account/:account/id_nft/:id_nft",
+    "/account/:account/id_nft/:id_nft", cors(corsOptions),
     myFavoritesController.delete
   );
 
-  app.get("/all", myFavoritesController.list);
+  app.get("/all", cors(corsOptions), myFavoritesController.list);
 
-  app.get("/account/:account", myFavoritesController.find);
+  app.get("/account/:account", cors(corsOptions), myFavoritesController.find);
 
-  app.get("/contract/:contract", myFavoritesController.findByContract);
+  app.get("/contract/:contract", cors(corsOptions), myFavoritesController.findByContract);
 
-  app.get("/amount-nft", myFavoritesController.list);
+  /* app.get("/amount-nft", myFavoritesController.list);
 
-  app.put("/amount-nft/:amount", myFavoritesController.update);
+  app.put("/amount-nft/:amount", myFavoritesController.update); */
 };

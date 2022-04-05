@@ -29,6 +29,21 @@ module.exports = {
       .catch((error) => res.status(400).send({ ...error, status: 400 }));
   },
 
+  search(req, res) {
+    return my_favorites
+      .findAll({
+        where: {
+          account: req.params.account,
+          id_nft: req.params.id_nft,
+        },
+      })
+      .then((my_favorites) =>{
+        let isFavorite = my_favorites[0]?.hasOwnProperty("dataValues")
+        res.status(200).send({ isFavorite: isFavorite || false, status: 200 })}
+      )
+      .catch((error) => res.status(400).send({ ...error, status: 400 }));
+  },
+
   list(_, res) {
     return my_favorites
       .findAll({})

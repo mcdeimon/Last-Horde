@@ -12,6 +12,7 @@ import {
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import Contract1155 from "../../contracts/Contract1155";
+import axios from "axios";
 
 const { REACT_APP_ACCOUNT } = process.env;
 
@@ -134,18 +135,27 @@ export const filterType = (type) => (dispatch) => {
 ////////////////////////////////////////////////////////////// account
 
 export const getAccount = () => async (dispatch) => {
-  const accounts = await web3.eth.getAccounts();
-  const account = accounts[0];
+  let accounts = [],
+    account = {},
+    pack = [],
+    deck = [],
+    favorites = [];
 
-  const pack = await Contract1155.methods.viewDeck2(account).call();
-  console.log(pack);
-  const deck = [];
+  try {
+    accounts = await web3.eth.getAccounts();
+    account = accounts[0];
 
-  for (let i = 1; i <= pack[0].length; i++) {
-    let nft = {};
+    favorites = await fetch(`http://192.168.100.165:8000/account/${account}`);
+    console.log(favorites, "favorites");
+    favorites = favorites.favorites;
 
-    if (pack[0][i]) {
-      try {
+    pack = await Contract1155.methods.viewDeck2(account).call();
+    deck = [];
+
+    for (let i = 1; i <= pack[0].length; i++) {
+      let nft = {};
+
+      if (pack[0][i]) {
         /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${id}.json`);
         nft = nft.data; */
 
@@ -153,10 +163,10 @@ export const getAccount = () => async (dispatch) => {
         for (let j = 0; j < pack[0][i]; j++) {
           deck.push(nft);
         }
-      } catch (e) {
-        console.log(e);
       }
     }
+  } catch (e) {
+    console.log(e);
   }
 
   dispatch({
@@ -164,6 +174,7 @@ export const getAccount = () => async (dispatch) => {
     payload: {
       account,
       deck,
+      favorites,
     },
   });
 };
