@@ -2,8 +2,8 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { type, rarity, itemsType } from "./constants/filters";
-import { filterItemsType, filterNftTitle } from "../../store/actions";
-import { filterRarity, filterType } from "../../redux/actions";
+import { filterItemsType } from "../../store/actions";
+import { filterRarity, filterType, filterNftName } from "../../redux/actions";
 
 const TopFilterBar = () => {
   const dispatch = useDispatch();
@@ -35,10 +35,9 @@ const TopFilterBar = () => {
     [dispatch]
   );
 
-  const filterNftTitles = useCallback(
-    (event) => {
-      const value = event.target.value;
-      dispatch(filterNftTitle(value));
+  const handleNftName = useCallback(
+    (e) => {
+      dispatch(filterNftName(e.target.value));
     },
     [dispatch]
   );
@@ -89,6 +88,7 @@ const TopFilterBar = () => {
         className="row form-dark"
         id="form_quick_search"
         name="form_quick_search"
+        onSubmit={(e) => e.preventDefault()}
       >
         <div className="col">
           <input
@@ -97,7 +97,7 @@ const TopFilterBar = () => {
             name="name_1"
             placeholder="Search item here..."
             type="text"
-            onChange={filterNftTitles}
+            onChange={handleNftName}
           />
           <button id="btn-submit">
             <i className="fa fa-search bg-color-secondary"></i>

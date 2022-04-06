@@ -10,6 +10,7 @@ import {
   GET_ACCOUNT,
   GET_RARITY,
   RESET_ACCOUNT,
+  FILTER_NAME,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import Contract1155 from "../../contracts/Contract1155";
@@ -133,6 +134,13 @@ export const filterType = (type) => (dispatch) => {
   });
 };
 
+export const filterNftName = (name) => (dispatch) => {
+  dispatch({
+    type: FILTER_NAME,
+    payload: name,
+  });
+};
+
 ////////////////////////////////////////////////////////////// account
 
 export const getAccount = () => async (dispatch) => {
@@ -189,4 +197,4 @@ export const resetAccount = () => (dispatch) => {
       favorites: [],
     },
   });
-}
+};

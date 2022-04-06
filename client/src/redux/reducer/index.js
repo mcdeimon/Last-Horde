@@ -1,4 +1,5 @@
 import {
+  FILTER_NAME,
   FILTER_RARITY,
   FILTER_TYPE,
   GET_ACCOUNT,
@@ -123,6 +124,16 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         typeExplorer: payload ? payload : "nfts",
+      };
+
+    case FILTER_NAME:
+      return {
+        ...state,
+        filteredNfts: [...state.nfts].filter((nft) => {
+          if (payload.length >= 3)
+            return nft.name.toLowerCase().includes(payload.toLowerCase());
+          else return true;
+        }),
       };
 
     ////////////////////////////////////////////////////////////// account
