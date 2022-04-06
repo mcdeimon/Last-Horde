@@ -51,11 +51,11 @@ const TopFilterBar = () => {
   const customStyles = {
     option: (base, state) => ({
       ...base,
-      background: "#fff",
-      color: "#333",
+      background: "#212428",
+      color: "#fff",
       borderRadius: state.isFocused ? "0" : 0,
       "&:hover": {
-        background: "#eee",
+        background: "#141414",
       },
     }),
     menu: (base) => ({
@@ -70,6 +70,12 @@ const TopFilterBar = () => {
     control: (base, state) => ({
       ...base,
       padding: 2,
+      background: "#212428",
+      color: "#fff",
+      border: "solid 1px #ffffff1a",
+      "&:hover": {
+        background: "solid 1px #ffffff1a",
+      },
     }),
   };
 
@@ -89,7 +95,7 @@ const TopFilterBar = () => {
             className="form-control"
             id="name_1"
             name="name_1"
-            placeholder="search item here..."
+            placeholder="Search item here..."
             type="text"
             onChange={filterNftTitles}
           />
@@ -99,6 +105,7 @@ const TopFilterBar = () => {
           <div className="clearfix"></div>
         </div>
       </form>
+
       <div className="dropdownSelect one">
         <Select
           styles={customStyles}

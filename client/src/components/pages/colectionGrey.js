@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getRarity } from "../../redux/actions";
+import { filterType, getRarity } from "../../redux/actions";
 import ColumnNewRedux from "../components/ColumnNewRedux";
 import Footer from "../components/footer";
 
@@ -80,6 +80,7 @@ const Colection = function () {
 
   useEffect(() => {
     dispatch(getRarity());
+    dispatch(filterType("nfts"));
   }, [dispatch]);
 
   return (

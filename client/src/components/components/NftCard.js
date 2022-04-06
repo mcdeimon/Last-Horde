@@ -13,7 +13,7 @@ const Outer = styled.div`
 `;
 
 //react functional component
-const NftCard = ({ item, height, onImgLoad, typeExplorer }) => {
+const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
   const accountState = useSelector((state) => state.account);
   const [account, setAccount] = useState(accountState);
 
@@ -30,7 +30,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer }) => {
       <div className="nft__item m-0">
         <div
           className="nft__item_wrap minHeight300"
-          style={{ height: `${height}px` }}
+          style={{ minHeight: `${height}px` }}
         >
           <Outer>
             <span>
@@ -51,7 +51,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer }) => {
           </Outer>
         </div>
 
-        <div className="nft__item_info">
+        <div className={`nft__item_info ${sell && "m-1"}`}>
           <span
             onClick={() =>
               navigateTo(
@@ -64,27 +64,29 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer }) => {
             <h4>{item?.name}</h4>
           </span>
 
-          <div className="nft__item_price">{item?.price || "1000"} HOR</div>
+          {sell && (
+            <>
+              <div className="nft__item_price">{item?.price || "1000"} HOR</div>
 
-          <div className="nft__item_action">
-            <span
-              onClick={() =>
-                navigateTo(
-                  `detail/${item?.id}${
-                    typeExplorer === "packages" ? "?package=true" : ""
-                  }`
-                )
-              }
-            >
-              Buy Now
-            </span>
-          </div>
+              <div className="nft__item_action">
+                <span
+                  onClick={() =>
+                    navigateTo(
+                      `detail/${item?.id}${
+                        typeExplorer === "packages" ? "?package=true" : ""
+                      }`
+                    )
+                  }
+                >
+                  Buy Now
+                </span>
+              </div>
+            </>
+          )}
 
           {typeExplorer !== "packages" && (
             <div className="nft__item_like">
-              <i
-                className="fa fa-heart"
-              ></i>
+              <i className="fa fa-heart"></i>
             </div>
           )}
         </div>

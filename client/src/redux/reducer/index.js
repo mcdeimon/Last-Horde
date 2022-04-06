@@ -8,6 +8,7 @@ import {
   GET_PACKAGE_BY_ID,
   GET_RARITY,
   IS_LOADING,
+  RESET_ACCOUNT,
 } from "../constants/index";
 
 const initialState = {
@@ -127,6 +128,15 @@ export const rootReducer = (state = initialState, { type, payload }) => {
     ////////////////////////////////////////////////////////////// account
 
     case GET_ACCOUNT:
+      return {
+        ...state,
+        account: payload.account,
+        myNfts: payload.deck,
+        filteredMyNfts: payload.deck,
+        myFavorites: payload.favorites,
+      };
+
+    case RESET_ACCOUNT:
       return {
         ...state,
         account: payload.account,

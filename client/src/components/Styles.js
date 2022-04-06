@@ -49,13 +49,11 @@ export const StyledHeader = createGlobalStyle`
             color: #fff !important;
             background: #ff343f;
             border-radius: 30px;
-            width: 150px;
-            max-width: 150px;
+            height: 35px;
+            min-width: 150px;
+            max-width: 200px;
             padding: 5px 10px;
             margin: 0;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
             cursor: pointer;
 
         }

@@ -22,3 +22,4 @@ export const FILTER_MY_NFT = "FILTER_MY_NFT";
 ////////////////////////////////////////////////////////////// account
 
 export const GET_ACCOUNT = "GET_ACCOUNT";
+export const RESET_ACCOUNT = "RESET_ACCOUNT";

@@ -7,7 +7,7 @@ import Breakpoint, {
 import { Link } from "@reach/router";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { useDispatch, useSelector } from "react-redux";
-import { getAccount } from "../../redux/actions";
+import { getAccount, resetAccount } from "../../redux/actions";
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
@@ -54,6 +54,7 @@ const Header = function ({ className }) {
 
   const handleConnectWallet = () => {
     if (!account) dispatch(getAccount());
+    else dispatch(resetAccount());
   };
 
   useEffect(() => {
@@ -131,7 +132,7 @@ const Header = function ({ className }) {
 
             <div className="mainside">
               <div className="connect-wal" onClick={handleConnectWallet}>
-                <p to="">{account ? account : "Connect Wallet"}</p>
+                <p to="">{account ? "Disconnect" : "Connect Wallet"}</p>
               </div>
             </div>
           </div>

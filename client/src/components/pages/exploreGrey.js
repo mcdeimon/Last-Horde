@@ -68,7 +68,7 @@ const Explore = () => {
 
         <div className="row">
           <div className="col-lg-12 height100VH">
-            {isLoading ? <Loading /> : <ColumnNewRedux />}
+            {isLoading ? <Loading /> : <ColumnNewRedux type="explore" />}
           </div>
         </div>
       </section>

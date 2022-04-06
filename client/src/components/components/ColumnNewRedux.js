@@ -23,6 +23,12 @@ const ColumnNewRedux = ({ type }) => {
     }
   };
 
+  const handleIsSell = () => {
+    if (typeExplorer === "nfts") return false;
+    if (type !== "explore") return true;
+    else return true;
+  };
+
   useEffect(() => {
     setPackagesArr(packages);
 
@@ -83,6 +89,7 @@ const ColumnNewRedux = ({ type }) => {
                   key={index}
                   onImgLoad={onImgLoad}
                   height={height}
+                  sell={handleIsSell()}
                 />
               ))}
         </>

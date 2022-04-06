@@ -9,6 +9,7 @@ import {
   GET_PACKAGE_BY_ID,
   GET_ACCOUNT,
   GET_RARITY,
+  RESET_ACCOUNT,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import Contract1155 from "../../contracts/Contract1155";
@@ -145,9 +146,9 @@ export const getAccount = () => async (dispatch) => {
     accounts = await web3.eth.getAccounts();
     account = accounts[0];
 
-    favorites = await fetch(`http://192.168.100.165:8000/account/${account}`);
+    /* favorites = await axios.get(`https://localhost:8000/account/${account}`);
     console.log(favorites, "favorites");
-    favorites = favorites.favorites;
+    favorites = favorites.data.favorites; */
 
     pack = await Contract1155.methods.viewDeck2(account).call();
     deck = [];
@@ -161,7 +162,7 @@ export const getAccount = () => async (dispatch) => {
 
         nft = await require(`../../../public/Nfts/${i}.json`);
         for (let j = 0; j < pack[0][i]; j++) {
-          deck.push(nft);
+          deck.push({ ...nft, id: i });
         }
       }
     }
@@ -178,3 +179,14 @@ export const getAccount = () => async (dispatch) => {
     },
   });
 };
+
+export const resetAccount = () => (dispatch) => {
+  dispatch({
+    type: RESET_ACCOUNT,
+    payload: {
+      account: "",
+      deck: [],
+      favorites: [],
+    },
+  });
+}
