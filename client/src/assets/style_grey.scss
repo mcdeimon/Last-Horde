@@ -1421,6 +1421,24 @@ $color_more: #FC202C;
           cursor: default;
           margin: 0;
         }
+
+        &.contract {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: default;
+          margin: 0;
+
+          img {
+            margin: 0 10px;
+          }
+
+          svg {
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+          }
+        }
       }
 
       .social-icons {
@@ -4821,6 +4839,20 @@ img.img-rounded {
     margin-top: 0;
     letter-spacing: normal;
   }
+
+  a {
+    cursor: pointer;
+    margin: 6px 0 !important;
+
+    &:hover {
+      color: #fff !important;
+    }
+
+    i {
+      font-size: 36px;
+      margin: 5px;
+    }
+  }
 }
 
 .greyscheme .widget-post {
@@ -5129,4 +5161,8 @@ img.img-rounded {
       }
     }
   }
+}
+
+.footerLogo {
+  margin-bottom: 20px;
 }
