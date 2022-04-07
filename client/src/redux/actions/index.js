@@ -11,12 +11,13 @@ import {
   GET_RARITY,
   RESET_ACCOUNT,
   FILTER_NAME,
+  GET_MY_FAVORITES,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import Contract1155 from "../../contracts/Contract1155";
 import axios from "axios";
 
-const { REACT_APP_ACCOUNT } = process.env;
+const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
 
 ////////////////////////////////////////////////////////////// loading
 
@@ -154,9 +155,11 @@ export const getAccount = () => async (dispatch) => {
     accounts = await web3.eth.getAccounts();
     account = accounts[0];
 
-    /* favorites = await axios.get(`https://localhost:8000/account/${account}`);
+    favorites = await axios.get(
+      `https://${REACT_APP_HOST_DB}/account/${account}`
+    );
     console.log(favorites, "favorites");
-    favorites = favorites.data.favorites; */
+    favorites = favorites.data.favorites;
 
     pack = await Contract1155.methods.viewDeck2(account).call();
     deck = [];
@@ -195,6 +198,30 @@ export const resetAccount = () => (dispatch) => {
       account: "",
       deck: [],
       favorites: [],
+    },
+  });
+};
+
+export const getMyFavorites = () => async (dispatch) => {
+  let accounts = await web3.eth.getAccounts();
+  let account = accounts[0];
+
+  let favorites = [];
+
+  try {
+    favorites = await axios.get(
+      `https://${REACT_APP_HOST_DB}/account/${account}`
+    );
+
+    favorites = favorites.data.favorites;
+  } catch (e) {
+    console.log(e);
+  }
+
+  dispatch({
+    type: GET_MY_FAVORITES,
+    payload: {
+      favorites,
     },
   });
 };

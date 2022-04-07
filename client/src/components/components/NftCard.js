@@ -1,7 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
+import axios from "axios";
+import { getMyFavorites } from "../../redux/actions";
+
+const { REACT_APP_HOST_DB } = process.env;
 
 const Outer = styled.div`
   display: flex;
@@ -14,6 +18,8 @@ const Outer = styled.div`
 
 //react functional component
 const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
+  const dispatch = useDispatch();
+
   const accountState = useSelector((state) => state.account);
   const [account, setAccount] = useState(accountState);
 
@@ -23,6 +29,12 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
 
   const navigateTo = (link) => {
     navigate(link);
+  };
+
+  const handleLike = async () => {
+    await axios.post(
+      `https://${REACT_APP_HOST_DB}/account/${account}/like/${item.id}`
+    ).then(() => dispatch(getMyFavorites()));
   };
 
   return (
@@ -85,7 +97,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           )}
 
           {typeExplorer !== "packages" && (
-            <div className="nft__item_like">
+            <div className="nft__item_like" onClick={handleLike}>
               <i className="fa fa-heart"></i>
             </div>
           )}

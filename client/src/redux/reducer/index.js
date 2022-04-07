@@ -4,6 +4,7 @@ import {
   FILTER_TYPE,
   GET_ACCOUNT,
   GET_ALL_NFT,
+  GET_MY_FAVORITES,
   GET_NFT_BY_ID,
   GET_PACKAGES,
   GET_PACKAGE_BY_ID,
@@ -155,6 +156,12 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         myNfts: payload.deck,
         filteredMyNfts: payload.deck,
         myFavorites: payload.favorites,
+      };
+
+    case GET_MY_FAVORITES:
+      return {
+        ...state,
+        myFavorites: payload,
       };
 
     default:
