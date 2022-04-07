@@ -1,5 +1,6 @@
 /* Controllers */
 const myFavoritesController = require("../controllers/my_favorites");
+const missingController = require("../controllers/missing");
 const cors = require("cors");
 
 let whiteList = ["https://localhost:3000/"];
@@ -22,6 +23,7 @@ module.exports = (app) => {
     })
   );
 
+  ////////////////////////////////////////////////////// MY FAVORITES //////////////////////////////////////////////////////
   app.post(
     "/account/:account/id_nft/:id_nft/contract/:contract", cors(corsOptions),
     myFavoritesController.create
@@ -42,6 +44,12 @@ module.exports = (app) => {
   app.get("/account/:account", cors(corsOptions), myFavoritesController.find);
 
   app.get("/contract/:contract", cors(corsOptions), myFavoritesController.findByContract);
+
+  //////////////////////////////////////////////////////// MISSING HORS ////////////////////////////////////////////////////////
+  app.post(
+    "/account/:account/missing/:missing", cors(corsOptions),
+    missingController.create
+  );
 
   /* app.get("/amount-nft", myFavoritesController.list);
 
