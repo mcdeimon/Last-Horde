@@ -13,6 +13,7 @@ import {
 } from "../constants/index";
 
 const initialState = {
+  contract: "0x95368f2c269F1f3394f21d72662BFB8b00F1A7fD",
   isLoading: true,
 
   typeExplorer: "nfts", //=nfts or packages

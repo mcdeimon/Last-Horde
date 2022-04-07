@@ -1,22 +1,11 @@
 /* Controllers */
 const myFavoritesController = require("../controllers/my_favorites");
 const missingController = require("../controllers/missing");
-const cors = require("cors");
-
-let whiteList = ["https://localhost:3000/"];
-
-let corsOptions = {
-  origin: function (origin, callback) {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+const purchasePackageController = require("../controllers/purchase_packages");
+const amountNftController = require("../controllers/amount_nfts");
 
 module.exports = (app) => {
-  app.get("/", cors(corsOptions),(req, res) =>
+  app.get("/", (req, res) =>
     res.status(200).send({
       message:
         "Example project did not give you access to the api web services",
@@ -25,33 +14,33 @@ module.exports = (app) => {
 
   ////////////////////////////////////////////////////// MY FAVORITES //////////////////////////////////////////////////////
   app.post(
-    "/account/:account/id_nft/:id_nft/contract/:contract", cors(corsOptions),
+    "/account/:account/id_nft/:id_nft/contract/:contract",
     myFavoritesController.create
   );
 
-  app.get(
-    "/account/:account/id_nft/:id_nft", cors(corsOptions),
-    myFavoritesController.search
-  );
+  app.get("/account/:account/id_nft/:id_nft", myFavoritesController.search);
 
-  app.delete(
-    "/account/:account/id_nft/:id_nft", cors(corsOptions),
-    myFavoritesController.delete
-  );
+  app.delete("/account/:account/id_nft/:id_nft", myFavoritesController.delete);
 
-  app.get("/all", cors(corsOptions), myFavoritesController.list);
+  app.get("/all", myFavoritesController.list);
 
-  app.get("/account/:account", cors(corsOptions), myFavoritesController.find);
+  app.get("/account/:account", myFavoritesController.find);
 
-  app.get("/contract/:contract", cors(corsOptions), myFavoritesController.findByContract);
+  app.get("/contract/:contract", myFavoritesController.findByContract);
 
   //////////////////////////////////////////////////////// MISSING HORS ////////////////////////////////////////////////////////
+  app.post("/account/:account/missing/:missing", missingController.create);
+
+  //////////////////////////////////////////////////////// PURCHASE PACKAGES ////////////////////////////////////////////////////////
   app.post(
-    "/account/:account/missing/:missing", cors(corsOptions),
-    missingController.create
+    "/account/:account/package/:package",
+    purchasePackageController.create
   );
 
-  /* app.get("/amount-nft", myFavoritesController.list);
+  //////////////////////////////////////////////////////// PURCHASE PACKAGES ////////////////////////////////////////////////////////
+  app.get("/amount-nft", amountNftController.get);
 
-  app.put("/amount-nft/:amount", myFavoritesController.update); */
+  app.put("/amount-nft/:amount", amountNftController.update);
+
+  app.post("/amount-nft/:amount", amountNftController.create);
 };

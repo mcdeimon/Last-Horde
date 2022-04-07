@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FaCopy } from "react-icons/fa";
 
-const footer = () => {
+const Footer = () => {
+  const contractState = useSelector((state) => state.contract);
+
+  const [contract, setContract] = useState(contractState);
+
+  useEffect(() => {
+    setContract(contractState);
+  }, [contractState]);
 
   const handleCopyClipboard = () => {
-    navigator.clipboard.writeText(
-      ``
-    );
+    navigator.clipboard.writeText(contract);
+  };
+
+  const truncateContract = () => {
+    if (contract.length > 12) {
+      return `${contract.slice(0, 7)}...${contract.slice(-7)}`;
+    }
+    return contract;
   };
 
   return (
@@ -143,8 +156,8 @@ const footer = () => {
                         src="/logo-1.png"
                         alt="HOR Contract"
                       />
-                      0x9536…0F1A7fD
-                      <FaCopy onClick={handleCopyClipboard}/>
+                      {truncateContract()}
+                      <FaCopy onClick={handleCopyClipboard} />
                       <img
                         width="24"
                         height="24"
@@ -170,4 +183,4 @@ const footer = () => {
     </footer>
   );
 };
-export default footer;
+export default Footer;
