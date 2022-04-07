@@ -1,0 +1,16 @@
+    {
+"name": "The Twins",
+"description": "Their bravery in combat fills the spirit of the Horde",
+"image": "https://lasthorde.com/NFTs/Imagenes/TheTwinsV.png",
+"attributes": [
+{"trait_type": "Health", "value": "9" },
+{"trait_type": "Points", "value": "13" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Melee Attacks", "value": "1"},
+{"trait_type": "Melee Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": "2"},
+{"trait_type": "Resistance Fire",  "value": "2"},
+{"trait_type": "Melee Physical", "value": " 4"},
+{"trait_type": "Melee Attack Support", "value": "1"}
+]
+}

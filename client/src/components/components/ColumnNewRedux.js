@@ -9,6 +9,7 @@ const ColumnNewRedux = ({ type }) => {
   const myNfts = useSelector((state) => state.myNfts);
   const packages = useSelector((state) => state.packages);
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
+  const myFavoritesState = useSelector((state) => state.myFavorites);
 
   const [nfts, setNFTs] = useState([]);
   const [packagesArr, setPackagesArr] = useState([]);
@@ -46,14 +47,14 @@ const ColumnNewRedux = ({ type }) => {
         break;
 
       case "myFavoritesNfts":
-        setNFTs(myNfts);
+        setNFTs(myFavoritesState);
         break;
 
       default:
         setNFTs(filteredNfts);
         break;
     }
-  }, [filteredNfts, packages, myNfts]);
+  }, [filteredNfts, packages, myNfts, myFavoritesState]);
 
   useEffect(() => {
     if (typeExplorerAux !== typeExplorer) {

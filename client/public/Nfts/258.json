@@ -1,0 +1,17 @@
+    {
+"name": "Refuge",
+"description": "The Refuge protects us from the terrors of the night",
+"image": "https://lasthorde.com/NFTs/Imagenes/RefugeD.png",
+"attributes": [
+{"trait_type": "Health", "value": "11" },
+{"trait_type": "Points", "value": "14" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": "3"},
+{"trait_type": "Resistance Cold", "value": "3"},
+{"trait_type": "Resistance Poison", "value": "2"},
+{"trait_type": "Target Physical", "value": "3"},
+{"trait_type": "Target Attacks", "value": "3"}, 
+{"trait_type": "Target Rows", "value": "1"},
+{"trait_type": "Target Defense Support", "value": "2"}
+]
+}

@@ -20,21 +20,35 @@ const Outer = styled.div`
 const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
   const dispatch = useDispatch();
 
+  const contractState = useSelector((state) => state.contract);
   const accountState = useSelector((state) => state.account);
+  const myFavoritesState = useSelector((state) => state.myFavorites);
+
   const [account, setAccount] = useState(accountState);
+  const [myFavorites, setMyFavorites] = useState(myFavoritesState);
 
   useEffect(() => {
     setAccount(accountState);
-  }, [accountState]);
+    setMyFavorites(myFavoritesState);
+  }, [accountState, myFavoritesState]);
 
   const navigateTo = (link) => {
     navigate(link);
   };
 
   const handleLike = async () => {
-    await axios.post(
-      `https://${REACT_APP_HOST_DB}/account/${account}/like/${item.id}`
-    ).then(() => dispatch(getMyFavorites()));
+    if (myFavorites.find((nft) => nft.id === item.id))
+      await axios
+        .delete(
+          `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
+        )
+        .then(() => dispatch(getMyFavorites()));
+    else
+      await axios
+        .post(
+          `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${contractState}`
+        )
+        .then(() => dispatch(getMyFavorites()));
   };
 
   return (

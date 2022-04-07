@@ -14,14 +14,17 @@ const Colection = function () {
 
   const accountState = useSelector((state) => state.account);
   const myNftsState = useSelector((state) => state.myNfts);
+  const myFavoritesNftsState = useSelector((state) => state.myFavorites);
 
   const [account, setAccount] = useState(accountState);
   const [myNfts, setMyNfts] = useState(myNftsState);
+  const [myFavoritesNfts, setMyFavoritesNfts] = useState(myFavoritesNftsState);
 
   useEffect(() => {
     setAccount(accountState);
     setMyNfts(myNftsState);
-  }, [accountState, myNftsState]);
+    setMyFavoritesNfts(myFavoritesNftsState);
+  }, [accountState, myNftsState, myFavoritesNftsState]);
 
   const [openMenu, setOpenMenu] = useState(true);
   const [openMenu1, setOpenMenu1] = useState(false);
@@ -158,13 +161,13 @@ const Colection = function () {
           </div>
         ): null} */}
 
-        {openMenu3 && myNfts.length ? (
+        {openMenu3 && myFavoritesNfts.length ? (
           <div id="zero4" className="onStep fadeIn">
             <ColumnNewRedux type="myFavoritesNfts" />
           </div>
         ) : null}
 
-        {!myNfts.length || !account ? (
+        {!myNfts.length || !myFavoritesNfts.length || !account ? (
           <div id="zero5" className="onStep fadeIn">
             <div className="d-flex justify-content-center align-items-center flex-column">
               <h1>No NFTs found</h1>

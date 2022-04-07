@@ -26,7 +26,7 @@ module.exports = {
       .then((my_favorites) =>
         res.status(200).send({ deleted: [...my_favorites], status: 200 })
       )
-      .catch((error) => res.status(400).send({ ...error, status: 400 }));
+      .catch((error) => res.status(200).send({ ...error, status: 200 }));
   },
 
   search(req, res) {

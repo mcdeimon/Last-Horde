@@ -168,8 +168,10 @@ export const getAccount = () => async (dispatch) => {
       let nft = {};
 
       if (pack[0][i]) {
-        /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${id}.json`);
-        nft = nft.data; */
+        /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
+        for (let j = 0; j < pack[0][i]; j++) {
+          deck.push({ ...nft.data, id: i });
+        } */
 
         nft = await require(`../../../public/Nfts/${i}.json`);
         for (let j = 0; j < pack[0][i]; j++) {
@@ -206,22 +208,30 @@ export const getMyFavorites = () => async (dispatch) => {
   let accounts = await web3.eth.getAccounts();
   let account = accounts[0];
 
+  let favoritesIDs = [];
   let favorites = [];
 
   try {
-    favorites = await axios.get(
+    favoritesIDs = await axios.get(
       `https://${REACT_APP_HOST_DB}/account/${account}`
     );
 
-    favorites = favorites.data.favorites;
+    favoritesIDs = favoritesIDs.data.favorites;
+
+    for (let i = 0; i < favoritesIDs.length; i++) {
+      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
+      nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
+
+      let nft =
+        await require(`../../../public/Nfts/${favoritesIDs[i].id_nft}.json`);
+      favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
+    }
   } catch (e) {
     console.log(e);
   }
 
   dispatch({
     type: GET_MY_FAVORITES,
-    payload: {
-      favorites,
-    },
+    payload: favorites,
   });
 };
