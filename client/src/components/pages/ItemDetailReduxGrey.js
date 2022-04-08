@@ -116,8 +116,7 @@ const ItemDetailRedux = () => {
                   ) : null}
 
                   {/* button for checkout */}
-                  {myNfts[itemId] &&
-                  myNfts[itemId] !== "0" &&
+                  {myNfts.find((nft) => nft.id === parseInt(itemId)) &&
                   !query.get("package") ? (
                     <div className="d-flex flex-row mt-5">
                       <button
@@ -148,13 +147,6 @@ const ItemDetailRedux = () => {
                         onClick={() => setOpenCheckout(true)}
                       >
                         Buy Now
-                      </button>
-
-                      <button
-                        className="btn-main btn2 lead mb-5 mr15"
-                        onClick={() => setOpenCheckoutbid(true)}
-                      >
-                        Place Bid
                       </button>
 
                       {/* <button
