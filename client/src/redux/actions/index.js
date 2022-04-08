@@ -19,11 +19,10 @@ import axios from "axios";
 
 const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
 
-const getAccountFunction = () => {
-  accounts = await web3.eth.getAccounts();
+const getAccountFunction = async () => {
+  const accounts = await web3.eth.getAccounts();
   return accounts[0];
-}
-
+};
 
 ////////////////////////////////////////////////////////////// loading
 
@@ -155,10 +154,10 @@ export const getAccount = () => async (dispatch) => {
     pack = [],
     deck = [],
     favoritesIDs = [],
-    favorites=[];
+    favorites = [];
 
   try {
-    account = getAccountFunction();
+    account = await getAccountFunction();
 
     favoritesIDs = await axios.get(
       `https://${REACT_APP_HOST_DB}/account/${account}`
@@ -218,7 +217,9 @@ export const resetAccount = () => (dispatch) => {
 };
 
 export const getMyFavorites = () => async (dispatch) => {
-  let account = getAccountFunction(), favoritesIDs = [], favorites = [];
+  let account = await getAccountFunction(),
+    favoritesIDs = [],
+    favorites = [];
 
   try {
     favoritesIDs = await axios.get(

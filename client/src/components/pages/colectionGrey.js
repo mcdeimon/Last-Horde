@@ -31,50 +31,18 @@ const Colection = function () {
   const [openMenu2, setOpenMenu2] = useState(false);
   const [openMenu3, setOpenMenu3] = useState(false);
 
-  const handleBtnClick = () => {
-    setOpenMenu(!openMenu);
-    setOpenMenu1(false);
-    setOpenMenu2(false);
-    setOpenMenu3(false);
-    document.getElementById("Mainbtn").classList.add("active");
+  const handleBtnClick = (btn) => {
+    setOpenMenu(btn === 0 && true);
+    setOpenMenu1(btn === 1 && true);
+    setOpenMenu2(btn === 2 && true);
+    setOpenMenu3(btn === 3 && true);
+
+    document.getElementById("Mainbtn0").classList.remove("active");
     document.getElementById("Mainbtn1").classList.remove("active");
     /* document.getElementById("Mainbtn2").classList.remove("active"); */
     document.getElementById("Mainbtn3").classList.remove("active");
-  };
 
-  const handleBtnClick1 = () => {
-    setOpenMenu1(!openMenu1);
-    setOpenMenu(false);
-    setOpenMenu2(false);
-    setOpenMenu3(false);
-    document.getElementById("Mainbtn1").classList.add("active");
-    document.getElementById("Mainbtn").classList.remove("active");
-    /* document.getElementById("Mainbtn2").classList.remove("active"); */
-    document.getElementById("Mainbtn3").classList.remove("active");
-  };
-
-  const handleBtnClick2 = () => {
-    setOpenMenu2(!openMenu2);
-    setOpenMenu(false);
-    setOpenMenu1(false);
-    setOpenMenu3(false);
-
-    document.getElementById("Mainbtn2").classList.add("active");
-    document.getElementById("Mainbtn").classList.remove("active");
-    document.getElementById("Mainbtn1").classList.remove("active");
-    document.getElementById("Mainbtn3").classList.remove("active");
-  };
-
-  const handleBtnClick3 = () => {
-    setOpenMenu3(!openMenu3);
-    setOpenMenu(false);
-    setOpenMenu1(false);
-    setOpenMenu2(false);
-
-    document.getElementById("Mainbtn3").classList.add("active");
-    document.getElementById("Mainbtn").classList.remove("active");
-    document.getElementById("Mainbtn1").classList.remove("active");
-    /* document.getElementById("Mainbtn2").classList.remove("active"); */
+    document.getElementById(`Mainbtn${btn}`).classList.add("active");
   };
 
   const handleCopyClipboard = () => {
@@ -123,20 +91,20 @@ const Colection = function () {
           <div className="col-lg-12">
             <div className="items_filter">
               <ul className="de_nav">
-                <li id="Mainbtn" className="active">
-                  <span onClick={handleBtnClick}>Owned</span>
+                <li id="Mainbtn0" className="active">
+                  <span onClick={() => handleBtnClick(0)}>Owned</span>
                 </li>
 
                 <li id="Mainbtn1" className="">
-                  <span onClick={handleBtnClick1}>On Sale</span>
+                  <span onClick={() => handleBtnClick(1)}>On Sale</span>
                 </li>
 
                 {/* <li id="Mainbtn2" className="">
-                  <span onClick={handleBtnClick2}>On Rent</span>
+                  <span onClick={() => handleBtnClick(2)}>On Rent</span>
                 </li> */}
 
                 <li id="Mainbtn3" className="">
-                  <span onClick={handleBtnClick3}>My Favorites</span>
+                  <span onClick={() => handleBtnClick(3)}>My Favorites</span>
                 </li>
               </ul>
             </div>
@@ -147,27 +115,19 @@ const Colection = function () {
           <div id="zero1" className="onStep fadeIn">
             <ColumnNewRedux type="myNfts" />
           </div>
-        ) : null}
-
-        {openMenu1 && myNfts.length ? (
+        ) : openMenu1 && myNfts.length ? (
           <div id="zero2" className="onStep fadeIn">
             <ColumnNewRedux type="myOnSaleNfts" />
           </div>
-        ) : null}
-
-        {/* {openMenu2 && myNfts.length ? (
+        ) : openMenu2 && myNfts.length ? (
           <div id="zero3" className="onStep fadeIn">
-            <ColumnNewRedux type="myOnRentNfts"/>
+            <ColumnNewRedux type="myOnRentNfts" />
           </div>
-        ): null} */}
-
-        {openMenu3 && myFavoritesNfts.length ? (
+        ) : openMenu3 && myFavoritesNfts.length ? (
           <div id="zero4" className="onStep fadeIn">
             <ColumnNewRedux type="myFavoritesNfts" />
           </div>
-        ) : null}
-
-        {!myNfts.length || !myFavoritesNfts.length || !account ? (
+        ) : !myNfts.length || !myFavoritesNfts.length || !account ? (
           <div id="zero5" className="onStep fadeIn">
             <div className="d-flex justify-content-center align-items-center flex-column">
               <h1>No NFTs found</h1>
