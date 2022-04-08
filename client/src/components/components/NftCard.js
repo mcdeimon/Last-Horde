@@ -111,7 +111,12 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           )}
 
           {typeExplorer !== "packages" && (
-            <div className="nft__item_like" onClick={handleLike}>
+            <div
+              className={`nft__item_like ${
+                myFavorites.find((nft) => nft.id === item.id) ? "likedHeart" : ""
+              }`}
+              onClick={handleLike}
+            >
               <i className="fa fa-heart"></i>
             </div>
           )}

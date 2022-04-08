@@ -149,17 +149,26 @@ export const getAccount = () => async (dispatch) => {
     account = {},
     pack = [],
     deck = [],
-    favorites = [];
+    favoritesIDs = [],
+    favorites=[];
 
   try {
     accounts = await web3.eth.getAccounts();
     account = accounts[0];
 
-    favorites = await axios.get(
+    favoritesIDs = await axios.get(
       `https://${REACT_APP_HOST_DB}/account/${account}`
     );
-    console.log(favorites, "favorites");
-    favorites = favorites.data.favorites;
+    favoritesIDs = favoritesIDs.data.favorites;
+
+    for (let i = 0; i < favoritesIDs.length; i++) {
+      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
+      nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
+
+      let nft =
+        await require(`../../../public/Nfts/${favoritesIDs[i].id_nft}.json`);
+      favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
+    }
 
     pack = await Contract1155.methods.viewDeck2(account).call();
     deck = [];
