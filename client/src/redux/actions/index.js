@@ -19,6 +19,12 @@ import axios from "axios";
 
 const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
 
+const getAccountFunction = () => {
+  accounts = await web3.eth.getAccounts();
+  return accounts[0];
+}
+
+
 ////////////////////////////////////////////////////////////// loading
 
 export const isLoadingFunction = (isLoading) => {
@@ -145,16 +151,14 @@ export const filterNftName = (name) => (dispatch) => {
 ////////////////////////////////////////////////////////////// account
 
 export const getAccount = () => async (dispatch) => {
-  let accounts = [],
-    account = {},
+  let account = {},
     pack = [],
     deck = [],
     favoritesIDs = [],
     favorites=[];
 
   try {
-    accounts = await web3.eth.getAccounts();
-    account = accounts[0];
+    account = getAccountFunction();
 
     favoritesIDs = await axios.get(
       `https://${REACT_APP_HOST_DB}/account/${account}`
@@ -214,11 +218,7 @@ export const resetAccount = () => (dispatch) => {
 };
 
 export const getMyFavorites = () => async (dispatch) => {
-  let accounts = await web3.eth.getAccounts();
-  let account = accounts[0];
-
-  let favoritesIDs = [];
-  let favorites = [];
+  let account = getAccountFunction(), favoritesIDs = [], favorites = [];
 
   try {
     favoritesIDs = await axios.get(
