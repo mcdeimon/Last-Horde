@@ -33,7 +33,7 @@ const Home = () => {
         className="jumbotron breadcumb no-bg bwhite"
         style={{ backgroundImage: `url(${"./img/background/backHome.jpg"})` }}
       >
-        <div className="container">
+        <div className="container w-100">
           <div className="row">
             <SliderMain />
           </div>
