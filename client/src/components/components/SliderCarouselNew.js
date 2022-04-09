@@ -112,7 +112,7 @@ export default function Responsive() {
 
                 <div className="col-lg-7">
                   <div className="d-desc">
-                    <h2>Pack of ${item.name}</h2>
+                    <h2>Pack of {item.name}</h2>
 
                     <div className="d-attr">
                       <div className="col first">
