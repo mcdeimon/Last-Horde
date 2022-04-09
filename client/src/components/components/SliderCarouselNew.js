@@ -1,11 +1,10 @@
-import React, { Component, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Clock from "./Clock";
+import React, { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "@reach/router";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const GlobalStyles = createGlobalStyle`
   .nft-big .slick-prev::before{
@@ -107,7 +106,9 @@ export default function Responsive() {
             <div className="nft__item_lg">
               <div className="row align-items-center">
                 <div className="col-lg-5 d-flex justify-content-center">
-                  <img src={item.image} className="img-fluid" alt="" />
+                  <Link to={`/detail/${index + 1}?package=true`}>
+                    <img src={item.image} className="img-fluid" alt="" />
+                  </Link>
                 </div>
 
                 <div className="col-lg-7">

@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import SliderMain from "../components/SliderCarouselNew";
-import CarouselCollectionRedux from "../components/CarouselCollectionReduxNew";
 import CarouselNewRedux from "../components/CarouselNewReduxNew";
-import AuthorListRedux from "../components/AuthorListRedux";
-import Catgor from "../components/Catgor";
 import Footer from "../components/footer";
 import { StyledHeader } from "../Styles";
 import { useDispatch } from "react-redux";
@@ -40,21 +37,21 @@ const Home = () => {
         </div>
       </section>
 
-      {/* <section className="container no-bottom">
+      <section className="container no-bottom">
       <div className="row">
         <div className="col-lg-12">
           <div className="text-center">
-            <h2>Hot Collections</h2>
+            <h2>On sale</h2>
 
             <div className="small-border"></div>
           </div>
         </div>
 
         <div className="col-lg-12">
-          <CarouselCollectionRedux />
+          <CarouselNewRedux />
         </div>
       </div>
-    </section> */}
+    </section>
 
       {/* <section className="container no-bottom">
       <div className="row">
