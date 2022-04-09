@@ -6028,15 +6028,6 @@ blockquote {
     font-size: 21px;
   }
 
-  .jumbotron.breadcumb.no-bg.bwhite {
-    padding-top: 30px;
-    padding-bottom: 0;
-  }
-
-  .jumbotron.breadcumb.no-bg.bwhite:after {
-    content: unset;
-  }
-
   .nft__item_lg .d-buttons {
     display: block;
 
@@ -6154,4 +6145,14 @@ blockquote {
 
 .img-fluid {
   width: 60%;
+}
+
+.jumbotron.breadcumb.no-bg.bwhite {
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  &:after {
+    content: unset;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), black);
+  }
 }

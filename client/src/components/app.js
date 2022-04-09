@@ -9,9 +9,9 @@ import Home1grey from "./pages/home1Grey";
 import Home2 from "./pages/home2";
 import Home2grey from "./pages/home2Grey";
 import Home3 from "./pages/home3";
-import Home4 from "./pages/home4";
+import Home4 from "./pages/home4"; */
 import Home5 from "./pages/home5";
-import Home6 from "./pages/home6";
+/* import Home6 from "./pages/home6";
 import Explore from "./pages/explore"; */
 import Exploregrey from "./pages/exploreGrey";
 /* import Explore2 from "./pages/explore2";
@@ -104,11 +104,11 @@ const app = () => (
         <Home2 path="/home2" />
         <Home2grey path="/home2Grey" />
         <Home3 path="/home3" />
-        <Home4 path="/home4" />
-        <Home5 path="/home5" />
-        <Home6 path="/home6" />
+        <Home4 path="/home4" /> */}
+        <Home5 path="/" />
+        {/* <Home6 path="/home6" />
         <Explore path="/explore" /> */}
-        <Exploregrey path="/" />
+        <Exploregrey path="/explore" />
         {/* <Explore2 path="/explore2" />
         <Explore2grey path="/explore2Grey" />
         <ExploreOpensea path="/exploreOpensea" />

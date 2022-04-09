@@ -3034,74 +3034,67 @@ $color_more: #FC202C;
   width: 100%;
 
   .slick-prev {
-    left: 10px;
+    left: -12px;
+    background: $white;
+    border-radius: 45px;
     display: block;
-    width: 40px;
-    height: 60px;
-    overflow: hidden;
-    line-height: 60px;
-    background: none !important;
-    border-radius: 0;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     z-index: 1;
     transition: all 0.3s ease;
 
     &::before {
-      display: block;
       content: "\f053" !important;
-      font-size: .9rem;
+      font-size: 1rem;
       font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $black;
-      position: relative;
-      line-height: 60px;
-      width: 60px;
-      height: 60px;
-      padding-left: 20px;
-      border-radius: 60px;
       background: $white;
-      left: -25px;
-      opacity: 1;
+      border: 1px solid $gray;
+      border-radius: 45px;
+      display: block;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+    }
+
+    &:hover {
+      background: $white;
+      box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
     }
   }
 
   .slick-next {
-    right: 9px;
+    right: -12px;
+    background: $white;
+    border-radius: 45px;
     display: block;
-    width: 40px;
-    height: 60px;
-    line-height: 60px;
-    background: none !important;
-    border-radius: 0;
-    overflow: hidden;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     transition: all 0.3s ease;
 
     &::before {
-      display: block;
       content: "\f054" !important;
-      font-size: .9rem;
+      font-size: 1rem;
       font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $black;
-      position: relative;
-      line-height: 60px;
-      width: 60px;
-      height: 60px;
-      padding-right: 20px;
-      border-radius: 60px;
       background: $white;
-      right: -4px;
-      opacity: 1;
+      border: 1px solid $gray;
+      border-radius: 45px;
+      display: block;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
     }
-  }
 
-  &:hover {
-
-    .slick-prev,
-    .slick-next {
-      opacity: 1;
-      transition: all 0.3s ease;
+    &:hover {
+      background: $white;
+      box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -4951,6 +4944,38 @@ img.img-rounded {
     display: block;
     margin: 20px 0;
   }
+
+  .nft__item_lg h2 {
+    font-size: 24px;
+  }
+
+  .nft__item_lg .d-attr {
+    display: block;
+  }
+
+  .nft__item_lg .d-attr .line {
+    display: none;
+  }
+
+  .nft__item_lg .d-attr .col h3,
+  .nft__item_lg .d-attr .col .de_countdown {
+    font-size: 21px;
+  }
+
+  .jumbotron.breadcumb.no-bg.bwhite {
+    padding-top: 30px;
+    padding-bottom: 0;
+  }
+
+  .nft__item_lg .d-buttons {
+    display: block;
+
+    .btn-main {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -5173,4 +5198,97 @@ img.img-rounded {
 
 .likedHeart {
   color: #ff343f !important;
+}
+
+.nft__item_lg {
+  padding: 0;
+
+  .row {
+    position: relative;
+    z-index: 999;
+  }
+
+  img {
+    border-radius: 10px;
+    max-height: 100vh;
+  }
+
+  h2 {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .d-author {
+    margin: 15px 0;
+
+    .author_list_info {
+      padding-left: 80px;
+
+      .title {
+        font-weight: bold;
+        color: #1a1b1e;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .d-attr {
+    display: flex;
+    margin-bottom: 15px;
+
+    .col {
+      &.first {
+        max-width: 160px;
+      }
+
+      min-width: 50px;
+
+      h3 {
+        font-size: 34px;
+        margin: 0;
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+
+      h5 {
+        font-size: 15px;
+        font-weight: 500;
+        margin-top: 10px;
+        color: white;
+      }
+
+      .de_countdown {
+        position: relative;
+        border: none;
+        background: none;
+        padding-left: 0;
+        padding-bottom: 0;
+        left: 0;
+        font-size: 32px;
+      }
+    }
+
+    .line {
+      width: 1px;
+      height: 80px;
+      background: rgba(0, 0, 0, .1);
+      margin: 0 30px;
+    }
+  }
+
+  .d-buttons {
+    display: flex;
+
+    .btn-main {
+      margin-right: 15px;
+
+      &.btn-light {
+        color: $color !important;
+        background: rgba(131, 100, 226, .2);
+      }
+    }
+  }
 }

@@ -118,7 +118,7 @@ const Header = function ({ className }) {
           <div className="navbarContainerItems">
             <ul className="navbarList">
               <li className="navbarListItem">
-                <NavLink to="/">
+                <NavLink to="/explore">
                   <a className="navbarLink">Explore</a>
                 </NavLink>
               </li>
