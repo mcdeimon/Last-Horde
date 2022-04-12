@@ -36,11 +36,15 @@ export const isLoadingFunction = (isLoading) => {
 ////////////////////////////////////////////////////////////// get cards and packages
 
 export const getAllNFT = () => async (dispatch) => {
-  let nfts = [];
-  let nft = {};
+  let nfts = [], nft = {}, amountNfts = 0, amountAux = {};
 
   try {
-    for (let i = 1; i <= 260; i++) {
+    amountAux = await axios.get(
+      `https://${REACT_APP_HOST_DB}/amount-nft`
+    );
+    amountNfts = amountAux.data.amount;
+
+    for (let i = 1; i <= amountNfts; i++) {
       /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
       nfts.push(nft.data); */
 

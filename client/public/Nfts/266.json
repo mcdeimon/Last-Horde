@@ -1,0 +1,15 @@
+    {
+"name": "Bow",
+"description": "The arrows rained creating chaos in the enemies",
+"image": "https://lasthorde.com/NFTs/Imagenes/Bow.png",
+"attributes": [
+{"trait_type": "Health", "value": "7" },
+{"trait_type": "Points", "value": "15" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Resistance Physical", "value": "1"},
+{"trait_type": "Target Physical", "value": "3"},
+{"trait_type": "Target Attacks", "value": "1"}, 
+{"trait_type": "Target Rows", "value": "1"},
+{"trait_type": "Target Attack Support", "value": "1"}
+]
+}

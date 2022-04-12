@@ -38,36 +38,36 @@ const Home = () => {
       </section>
 
       <section className="container no-bottom">
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="text-center">
-            <h2>On sale</h2>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center">
+              <h2>Nfts on sale</h2>
 
-            <div className="small-border"></div>
+              <div className="small-border"></div>
+            </div>
+          </div>
+
+          <div className="col-lg-12">
+            <CarouselNewRedux allOrSale="onSale" />
           </div>
         </div>
+      </section>
 
-        <div className="col-lg-12">
-          <CarouselNewRedux />
-        </div>
-      </div>
-    </section>
+      <section className="container no-bottom">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="text-center">
+              <h2>All Nfts</h2>
 
-      {/* <section className="container no-bottom">
-      <div className="row">
-        <div className="col-lg-12">
-          <div className="text-center">
-            <h2>New Items</h2>
+              <div className="small-border"></div>
+            </div>
+          </div>
 
-            <div className="small-border"></div>
+          <div className="col-lg-12">
+            <CarouselNewRedux allOrSale="all" />
           </div>
         </div>
-
-        <div className="col-lg-12">
-          <CarouselNewRedux />
-        </div>
-      </div>
-    </section> */}
+      </section>
 
       <Footer />
     </div>

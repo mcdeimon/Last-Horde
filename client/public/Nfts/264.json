@@ -1,0 +1,16 @@
+{
+"name": "Banner",
+"description": "The banner inspires courage in the horde",
+"image": "https://lasthorde.com/NFTs/Imagenes/BannerR.png",
+"attributes": [
+{"trait_type": "Health", "value": "9" },
+{"trait_type": "Points", "value": "17" },
+{"trait_type": "Card Type", "value": "Organic"},
+{"trait_type": "Heal Objetives", "value": "7"},
+{"trait_type": "Heal Rows", "value": "1"},
+{"trait_type": "Resistance Physical",  "value": " 3"},
+{"trait_type": "Resistance Lightning", "value": " 2"},
+{"trait_type": "Heal", "value": "3"},
+{"trait_type": "Horde Motivation", "value": "5"}
+]
+} 

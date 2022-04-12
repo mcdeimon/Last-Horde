@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { carouselNew5 } from "./constants";
 import api from "../../core/api";
+import { Link } from "@reach/router";
 
 const Outer = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Outer = styled.div`
   align-items: center;
 `;
 
-const CarouselNewRedux = () => {
+const CarouselNewRedux = ({ allOrSale }) => {
   const nftsState = useSelector((state) => state.nfts);
 
   const [nfts, setNFTs] = useState([]);
@@ -28,7 +29,8 @@ const CarouselNewRedux = () => {
   };
 
   useEffect(() => {
-    setNFTs(nftsState);
+    if (allOrSale === "all") setNFTs(nftsState);
+    else setNFTs(nftsState);
   }, [nftsState]);
 
   return (
