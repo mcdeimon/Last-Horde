@@ -38,13 +38,6 @@ export default function Responsive() {
     setPackages(packagesState);
   }, [packagesState]);
 
-  const state = {
-    deadline: "January, 10, 2022",
-    deadline1: "February, 10, 2022",
-    deadline2: "February, 1, 2022",
-    height: 0,
-  };
-
   const settings = {
     infinite: false,
     speed: 500,

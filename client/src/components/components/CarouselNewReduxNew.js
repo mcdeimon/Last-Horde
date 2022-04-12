@@ -5,7 +5,6 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { carouselNew5 } from "./constants";
-import api from "../../core/api";
 import { Link } from "@reach/router";
 
 const Outer = styled.div`
@@ -31,7 +30,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
   useEffect(() => {
     if (allOrSale === "all") setNFTs(nftsState);
     else setNFTs(nftsState);
-  }, [nftsState]);
+  }, [nftsState, allOrSale]);
 
   return (
     <div className="nft">

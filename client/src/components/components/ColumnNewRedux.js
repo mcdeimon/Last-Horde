@@ -54,7 +54,7 @@ const ColumnNewRedux = ({ type }) => {
         setNFTs(filteredNfts);
         break;
     }
-  }, [filteredNfts, packages, myNfts, myFavoritesState]);
+  }, [filteredNfts, packages, myNfts, myFavoritesState, type]);
 
   useEffect(() => {
     if (typeExplorerAux !== typeExplorer) {
@@ -65,7 +65,7 @@ const ColumnNewRedux = ({ type }) => {
         setIsLoading(false);
       }, 3000);
     }
-  }, [typeExplorerAux]);
+  }, [typeExplorerAux, typeExplorer]);
 
   return (
     <div className="row height100VH">

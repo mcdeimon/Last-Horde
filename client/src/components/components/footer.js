@@ -52,8 +52,9 @@ const Footer = () => {
               <ul>
                 <li>
                   <a
-                    to="https://medium.com/@lasthorde/lets-talk-about-security-b94486011850"
+                    href="https://medium.com/@lasthorde/lets-talk-about-security-b94486011850"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Let’s talk about security?
                   </a>
@@ -61,8 +62,9 @@ const Footer = () => {
 
                 <li>
                   <a
-                    to="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
+                    href="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Next steps after the IDO
                   </a>
@@ -70,8 +72,9 @@ const Footer = () => {
 
                 <li>
                   <a
-                    to="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
+                    href="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     About Last Horde
                   </a>
@@ -87,15 +90,20 @@ const Footer = () => {
               <ul>
                 <li>
                   <a
-                    to="https://lasthorde.com/docs/Whitepaper-V1.11.pdf"
+                    href="https://lasthorde.com/docs/Whitepaper-V1.11.pdf"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Whitepaper
                   </a>
                 </li>
 
                 <li>
-                  <a to="https://lasthorde.com/privacy-policy/" target="_blank">
+                  <a
+                    href="https://lasthorde.com/privacy-policy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Privacy Policy
                   </a>
                 </li>
@@ -108,32 +116,50 @@ const Footer = () => {
               <h3>FOLLOW US</h3>
 
               <a
-                to="https://www.youtube.com/channel/UCiCG9a0u-DvJR8HoudRXDdg"
+                href="https://www.youtube.com/channel/UCiCG9a0u-DvJR8HoudRXDdg"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <i className="fa fa-youtube fa-lg"></i>
               </a>
 
-              <a to="https://t.me/lasthorde" target="_blank">
+              <a
+                href="https://t.me/lasthorde"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fa fa-telegram fa-lg"></i>
               </a>
 
-              <a to="https://twitter.com/LastHorde" target="_blank">
+              <a
+                href="https://twitter.com/LastHorde"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fa fa-twitter fa-lg"></i>
               </a>
 
-              <a to="https://www.facebook.com/lasthordegame/" target="_blank">
+              <a
+                href="https://www.facebook.com/lasthordegame/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fa fa-facebook fa-lg"></i>
               </a>
 
               <a
-                to="https://www.linkedin.com/company/last-horde/"
+                href="https://www.linkedin.com/company/last-horde/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <i className="fa fa-linkedin fa-lg"></i>
               </a>
 
-              <a to="https://medium.com/@lasthorde/" target="_blank">
+              <a
+                href="https://medium.com/@lasthorde/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <i className="fa fa-medium fa-lg"></i>
               </a>
             </div>

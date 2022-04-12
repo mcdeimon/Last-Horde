@@ -43,12 +43,12 @@ const ItemDetailRedux = () => {
 
     if (query.get("package")) dispatch(getPackagesById(itemId));
     else dispatch(getNFTById(itemId));
-  }, [dispatch]);
+  }, [dispatch, query, itemId]);
 
   useEffect(() => {
     if (query.get("package")) setItem(packageItem);
     else setItem(nftItem);
-  }, [nftItem, packageItem]);
+  }, [nftItem, packageItem, query]);
 
   useEffect(() => {
     setAccount(myNftsState);

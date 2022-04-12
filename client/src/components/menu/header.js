@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Breakpoint, {
-  BreakpointProvider,
-  setDefaultBreakpoints,
-} from "react-socks";
-//import { header } from 'react-bootstrap';
 import { Link } from "@reach/router";
-import useOnclickOutside from "react-cool-onclickoutside";
 import { useDispatch, useSelector } from "react-redux";
 import { getAccount, resetAccount } from "../../redux/actions";
-
-setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props) => (
   <Link
@@ -35,23 +27,6 @@ const Header = function ({ className }) {
     setAccount(accountState);
   }, [accountState]);
 
-  const [showmenu, btn_icon] = useState(false);
-  const [showpop, btn_icon_pop] = useState(false);
-  const [shownot, btn_icon_not] = useState(false);
-
-  const closePop = () => {
-    btn_icon_pop(false);
-  };
-  const closeNot = () => {
-    btn_icon_not(false);
-  };
-  const refpop = useOnclickOutside(() => {
-    closePop();
-  });
-  const refpopnot = useOnclickOutside(() => {
-    closeNot();
-  });
-
   const handleConnectWallet = () => {
     if (!account) dispatch(getAccount());
     else dispatch(resetAccount());
@@ -62,7 +37,6 @@ const Header = function ({ className }) {
     const totop = document.getElementById("scroll-to-top");
     const sticky = header.offsetTop;
     const scrollCallBack = window.addEventListener("scroll", () => {
-      btn_icon(false);
       if (window.pageYOffset > sticky) {
         header.classList.add("sticky");
         totop.classList.add("show");
@@ -75,6 +49,7 @@ const Header = function ({ className }) {
       window.removeEventListener("scroll", scrollCallBack);
     };
   }, []);
+
   return (
     <header className={`navbar white ${className}`} id="myHeader">
       <div className="container">
@@ -96,19 +71,19 @@ const Header = function ({ className }) {
               <ul className="navbarList">
                 <li className="navbarListItem">
                   <a href="https://lasthorde.com/">
-                    <a className="navbarLink">Home</a>
+                    <p className="navbarLink">Home</p>
                   </a>
                 </li>
 
                 <li className="navbarListItem">
                   <NavLink to="/">
-                    <a className="navbarLink">Marketplace</a>
+                    <p className="navbarLink">Marketplace</p>
                   </NavLink>
                 </li>
 
                 <li className="navbarListItem">
                   <a href="https://app.lasthorde.com/stake">
-                    <a className="navbarLink">Stake</a>
+                    <p className="navbarLink">Stake</p>
                   </a>
                 </li>
               </ul>
@@ -119,13 +94,13 @@ const Header = function ({ className }) {
             <ul className="navbarList">
               <li className="navbarListItem">
                 <NavLink to="/explore">
-                  <a className="navbarLink">Explore</a>
+                  <p className="navbarLink">Explore</p>
                 </NavLink>
               </li>
 
               <li className="navbarListItem">
                 <NavLink to="/my-account">
-                  <a className="navbarLink">Account</a>
+                  <p className="navbarLink">Account</p>
                 </NavLink>
               </li>
             </ul>
@@ -137,12 +112,6 @@ const Header = function ({ className }) {
             </div>
           </div>
         </div>
-
-        <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
-          <div className="menu-line white"></div>
-          <div className="menu-line1 white"></div>
-          <div className="menu-line2 white"></div>
-        </button>
       </div>
     </header>
   );
