@@ -39,12 +39,15 @@ export default function Responsive() {
   }, [packagesState]);
 
   const settings = {
-    infinite: false,
-    speed: 500,
+    infinite: true,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 5000,
     adaptiveHeight: 300,
+    cssEase: "linear",
     responsive: [
       {
         breakpoint: 1900,

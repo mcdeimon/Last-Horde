@@ -37,18 +37,20 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
   };
 
   const handleLike = async () => {
-    if (myFavorites.find((nft) => nft.id === item.id))
-      await axios
-        .delete(
-          `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
-        )
-        .then(() => dispatch(getMyFavorites()));
-    else
-      await axios
-        .post(
-          `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${contractState}`
-        )
-        .then(() => dispatch(getMyFavorites()));
+    if (account) {
+      if (myFavorites.find((nft) => nft.id === item.id))
+        await axios
+          .delete(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+      else
+        await axios
+          .post(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${contractState}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+    }
   };
 
   return (
@@ -113,7 +115,9 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           {typeExplorer !== "packages" && (
             <div
               className={`nft__item_like ${
-                myFavorites.find((nft) => nft.id === item.id) ? "likedHeart" : ""
+                myFavorites.find((nft) => nft.id === item.id)
+                  ? "likedHeart"
+                  : ""
               }`}
               onClick={handleLike}
             >

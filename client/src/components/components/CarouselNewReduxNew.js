@@ -1,11 +1,13 @@
 import React, { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { carouselNew5 } from "./constants";
 import { Link } from "@reach/router";
+import { getMyFavorites } from "../../redux/actions";
+import axios from "axios";
 
 const Outer = styled.div`
   display: flex;
@@ -14,11 +16,20 @@ const Outer = styled.div`
   align-items: center;
 `;
 
+const { REACT_APP_HOST_DB } = process.env;
+
 const CarouselNewRedux = ({ allOrSale }) => {
+  const dispatch = useDispatch();
+
   const nftsState = useSelector((state) => state.nfts);
+  const myFavoritesState = useSelector((state) => state.myFavorites);
+  const contractState = useSelector((state) => state.contract);
+  const accountState = useSelector((state) => state.account);
 
   const [nfts, setNFTs] = useState([]);
   const [height, setHeight] = useState(0);
+  const [account, setAccount] = useState(accountState);
+  const [myFavorites, setMyFavorites] = useState(myFavoritesState);
 
   const onImgLoad = ({ target: img }) => {
     let currentHeight = height;
@@ -27,14 +38,41 @@ const CarouselNewRedux = ({ allOrSale }) => {
     }
   };
 
+  const handleLike = async (id) => {
+    if (account) {
+      if (myFavorites.find((nft) => nft.id === id))
+        await axios
+          .delete(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+      else
+        await axios
+          .post(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${contractState}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+    }
+  };
+
   useEffect(() => {
-    if (allOrSale === "all") setNFTs(nftsState);
+    setAccount(accountState);
+    setMyFavorites(myFavoritesState);
+  }, [accountState, myFavoritesState]);
+
+  useEffect(() => {
+    if (allOrSale === "all") setNFTs(nftsState.slice(-20));
     else setNFTs(nftsState);
   }, [nftsState, allOrSale]);
 
   return (
     <div className="nft">
-      <Slider {...carouselNew5}>
+      <Slider
+        {...{
+          ...carouselNew5,
+          autoplaySpeed: allOrSale === "all" ? 3000 : 4000,
+        }}
+      >
         {nfts &&
           nfts.map((nft, index) => (
             <div className="itm" index={index + 1} key={index}>
@@ -59,21 +97,32 @@ const CarouselNewRedux = ({ allOrSale }) => {
                   </div>
 
                   <div className="nft__item_info">
-                    <span>
-                      <Link to={`/detail/${nft.id}`}>
-                        <h4>{nft.name}</h4>
-                      </Link>
-                    </span>
+                    {allOrSale !== "all" && (
+                      <>
+                        <span>
+                          <Link to={`/detail/${nft.id}`}>
+                            <h4>{nft.name}</h4>
+                          </Link>
+                        </span>
 
-                    <div className="nft__item_price">10000 HOR</div>
+                        <div className="nft__item_price">10000 HOR</div>
 
-                    <div className="nft__item_action">
-                      <Link to={`/detail/${nft.id}`}>
-                        <span>Buy now</span>
-                      </Link>
-                    </div>
+                        <div className="nft__item_action">
+                          <Link to={`/detail/${nft.id}`}>
+                            <span>Buy now</span>
+                          </Link>
+                        </div>
+                      </>
+                    )}
 
-                    <div className="nft__item_like">
+                    <div
+                      className={`nft__item_like ${
+                        myFavorites.find((item) => item.id === nft.id)
+                          ? "likedHeart"
+                          : ""
+                      }`}
+                      onClick={() => handleLike(nft.id)}
+                    >
                       <i className="fa fa-heart"></i>
                     </div>
                   </div>
