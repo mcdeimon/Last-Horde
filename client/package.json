@@ -75,5 +75,10 @@
   "devDependencies": {
     "msw": "^0.35.0"
   },
-  "author": "Agustín Arenas"
+  "author": "Agustín Arenas",
+  "license": "ISC",
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x"
+  }
 }

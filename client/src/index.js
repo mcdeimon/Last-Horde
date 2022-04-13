@@ -15,6 +15,8 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./redux/store/index.js";
 
+require("dotenv").config();
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
