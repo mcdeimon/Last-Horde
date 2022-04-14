@@ -78,7 +78,7 @@ export default function Responsive() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 2,
+          infinite: true,
         },
       },
       {
@@ -86,14 +86,14 @@ export default function Responsive() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          dots: true,
+          infinite: true,
         },
       },
     ],
   };
 
   return (
-    <div className="nft-big">
+    <div className="nft-big mb-5">
       <GlobalStyles />
 
       <Slider {...settings}>

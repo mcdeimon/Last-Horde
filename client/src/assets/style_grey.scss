@@ -5076,6 +5076,10 @@ img.img-rounded {
       width: 100vw;
     }
   }
+
+  .nft__item_lg h2{
+    font-size: 40px !important;
+  }
 }
 
 @media only screen and (max-width: 420px) {}
@@ -5085,6 +5089,7 @@ img.img-rounded {
 .img-fluid {
   width: 70%;
   height: auto;
+  margin: auto  ;
 }
 
 .mr15 {
@@ -5263,6 +5268,7 @@ img.img-rounded {
 
   .d-buttons {
     display: flex;
+    z-index: 30;
 
     .btn-main {
       margin-right: 15px;

@@ -267,7 +267,7 @@ export const carouselNew = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
-        initialSlide: 2,
+        infinite: true,
       },
     },
     {
@@ -275,7 +275,7 @@ export const carouselNew = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        dots: true,
+        infinite: true,
       },
     },
   ],
@@ -321,7 +321,7 @@ export const carouselNew5 = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
-        initialSlide: 2,
+        infinite: true,
       },
     },
     {
@@ -329,7 +329,7 @@ export const carouselNew5 = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        dots: true,
+        infinite: true,
       },
     },
   ],
