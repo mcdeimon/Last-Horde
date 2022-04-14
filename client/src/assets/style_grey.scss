@@ -265,6 +265,7 @@ $color_more: #FC202C;
 .greyscheme .de-flex {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .greyscheme .de-flex>.de-flex-col {
@@ -5067,7 +5068,15 @@ img.img-rounded {
   }
 }
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+  .greyscheme .de-flex {
+    font-size: 14px;
+
+    .contract {
+      width: 100vw;
+    }
+  }
+}
 
 @media only screen and (max-width: 420px) {}
 

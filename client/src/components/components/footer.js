@@ -25,8 +25,8 @@ const Footer = () => {
   return (
     <footer className="footer-light">
       <div className="container">
-        <div className="row">
-          <div className="col-md-3 col-sm-6 col-xs-1">
+        <div className="row d-flex justify-content-center">
+          <div className="col-md-3 col-sm-6 col-xs-1 me-lg-5">
             <div className="widget">
               <img
                 width="205"
@@ -42,44 +42,6 @@ const Footer = () => {
                 Unity engine to offer an immersive gaming experience where
                 players must face off in duels using their cards.
               </p>
-            </div>
-          </div>
-
-          <div className="col-md-3 col-sm-6 col-xs-1">
-            <div className="widget">
-              <h3>LATEST NEWS</h3>
-
-              <ul>
-                <li>
-                  <a
-                    href="https://medium.com/@lasthorde/lets-talk-about-security-b94486011850"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Let’s talk about security?
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Next steps after the IDO
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="https://medium.com/@lasthorde/next-steps-after-the-ido-833f65422676"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    About Last Horde
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
 
@@ -173,32 +135,28 @@ const Footer = () => {
             <div className="col-md-12">
               <div className="de-flex">
                 <div className="de-flex-col">
-                  <span>
-                    <span className="contract">
-                      HOR Contract:
-                      <img
-                        width="24"
-                        height="24"
-                        src="/logo-1.png"
-                        alt="HOR Contract"
-                      />
-                      {truncateContract()}
-                      <FaCopy onClick={handleCopyClipboard} />
-                      <img
-                        width="24"
-                        height="24"
-                        src="/metamask-icon.png"
-                        alt="Add to Metamask"
-                      />
-                    </span>
+                  <span className="contract">
+                    HOR Contract:
+                    <img
+                      width="24"
+                      height="24"
+                      src="/logo-1.png"
+                      alt="HOR Contract"
+                    />
+                    {truncateContract()}
+                    <FaCopy onClick={handleCopyClipboard} />
+                    <img
+                      width="24"
+                      height="24"
+                      src="/metamask-icon.png"
+                      alt="Add to Metamask"
+                    />
                   </span>
                 </div>
 
                 <div className="de-flex-col">
-                  <span>
-                    <span className="copy">
-                      &copy; Copyright Last Horde. All rights reserved.
-                    </span>
+                  <span className="copy">
+                    &copy; Copyright Last Horde. All rights reserved.
                   </span>
                 </div>
               </div>
