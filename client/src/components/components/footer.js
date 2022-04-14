@@ -26,11 +26,10 @@ const Footer = () => {
     <footer className="footer-light">
       <div className="container">
         <div className="row d-flex justify-content-center">
-          <div className="col-md-3 col-sm-6 col-xs-1 me-lg-5">
+          <div className="col-md-3 col-sm-6 col-xs-1 me-xl-5">
             <div className="widget">
               <img
                 width="205"
-                height="58"
                 src="/img/logolight.png"
                 alt="Logo"
                 className="footerLogo"
