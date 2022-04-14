@@ -107,7 +107,7 @@ export default function Responsive() {
                   </Link>
                 </div>
 
-                <div className="col-lg-7">
+                <div className="col-lg-7 ps-3">
                   <div className="d-desc">
                     <h2>Pack of {item.name}</h2>
 
