@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "@reach/router";
 import { useDispatch, useSelector } from "react-redux";
 import { getAccount, resetAccount } from "../../redux/actions";
+import Breakpoint, {
+  BreakpointProvider,
+  setDefaultBreakpoints,
+} from "react-socks";
+
+setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props) => (
   <Link
@@ -22,6 +28,7 @@ const Header = function ({ className }) {
   const accountState = useSelector((state) => state.account);
 
   const [account, setAccount] = useState(accountState);
+  const [showmenu, btn_icon] = useState(false);
 
   useEffect(() => {
     setAccount(accountState);
@@ -67,50 +74,106 @@ const Header = function ({ className }) {
               </div>
             </div>
 
-            <div className="navbarContainerItems">
-              <ul className="navbarList">
-                <li className="navbarListItem">
-                  <a href="https://lasthorde.com/">
-                    <p className="navbarLink">Home</p>
-                  </a>
-                </li>
+            <BreakpointProvider>
+              <Breakpoint xl>
+                <div className="navbarContainerItems">
+                  <ul className="navbarList">
+                    <li className="navbarListItem">
+                      <a href="https://lasthorde.com/">
+                        <p className="navbarLink">Home</p>
+                      </a>
+                    </li>
 
-                <li className="navbarListItem">
-                  <NavLink to="/">
-                    <p className="navbarLink">Marketplace</p>
-                  </NavLink>
-                </li>
+                    <li className="navbarListItem">
+                      <NavLink to="/">
+                        <p className="navbarLink">Marketplace</p>
+                      </NavLink>
+                    </li>
 
-                <li className="navbarListItem">
-                  <a href="https://app.lasthorde.com/stake">
-                    <p className="navbarLink">Stake</p>
-                  </a>
-                </li>
-              </ul>
-            </div>
+                    <li className="navbarListItem">
+                      <a href="https://app.lasthorde.com/stake">
+                        <p className="navbarLink">Stake</p>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </Breakpoint>
+            </BreakpointProvider>
           </div>
 
           <div className="navbarContainerItems">
-            <ul className="navbarList">
-              <li className="navbarListItem">
-                <NavLink to="/explore">
-                  <p className="navbarLink">Explore</p>
-                </NavLink>
-              </li>
+            <BreakpointProvider>
+              <Breakpoint xl>
+                <ul className="navbarList">
+                  <li className="navbarListItem">
+                    <NavLink to="/explore">
+                      <p className="navbarLink">Explore</p>
+                    </NavLink>
+                  </li>
 
-              <li className="navbarListItem">
-                <NavLink to="/my-account">
-                  <p className="navbarLink">Account</p>
-                </NavLink>
-              </li>
-            </ul>
+                  <li className="navbarListItem">
+                    <NavLink to="/my-account">
+                      <p className="navbarLink">Account</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </Breakpoint>
+            </BreakpointProvider>
 
-            <div className="mainside">
-              <div className="connect-wal" onClick={handleConnectWallet}>
-                <p to="">{account ? "Disconnect" : "Connect Wallet"}</p>
+            <div className="navbarContainerItems">
+              <div className="mainside">
+                <div className="connect-wal" onClick={handleConnectWallet}>
+                  <p to="">{account ? "Disconnect" : "Connect Wallet"}</p>
+                </div>
               </div>
             </div>
+
+            <button className="nav-icon" onClick={() => btn_icon(!showmenu)}>
+              <div className="menu-line white"></div>
+              <div className="menu-line1 white"></div>
+              <div className="menu-line2 white"></div>
+            </button>
           </div>
+
+          <BreakpointProvider>
+            <Breakpoint l down>
+              {showmenu && (
+                <div className="navbarContainerItemsSmall">
+                  <ul className="navbarList">
+                    <li className="navbarListItem">
+                      <a href="https://lasthorde.com/">
+                        <p className="navbarLink">Home</p>
+                      </a>
+                    </li>
+
+                    <li className="navbarListItem">
+                      <NavLink to="/">
+                        <p className="navbarLink">Marketplace</p>
+                      </NavLink>
+                    </li>
+
+                    <li className="navbarListItem">
+                      <a href="https://app.lasthorde.com/stake">
+                        <p className="navbarLink">Stake</p>
+                      </a>
+                    </li>
+
+                    <li className="navbarListItem">
+                      <NavLink to="/explore">
+                        <p className="navbarLink">Explore</p>
+                      </NavLink>
+                    </li>
+
+                    <li className="navbarListItem">
+                      <NavLink to="/my-account">
+                        <p className="navbarLink">Account</p>
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </Breakpoint>
+          </BreakpointProvider>
         </div>
       </div>
     </header>

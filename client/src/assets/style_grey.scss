@@ -5077,7 +5077,7 @@ img.img-rounded {
     }
   }
 
-  .nft__item_lg h2{
+  .nft__item_lg h2 {
     font-size: 40px !important;
   }
 }
@@ -5089,7 +5089,7 @@ img.img-rounded {
 .img-fluid {
   width: 70%;
   height: auto;
-  margin: auto  ;
+  margin: auto;
 }
 
 .mr15 {
@@ -5173,7 +5173,22 @@ img.img-rounded {
       }
     }
   }
+
+  .navbarContainerItemsSmall {
+    @extend .navbarContainerItems;
+
+    .navbarList {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .navbarListItem {
+        margin: 10px;
+      }
+    }
+  }
 }
+
+
 
 .footerLogo {
   margin-bottom: 20px;
