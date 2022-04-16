@@ -120,11 +120,9 @@ const Header = function ({ className }) {
               </Breakpoint>
             </BreakpointProvider>
 
-            <div className="navbarContainerItems">
-              <div className="mainside">
-                <div className="connect-wal" onClick={handleConnectWallet}>
-                  <p to="">{account ? "Disconnect" : "Connect Wallet"}</p>
-                </div>
+            <div className="mainside">
+              <div className="connect-wal" onClick={handleConnectWallet}>
+                <p to="">{account ? "Disconnect" : "Connect Wallet"}</p>
               </div>
             </div>
 
