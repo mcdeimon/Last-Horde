@@ -67,8 +67,16 @@ const Header = function ({ className }) {
                 <NavLink to="/">
                   <img
                     src="/img/logolight.png"
-                    className="navbarImg"
+                    className="navbarImg d-block"
                     alt="Logo"
+                    id="logo"
+                  />
+
+                  <img
+                    src="/img/logolightSmall.png"
+                    className="navbarImg d-none"
+                    alt="Logo"
+                    id="logoSmall"
                   />
                 </NavLink>
               </div>

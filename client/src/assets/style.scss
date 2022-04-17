@@ -1169,17 +1169,31 @@ a {
       }
 
       .mainside {
-        margin: auto;
-        a {
+        margin-top: -7px;
+
+        p {
           font-size: 13px;
-          padding: 4px 10px;
+          padding: 4px 8px;
+          height: 30px;
+          min-width: 100px;
         }
       }
 
       .logo {
-        img {
-          width: 80%;
+        #logo {
+          display: none !important;
+          width: 60%;
         }
+
+        #logoSmall {
+          display: block !important;
+          width: 40%;
+          margin-left: -25px;
+        }
+      }
+
+      .nav-icon {
+        margin-top: -7px;
       }
     }
   }

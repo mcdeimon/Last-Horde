@@ -5114,10 +5114,8 @@ img.img-rounded {
 
 .navbarContainer {
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  @extend .dCenterCenter;
   justify-content: space-between;
-  align-items: center;
   font-weight: 800;
   color: #fff;
 
