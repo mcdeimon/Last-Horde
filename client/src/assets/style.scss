@@ -896,6 +896,7 @@ a {
   justify-content: center;
 }
 
+
 /*navbar*/
 .navbar {
   padding: 0;
@@ -6175,5 +6176,17 @@ blockquote {
 
   &:after {
     background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.788));
+  }
+}
+
+.logo {
+  #logo {
+    display: block !important;;
+  }
+
+  #logoSmall {
+    display: none !important;
+    width: 40%;
+    margin-left: -25px;
   }
 }
