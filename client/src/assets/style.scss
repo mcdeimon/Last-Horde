@@ -2027,6 +2027,7 @@ footer {
     border-radius: 30px;
     background: $color;
     transition: all 0.3s ease;
+    position: relative;
 
     &:hover {
       transform: scale(1.1);
@@ -2037,12 +2038,19 @@ footer {
       font-style: normal;
 
       &:before {
-        font-family: "FontAwesome";
         font-size: 18px;
         content: "⮝";
         color: #fff !important;
         position: relative;
       }
+    }
+
+    .imgArrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      width: 40%;
     }
   }
 }
@@ -3072,9 +3080,8 @@ i.font60 {
     transition: all 0.3s ease;
 
     &::before {
-      content: "\f053" !important;
+      content: "⮜" !important;
       font-size: 1rem;
-      font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $black;
@@ -3104,9 +3111,8 @@ i.font60 {
     transition: all 0.3s ease;
 
     &::before {
-      content: "\f054" !important;
+      content: "⮞" !important;
       font-size: 1rem;
-      font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $black;

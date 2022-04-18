@@ -1519,6 +1519,7 @@ $color_more: #FC202C;
     border-radius: 30px;
     background: $color;
     transition: all 0.3s ease;
+    position: relative;
 
     &:hover {
       transform: scale(1.1);
@@ -1529,12 +1530,20 @@ $color_more: #FC202C;
       font-style: normal;
 
       &:before {
-        font-family: "FontAwesome";
         font-size: 18px;
         content: "\f106";
         color: #fff !important;
         position: relative;
       }
+    }
+
+    .imgArrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
     }
   }
 }
@@ -2551,7 +2560,7 @@ $color_more: #FC202C;
 .greyscheme .nft {
   width: 100%;
 
-  .slick-prev {
+  /* .slick-prev {
     left: -12px;
     background: #212428;
     border-radius: 45px;
@@ -2565,7 +2574,6 @@ $color_more: #FC202C;
     &::before {
       content: "⮜" !important;
       font-size: 20px;
-      font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $white;
@@ -2597,7 +2605,6 @@ $color_more: #FC202C;
     &::before {
       content: "⮞" !important;
       font-size: 20px;
-      font-family: FontAwesome !important;
       font-style: normal;
       font-weight: normal;
       color: $white;
@@ -2614,7 +2621,7 @@ $color_more: #FC202C;
       background: $white;
       box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
     }
-  }
+  } */
 
   &:hover {
 
@@ -3031,10 +3038,61 @@ $color_more: #FC202C;
   color: rgba(255, 255, 255, .6);
 }
 
+.arrowCarrousel {
+  background: $white;
+  border-radius: 45px;
+  display: block;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  z-index: 1;
+  transition: all 0.3s ease;
+  border: 1px solid $gray;
+  cursor: pointer;
+  position: relative;
+
+  &.black {
+    background: #3c3d3f;
+    border: 1px solid rgba(255, 255, 255, .1);
+
+    &:hover {
+      background: #3c3d3f;
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+  }
+
+  &:hover {
+    background: $white;
+    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  &:before {
+    display: none !important;
+  }
+
+  &.left {
+    left: -12px;
+    transform: rotate(180deg);
+  }
+
+  &.right {
+    right: -12px;
+  }
+
+  .imgArrow {
+    position: absolute;
+    width: 45%;
+    height: 45%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .greyscheme .nft-big {
   width: 100%;
 
-  .slick-prev {
+  /* .slick-prev {
     left: -12px;
     background: $white;
     border-radius: 45px;
@@ -3065,9 +3123,9 @@ $color_more: #FC202C;
       background: $white;
       box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
     }
-  }
+  } */
 
-  .slick-next {
+  /* .slick-next {
     right: -12px;
     background: $white;
     border-radius: 45px;
@@ -3097,7 +3155,7 @@ $color_more: #FC202C;
       background: $white;
       box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.2);
     }
-  }
+  } */
 
   .blockquote {
     font-size: .98rem;

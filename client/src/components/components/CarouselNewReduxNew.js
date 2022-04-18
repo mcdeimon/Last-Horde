@@ -8,6 +8,7 @@ import { carouselNew5 } from "./constants";
 import { Link } from "@reach/router";
 import { getMyFavorites } from "../../redux/actions";
 import axios from "axios";
+import Arrow from "./ArrowCarrousel";
 
 const Outer = styled.div`
   display: flex;
@@ -71,6 +72,8 @@ const CarouselNewRedux = ({ allOrSale }) => {
         {...{
           ...carouselNew5,
           autoplaySpeed: allOrSale === "all" ? 3000 : 4000,
+          prevArrow: <Arrow leftOrRighr="left" isBlack={true} />,
+          nextArrow: <Arrow leftOrRighr="right" isBlack={true} />,
         }}
       >
         {nfts &&

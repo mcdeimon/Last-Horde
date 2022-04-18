@@ -5,6 +5,7 @@ import { Link } from "@reach/router";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Arrow from "./ArrowCarrousel";
 
 const GlobalStyles = createGlobalStyle`
   .nft-big .slick-prev::before{
@@ -48,6 +49,8 @@ export default function Responsive() {
     autoplaySpeed: 5000,
     adaptiveHeight: 300,
     cssEase: "linear",
+    prevArrow: <Arrow leftOrRighr="left" />,
+    nextArrow: <Arrow leftOrRighr="right" />,
     responsive: [
       {
         breakpoint: 1900,
