@@ -36,12 +36,13 @@ export const isLoadingFunction = (isLoading) => {
 ////////////////////////////////////////////////////////////// get cards and packages
 
 export const getAllNFT = () => async (dispatch) => {
-  let nfts = [], nft = {}, amountNfts = 0, amountAux = {};
+  let nfts = [],
+    nft = {},
+    amountNfts = 0,
+    amountAux = {};
 
   try {
-    amountAux = await axios.get(
-      `https://${REACT_APP_HOST_DB}/amount-nft`
-    );
+    amountAux = await axios.get(`https://${REACT_APP_HOST_DB}/amount-nft`);
     amountNfts = amountAux.data.amount;
 
     for (let i = 1; i <= amountNfts; i++) {
@@ -197,6 +198,13 @@ export const getAccount = () => async (dispatch) => {
     }
   } catch (e) {
     console.log(e);
+
+    if (e.code === "INVALID_ARGUMENT") {
+      window.location.reload();
+    } else {
+      account = "";
+      alert(e.message);
+    }
   }
 
   dispatch({
@@ -221,11 +229,13 @@ export const resetAccount = () => (dispatch) => {
 };
 
 export const getMyFavorites = () => async (dispatch) => {
-  let account = await getAccountFunction(),
+  let account = [],
     favoritesIDs = [],
     favorites = [];
 
   try {
+    account = await getAccountFunction();
+
     favoritesIDs = await axios.get(
       `https://${REACT_APP_HOST_DB}/account/${account}`
     );
@@ -242,6 +252,13 @@ export const getMyFavorites = () => async (dispatch) => {
     }
   } catch (e) {
     console.log(e);
+
+    if (e.code === "INVALID_ARGUMENT") {
+      window.location.reload();
+    } else {
+      account = "";
+      alert(e.message);
+    }
   }
 
   dispatch({
