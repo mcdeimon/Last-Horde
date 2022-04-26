@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { navigate } from "@reach/router";
 import axios from "axios";
 import { getMyFavorites } from "../../redux/actions";
+import { address as addressNft } from "../../contracts/ContractNfts";
 
 const { REACT_APP_HOST_DB } = process.env;
 
@@ -20,7 +21,6 @@ const Outer = styled.div`
 const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
   const dispatch = useDispatch();
 
-  const contractState = useSelector((state) => state.contract);
   const accountState = useSelector((state) => state.account);
   const myFavoritesState = useSelector((state) => state.myFavorites);
 
@@ -47,7 +47,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${contractState}`
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }

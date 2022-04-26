@@ -14,7 +14,7 @@ import {
   GET_MY_FAVORITES,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
-import Contract1155 from "../../contracts/Contract1155";
+import ContractNfts from "../../contracts/ContractNfts";
 import axios from "axios";
 
 const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
@@ -121,7 +121,7 @@ export const getPackagesById = (id) => async (dispatch) => {
 };
 
 export const getRarity = () => async (dispatch) => {
-  const pack = await Contract1155.methods.viewDeck2(REACT_APP_ACCOUNT).call();
+  const pack = await ContractNfts.methods.viewDeck2(REACT_APP_ACCOUNT).call();
 
   dispatch({
     type: GET_RARITY,
@@ -178,7 +178,7 @@ export const getAccount = () => async (dispatch) => {
       favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
     }
 
-    pack = await Contract1155.methods.viewDeck2(account).call();
+    pack = await ContractNfts.methods.viewDeck2(account).call();
     deck = [];
 
     for (let i = 1; i <= pack[0].length; i++) {

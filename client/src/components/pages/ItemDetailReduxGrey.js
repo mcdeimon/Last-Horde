@@ -27,7 +27,7 @@ const ItemDetailRedux = () => {
 
   const [myNfts, setAccount] = useState([]);
 
-  const [openCheckout, setOpenCheckout] = useState(false);
+  const [openSell, setOpenSell] = useState(false);
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
   const handleCopyClipboard = () => {
@@ -121,7 +121,7 @@ const ItemDetailRedux = () => {
                     <div className="d-flex flex-row mt-5">
                       <button
                         className="btn-main lead mb-5 mr15"
-                        onClick={() => setOpenCheckout(true)}
+                        onClick={() => setOpenSell(true)}
                       >
                         Sell
                       </button>
@@ -144,7 +144,7 @@ const ItemDetailRedux = () => {
                     <div className="d-flex flex-row mt-5">
                       <button
                         className="btn-main lead mb-5 mr15"
-                        onClick={() => setOpenCheckout(true)}
+                        onClick={() => setOpenCheckoutbid(true)}
                       >
                         Buy Now
                       </button>
@@ -166,64 +166,54 @@ const ItemDetailRedux = () => {
 
       <Footer />
 
-      {openCheckout && (
+      {true && (
         <div className="checkout">
           <div className="maincheckout">
-            <button
-              className="btn-close"
-              onClick={() => setOpenCheckout(false)}
-            >
+            <button className="btn-close" onClick={() => setOpenSell(false)}>
               x
             </button>
 
             <div className="heading">
-              <h3>Checkout</h3>
+              <h3>Sell</h3>
             </div>
 
             <p>
-              You are about to purchase a{" "}
-              <span className="bold">AnimeSailorClub #304</span>
-              <span className="bold">from Monica Lucas</span>
+              You are about to sell a <span className="bold">{item?.name}</span>
             </p>
 
             <div className="detailcheckout mt-4">
               <div className="listcheckout">
                 <h6>
-                  Enter quantity.
-                  <span className="color">10 available</span>
+                  Enter price. <span className="color">Price in HOR</span>
                 </h6>
 
                 <input
-                  type="text"
-                  name="buy_now_qty"
-                  id="buy_now_qty"
+                  type="number"
+                  name="sellPrice"
+                  id="sellPrice"
                   className="form-control"
                 />
               </div>
             </div>
 
-            <div className="heading mt-3">
-              <p>Your balance</p>
+            <div className="detailcheckout mt-4">
+              <div className="listcheckout">
+                <h6>Enter number of expiration days.</h6>
 
-              <div className="subtotal">10.67856 ETH</div>
+                <input
+                  type="number"
+                  name="sellDays"
+                  id="sellDays"
+                  className="form-control"
+                />
+              </div>
             </div>
 
-            <div className="heading">
-              <p>Service fee 2.5%</p>
-
-              <div className="subtotal">0.00325 ETH</div>
-            </div>
-
-            <div className="heading">
-              <p>You will pay</p>
-
-              <div className="subtotal">0.013325 ETH</div>
-            </div>
-
-            <button className="btn-main lead mb-5">Checkout</button>
+            <button className="btn-main lead mb-5">Sell</button>
           </div>
         </div>
       )}
+
       {openCheckoutbid && (
         <div className="checkout">
           <div className="maincheckout">

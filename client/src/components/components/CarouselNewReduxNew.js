@@ -9,6 +9,7 @@ import { Link } from "@reach/router";
 import { getMyFavorites } from "../../redux/actions";
 import axios from "axios";
 import Arrow from "./ArrowCarrousel";
+import { address as addressNft } from "../../contracts/ContractNfts";
 
 const Outer = styled.div`
   display: flex;
@@ -24,7 +25,6 @@ const CarouselNewRedux = ({ allOrSale }) => {
 
   const nftsState = useSelector((state) => state.nfts);
   const myFavoritesState = useSelector((state) => state.myFavorites);
-  const contractState = useSelector((state) => state.contract);
   const accountState = useSelector((state) => state.account);
 
   const [nfts, setNFTs] = useState([]);
@@ -50,7 +50,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${contractState}`
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }
