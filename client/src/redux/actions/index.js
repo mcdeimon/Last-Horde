@@ -169,7 +169,7 @@ export const getAccount = () => async (dispatch) => {
     );
     favoritesIDs = favoritesIDs.data.favorites;
 
-    for (let i = 0; i < favoritesIDs.length; i++) {
+    for (let i = 1; i < favoritesIDs.length; i++) {
       /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
       nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
 
@@ -242,7 +242,7 @@ export const getMyFavorites = () => async (dispatch) => {
 
     favoritesIDs = favoritesIDs.data.favorites;
 
-    for (let i = 0; i < favoritesIDs.length; i++) {
+    for (let i = 1; i < favoritesIDs.length; i++) {
       /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
       nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
 

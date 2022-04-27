@@ -4,14 +4,29 @@ import Footer from "../components/footer";
 import { IoGrid } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
 import { FaShareSquare } from "react-icons/fa";
+import ContractNfts, {
+  address as addressNft,
+} from "../../contracts/ContractNfts";
+import ContractMarket, {
+  address as addressMarket,
+} from "../../contracts/ContractMarket";
 
 //IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
-import { getNFTById, getPackagesById, getRarity } from "../../redux/actions";
+import {
+  getMyFavorites,
+  getNFTById,
+  getPackagesById,
+  getRarity,
+} from "../../redux/actions";
 import { useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
+import axios from "axios";
+import { web3 } from "../../utils/web3";
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
+
+const { REACT_APP_HOST_DB } = process.env;
 
 const ItemDetailRedux = () => {
   const dispatch = useDispatch();
@@ -19,15 +34,24 @@ const ItemDetailRedux = () => {
   const nftItem = useSelector((state) => state.nft);
   const packageItem = useSelector((state) => state.package);
   const myNftsState = useSelector((state) => state.myNfts);
+  const accountState = useSelector((state) => state.account);
+  const myFavoritesState = useSelector((state) => state.myFavorites);
 
   const { itemId } = useParams();
   const query = useQuery();
 
   const [item, setItem] = useState({});
 
-  const [myNfts, setAccount] = useState([]);
+  const [myNfts, setMyNfts] = useState([]);
+  const [account, setAccount] = useState(accountState);
+  const [myFavorites, setMyFavorites] = useState(myFavoritesState);
 
   const [openSell, setOpenSell] = useState(false);
+  const [sellObject, setSellObject] = useState({
+    price: 0,
+    expirationDays: 0,
+  });
+
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
   const handleCopyClipboard = () => {
@@ -36,6 +60,36 @@ const ItemDetailRedux = () => {
         query.get("package") ? "?package=true" : ""
       }`
     );
+  };
+
+  const handleLike = async () => {
+    if (account) {
+      if (myFavorites.find((nft) => nft.id === itemId))
+        await axios
+          .delete(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+      else
+        await axios
+          .post(
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
+          )
+          .then(() => dispatch(getMyFavorites()));
+    }
+  };
+
+  const handleSell = async () => {
+    await ContractNfts.methods
+      .setApprovalForAll(addressMarket, true)
+      .send({ from: account });
+
+    const priceWei = await web3.utils.toWei(sellObject.price, "ether");
+
+    const order = await ContractMarket.methods
+      .createOrder(addressNft, `${itemId}`, priceWei, sellObject.expirationDays)
+      .send({ from: account, gas: "30000000" });
+    console.log(order);
   };
 
   useEffect(() => {
@@ -51,8 +105,10 @@ const ItemDetailRedux = () => {
   }, [nftItem, packageItem, query]);
 
   useEffect(() => {
-    setAccount(myNftsState);
-  }, [myNftsState]);
+    setMyNfts(myNftsState);
+    setAccount(accountState);
+    setMyFavorites(myFavoritesState);
+  }, [myNftsState, accountState, myFavoritesState]);
 
   return (
     <div className="greyscheme">
@@ -72,6 +128,17 @@ const ItemDetailRedux = () => {
                 <p>#{itemId}</p>
 
                 <FaShareSquare onClick={handleCopyClipboard} />
+
+                <div
+                  className={`nft__item_like ${
+                    myFavorites.find((nft) => nft.id === item.id)
+                      ? "likedHeart"
+                      : ""
+                  }`}
+                  onClick={handleLike}
+                >
+                  <i className="fa fa-heart"></i>
+                </div>
               </div>
 
               {!query.get("package") ? (
@@ -166,7 +233,7 @@ const ItemDetailRedux = () => {
 
       <Footer />
 
-      {true && (
+      {openSell && (
         <div className="checkout">
           <div className="maincheckout">
             <button className="btn-close" onClick={() => setOpenSell(false)}>
@@ -192,6 +259,9 @@ const ItemDetailRedux = () => {
                   name="sellPrice"
                   id="sellPrice"
                   className="form-control"
+                  onChange={(e) =>
+                    setSellObject({ ...sellObject, price: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -205,11 +275,19 @@ const ItemDetailRedux = () => {
                   name="sellDays"
                   id="sellDays"
                   className="form-control"
+                  onChange={(e) =>
+                    setSellObject({
+                      ...sellObject,
+                      expirationDays: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
 
-            <button className="btn-main lead mb-5">Sell</button>
+            <button className="btn-main lead mb-5" onClick={handleSell}>
+              Sell
+            </button>
           </div>
         </div>
       )}
