@@ -80,16 +80,40 @@ const ItemDetailRedux = () => {
   };
 
   const handleSell = async () => {
-    await ContractNfts.methods
-      .setApprovalForAll(addressMarket, true)
-      .send({ from: account });
+    try {
+      await ContractNfts.methods
+        .setApprovalForAll(addressMarket, true)
+        .send({ from: account });
 
-    const priceWei = await web3.utils.toWei(sellObject.price, "ether");
+      const priceWei = await web3.utils.toWei(sellObject.price, "ether");
 
-    const order = await ContractMarket.methods
-      .createOrder(addressNft, `${itemId}`, priceWei, sellObject.expirationDays)
-      .send({ from: account, gas: "30000000" });
-    console.log(order);
+      const order = await ContractMarket.methods
+        .createOrder(
+          addressNft,
+          `${itemId}`,
+          priceWei,
+          sellObject.expirationDays
+        )
+        .send({ from: account, gas: "30000000" });
+
+      await web3.eth.getBlockNumber().then((blockNumber) => {
+        blockNumber = blockNumber - 50;
+
+        ContractMarket.getPastEvents("allEvents", {
+          fromBlock: blockNumber,
+          toBlock: "latest",
+        }).then((events) => {
+          console.log(events);
+        });
+      });
+
+      await axios.post(
+        `https://${REACT_APP_HOST_DB}/on_sale/account/${account}/id_nft/${itemId}`,
+        {}
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

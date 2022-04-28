@@ -3,6 +3,7 @@ const myFavoritesController = require("../controllers/my_favorites");
 const missingController = require("../controllers/missing");
 const purchasePackageController = require("../controllers/purchase_packages");
 const amountNftController = require("../controllers/amount_nfts");
+const onSaleController = require("../controllers/on_sale");
 
 module.exports = (app) => {
   app.get("/", (req, res) =>
@@ -43,4 +44,9 @@ module.exports = (app) => {
   app.put("/amount-nft/:amount", amountNftController.update);
 
   app.post("/amount-nft/:amount", amountNftController.create);
+
+  //////////////////////////////////////////////////////// ON SELL NFT ////////////////////////////////////////////////////////
+  app.post("/on-sale", onSaleController.create);
+
+  app.put("/on-sale/account/:account/id_nft/:id_nft", onSaleController.update);
 };
