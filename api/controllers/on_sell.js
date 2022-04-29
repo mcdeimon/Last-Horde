@@ -14,9 +14,15 @@ module.exports = {
         sold: req.body.sold,
         expired: req.body.expired,
       })
-      .then((on_sell) =>
-        res.status(200).send({ ...on_sell.dataValues, status: 200 })
-      )
+      .then((on_sell) => {
+        setTimeout(() => {
+          on_sell.update({
+            expired: true,
+          });
+        }, 200000 * req.body.expiration_days); // 86400000
+
+        res.status(200).send({ ...on_sell.dataValues, status: 200 });
+      })
       .catch((error) => res.status(400).send({ ...error, status: 400 }));
   },
 
@@ -26,6 +32,7 @@ module.exports = {
         where: {
           account: req.params.account,
           id_nft: req.params.id_nft,
+          order_id: req.params.order_id,
         },
       })
       .then((on_sell) => {
@@ -37,6 +44,15 @@ module.exports = {
             )
             .catch((error) => res.status(400).send({ ...error, status: 400 }));
       })
+      .catch((error) => res.status(400).send({ ...error, status: 400 }));
+  },
+
+  find(_, res) {
+    return on_sell
+      .findAll({})
+      .then((on_sell) =>
+        res.status(200).send({ all: [...on_sell], status: 200 })
+      )
       .catch((error) => res.status(400).send({ ...error, status: 400 }));
   },
 };
