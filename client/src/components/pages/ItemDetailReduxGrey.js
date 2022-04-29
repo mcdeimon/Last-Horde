@@ -109,7 +109,15 @@ const ItemDetailRedux = () => {
 
       await axios.post(
         `https://${REACT_APP_HOST_DB}/on_sale/account/${account}/id_nft/${itemId}`,
-        {}
+        {
+          account: account,
+          id_nft: itemId,
+          price: priceWei,
+          expiration_days: sellObject.expirationDays,
+          order_id: 34242,
+          sold: false,
+          expired: false,
+        }
       );
     } catch (err) {
       console.log(err);
