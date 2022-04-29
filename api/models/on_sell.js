@@ -1,8 +1,8 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const My_favorites = sequelize.define(
-    "my_favorites",
+  const On_sell = sequelize.define(
+    "on_sell",
     {
       id: {
         allowNull: false,
@@ -43,14 +43,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       freezeTableName: true,
-      tableName: "my_favorites",
+      tableName: "on_sell",
       classMethods: {},
     }
   );
 
-  My_favorites.associate = function (models) {
+  On_sell.associate = function (models) {
     // associations can be defined here
   };
 
-  return My_favorites;
+  return On_sell;
 };

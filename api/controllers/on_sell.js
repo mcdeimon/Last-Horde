@@ -1,9 +1,10 @@
 const Sequelize = require("sequelize");
-const on_sale = require("../models").on_sale;
+const on_sell = require("../models").on_sell;
+const my_favorites = require("../models");
 
 module.exports = {
   create(req, res) {
-    return on_sale
+    return on_sell
       .create({
         account: req.body.account,
         id_nft: req.body.id_nft,
@@ -13,26 +14,26 @@ module.exports = {
         sold: req.body.sold,
         expired: req.body.expired,
       })
-      .then((on_sale) =>
-        res.status(200).send({ ...on_sale.dataValues, status: 200 })
+      .then((on_sell) =>
+        res.status(200).send({ ...on_sell.dataValues, status: 200 })
       )
       .catch((error) => res.status(400).send({ ...error, status: 400 }));
   },
 
   update(req, res) {
-    return on_sale
+    return on_sell
       .findOne({
         where: {
           account: req.params.account,
           id_nft: req.params.id_nft,
         },
       })
-      .then((on_sale) => {
-        if (on_sale)
-          on_sale
+      .then((on_sell) => {
+        if (on_sell)
+          on_sell
             .update(req.body)
-            .then((on_sale) =>
-              res.status(200).send({ ...on_sale.dataValues, status: 200 })
+            .then((on_sell) =>
+              res.status(200).send({ ...on_sell.dataValues, status: 200 })
             )
             .catch((error) => res.status(400).send({ ...error, status: 400 }));
       })
