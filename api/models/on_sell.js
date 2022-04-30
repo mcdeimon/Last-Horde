@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       expired: {
         type: DataTypes.BOOLEAN,
       },
+
+      created_days: {
+        type: DataTypes.DATE,
+      },
     },
 
     {

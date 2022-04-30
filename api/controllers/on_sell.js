@@ -13,6 +13,7 @@ module.exports = {
         order_id: req.body.order_id,
         sold: req.body.sold,
         expired: req.body.expired,
+        created_days: req.body.created_days,
       })
       .then((on_sell) => {
         setTimeout(() => {
