@@ -81,8 +81,8 @@ export const getNFTById = (id) => async (dispatch) => {
 };
 
 export const getPackages = () => async (dispatch) => {
-  let packages = [];
-  let packageCard = {};
+  let packages = [],
+    packageCard = {};
 
   try {
     for (let i = 1; i <= 3; i++) {
@@ -179,7 +179,6 @@ export const getAccount = () => async (dispatch) => {
     }
 
     pack = await ContractNfts.methods.viewDeck2(account).call();
-    deck = [];
 
     for (let i = 1; i <= pack[0].length; i++) {
       let nft = {};
@@ -191,9 +190,9 @@ export const getAccount = () => async (dispatch) => {
         } */
 
         nft = await require(`../../../public/Nfts/${i}.json`);
-        for (let j = 0; j < pack[0][i]; j++) {
-          deck.push({ ...nft, id: i });
-        }
+
+        if (deck.length < 200)
+          for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i });
       }
     }
   } catch (e) {
