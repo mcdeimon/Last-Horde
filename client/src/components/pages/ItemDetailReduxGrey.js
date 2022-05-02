@@ -81,9 +81,10 @@ const ItemDetailRedux = () => {
 
   const handleSell = async () => {
     try {
-      await ContractNfts.methods
+      const approve = await ContractNfts.methods
         .setApprovalForAll(addressMarket, true)
         .send({ from: account });
+      console.log(approve, "approve");
 
       const priceWei = await web3.utils.toWei(sellObject.price, "ether");
 
@@ -95,6 +96,7 @@ const ItemDetailRedux = () => {
           sellObject.expirationDays
         )
         .send({ from: account, gas: "30000000" });
+      console.log(order, "order");
 
       await web3.eth.getBlockNumber().then((blockNumber) => {
         blockNumber = blockNumber - 50;
@@ -103,7 +105,7 @@ const ItemDetailRedux = () => {
           fromBlock: blockNumber,
           toBlock: "latest",
         }).then((events) => {
-          console.log(events);
+          console.log(events, "events");
         });
       });
 
