@@ -95,7 +95,7 @@ const ItemDetailRedux = () => {
           priceWei,
           sellObject.expirationDays
         )
-        .send({ from: account, gas: "30000000" });
+        .send({ from: account, gas: "300000" });
       console.log(order, "order");
 
       await web3.eth.getBlockNumber().then((blockNumber) => {
