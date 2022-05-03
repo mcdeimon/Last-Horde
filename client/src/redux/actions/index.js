@@ -256,6 +256,7 @@ export const resetAccount = () => (dispatch) => {
       account: "",
       deck: [],
       favorites: [],
+      OnSales: [],
     },
   });
 };

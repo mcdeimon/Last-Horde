@@ -23,10 +23,11 @@ const initialState = {
   nfts: [], // all nfts
   filteredNfts: [], // filtered by rarity and type all nfts
 
-  account: "",
-  myNfts: [],
-  filteredMyNfts: [],
-  myFavorites: [],
+  account: "", // account address
+  myNfts: [], // my nfts
+  filteredMyNfts: [], // filtered by rarity and type my nfts
+  myFavorites: [], // my favorites
+  myOnSales: [], // my on sales
 
   nft: {}, //detail of nft
   package: {}, //detail of package
@@ -77,6 +78,12 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         rarity: payload,
+      };
+
+    case GET_ON_SELL:
+      return {
+        ...state,
+        onSale: payload,
       };
 
     ////////////////////////////////////////////////////////////// filters
@@ -150,6 +157,11 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         myNfts: payload.deck,
         filteredMyNfts: payload.deck,
         myFavorites: payload.favorites,
+        myOnSales: state.onSale.filter(
+          (nft) =>
+            nft.account.toLocaleLowerCase() ===
+            payload.account.toLocaleLowerCase()
+        ),
       };
 
     case RESET_ACCOUNT:
@@ -159,18 +171,13 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         myNfts: payload.deck,
         filteredMyNfts: payload.deck,
         myFavorites: payload.favorites,
+        myOnSales: payload.OnSales,
       };
 
     case GET_MY_FAVORITES:
       return {
         ...state,
         myFavorites: payload,
-      };
-
-    case GET_ON_SELL:
-      return {
-        ...state,
-        onSale: payload,
       };
 
     default:

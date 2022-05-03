@@ -11,6 +11,7 @@ const ColumnNewRedux = ({ type }) => {
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
   const myFavoritesState = useSelector((state) => state.myFavorites);
   const onSale = useSelector((state) => state.onSale);
+  const myOnSaleState = useSelector((state) => state.myOnSales);
 
   const [nfts, setNFTs] = useState([]);
   const [packagesArr, setPackagesArr] = useState([]);
@@ -40,7 +41,7 @@ const ColumnNewRedux = ({ type }) => {
         break;
 
       case "myOnSaleNfts":
-        setNFTs(myNfts);
+        setNFTs(myOnSaleState);
         break;
 
       case "myOnRentNfts":

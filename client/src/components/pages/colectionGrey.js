@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterType, getRarity } from "../../redux/actions";
+import { filterType, getOnSell, getRarity } from "../../redux/actions";
 import ColumnNewRedux from "../components/ColumnNewRedux";
 import Footer from "../components/footer";
 
@@ -15,16 +15,19 @@ const Colection = function () {
   const accountState = useSelector((state) => state.account);
   const myNftsState = useSelector((state) => state.myNfts);
   const myFavoritesNftsState = useSelector((state) => state.myFavorites);
+  const myOnSaleState = useSelector((state) => state.myOnSales);
 
   const [account, setAccount] = useState(accountState);
   const [myNfts, setMyNfts] = useState(myNftsState);
   const [myFavoritesNfts, setMyFavoritesNfts] = useState(myFavoritesNftsState);
+  const [myOnSale, setMyOnSale] = useState(myOnSaleState);
 
   useEffect(() => {
     setAccount(accountState);
     setMyNfts(myNftsState);
     setMyFavoritesNfts(myFavoritesNftsState);
-  }, [accountState, myNftsState, myFavoritesNftsState]);
+    setMyOnSale(myOnSaleState);
+  }, [accountState, myNftsState, myFavoritesNftsState, myOnSaleState]);
 
   const [openMenu, setOpenMenu] = useState(true);
   const [openMenu1, setOpenMenu1] = useState(false);
@@ -50,6 +53,7 @@ const Colection = function () {
   };
 
   useEffect(() => {
+    dispatch(getOnSell());
     dispatch(getRarity());
     dispatch(filterType("nfts"));
   }, [dispatch]);
@@ -115,7 +119,7 @@ const Colection = function () {
           <div id="zero1" className="onStep fadeIn">
             <ColumnNewRedux type="myNfts" />
           </div>
-        ) : openMenu1 && myNfts.length ? (
+        ) : openMenu1 && myOnSale.length ? (
           <div id="zero2" className="onStep fadeIn">
             <ColumnNewRedux type="myOnSaleNfts" />
           </div>
