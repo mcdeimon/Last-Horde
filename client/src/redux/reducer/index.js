@@ -6,6 +6,7 @@ import {
   GET_ALL_NFT,
   GET_MY_FAVORITES,
   GET_NFT_BY_ID,
+  GET_ON_SELL,
   GET_PACKAGES,
   GET_PACKAGE_BY_ID,
   GET_RARITY,
@@ -17,7 +18,7 @@ const initialState = {
   contract: "",
   isLoading: true,
 
-  typeExplorer: "nfts", //=nfts or packages
+  typeExplorer: "sale", //=nfts or packages
   packages: [],
   nfts: [], // all nfts
   filteredNfts: [], // filtered by rarity and type all nfts
@@ -31,6 +32,8 @@ const initialState = {
   package: {}, //detail of package
 
   rarity: [], //all rarity
+
+  onSale: [], //all on sale
 };
 
 export const rootReducer = (state = initialState, { type, payload }) => {
@@ -162,6 +165,12 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         myFavorites: payload,
+      };
+
+    case GET_ON_SELL:
+      return {
+        ...state,
+        onSale: payload,
       };
 
     default:

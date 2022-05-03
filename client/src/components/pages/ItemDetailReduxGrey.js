@@ -16,6 +16,7 @@ import { StyledHeader } from "../Styles";
 import {
   getMyFavorites,
   getNFTById,
+  getOnSell,
   getPackagesById,
   getRarity,
 } from "../../redux/actions";
@@ -81,10 +82,9 @@ const ItemDetailRedux = () => {
 
   const handleSell = async () => {
     try {
-      const approve = await ContractNfts.methods
+      await ContractNfts.methods
         .setApprovalForAll(addressMarket, true)
         .send({ from: account });
-      console.log(approve, "approve");
 
       const priceWei = await web3.utils.toWei(sellObject.price, "ether");
 
@@ -92,32 +92,29 @@ const ItemDetailRedux = () => {
         .createOrder(
           addressNft,
           `${itemId}`,
-          priceWei,
-          sellObject.expirationDays
+          `${priceWei}`,
+          `${sellObject.expirationDays}`
         )
         .send({ from: account, gas: "300000" });
-      console.log(order, "order");
-
-      await web3.eth.getBlockNumber().then((blockNumber) => {
-        blockNumber = blockNumber - 50;
-
-        ContractMarket.getPastEvents("allEvents", {
-          fromBlock: blockNumber,
-          toBlock: "latest",
-        }).then((events) => {
-          console.log(events, "events");
-        });
-      });
 
       await axios.post(`https://${REACT_APP_HOST_DB}/on-sell`, {
         account: account,
         id_nft: itemId,
         price: priceWei,
         expiration_days: sellObject.expirationDays,
-        order_id: 34242,
+        order_id: order.events.OrderCreated.returnValues.id,
         sold: false,
         expired: false,
+        created_days: new Date(),
       });
+
+      setOpenSell(false);
+      setSellObject({
+        price: 0,
+        expirationDays: 0,
+      });
+
+      dispatch(getOnSell());
     } catch (err) {
       console.log(err);
     }
@@ -161,7 +158,7 @@ const ItemDetailRedux = () => {
                 <FaShareSquare onClick={handleCopyClipboard} />
 
                 <div
-                  className={`nft__item_like ${
+                  className={`nft__item_like detail ${
                     myFavorites.find((nft) => nft.id === item.id)
                       ? "likedHeart"
                       : ""

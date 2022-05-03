@@ -5,6 +5,7 @@ import { navigate } from "@reach/router";
 import axios from "axios";
 import { getMyFavorites } from "../../redux/actions";
 import { address as addressNft } from "../../contracts/ContractNfts";
+import { web3 } from "../../utils/web3";
 
 const { REACT_APP_HOST_DB } = process.env;
 
@@ -26,6 +27,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
 
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     setAccount(accountState);
@@ -52,6 +54,11 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           .then(() => dispatch(getMyFavorites()));
     }
   };
+
+  useEffect(async () => {
+    if (item?.price)
+      setPrice(await web3.utils.fromWei(`${item.price}`, "ether"));
+  }, [item]);
 
   return (
     <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
@@ -94,7 +101,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
 
           {sell && (
             <>
-              <div className="nft__item_price">{item?.price || "1000"} HOR</div>
+              <div className="nft__item_price">{price} HOR</div>
 
               <div className="nft__item_action">
                 <span

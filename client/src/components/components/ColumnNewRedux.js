@@ -10,10 +10,11 @@ const ColumnNewRedux = ({ type }) => {
   const packages = useSelector((state) => state.packages);
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
   const myFavoritesState = useSelector((state) => state.myFavorites);
+  const onSale = useSelector((state) => state.onSale);
 
   const [nfts, setNFTs] = useState([]);
   const [packagesArr, setPackagesArr] = useState([]);
-  const [typeExplorer, setTypeExplorer] = useState("nfts");
+  const [typeExplorer, setTypeExplorer] = useState("sale");
   const [height, setHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,10 +52,19 @@ const ColumnNewRedux = ({ type }) => {
         break;
 
       default:
-        setNFTs(filteredNfts);
+        if (typeExplorer === "nfts") setNFTs(filteredNfts);
+        else setNFTs(onSale);
         break;
     }
-  }, [filteredNfts, packages, myNfts, myFavoritesState, type]);
+  }, [
+    filteredNfts,
+    packages,
+    myNfts,
+    myFavoritesState,
+    type,
+    typeExplorer,
+    onSale,
+  ]);
 
   useEffect(() => {
     if (typeExplorerAux !== typeExplorer) {

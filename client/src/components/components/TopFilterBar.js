@@ -124,16 +124,6 @@ const TopFilterBar = () => {
           />
         </div>
       ) : null}
-
-      {typeExplorer !== "packages" ? (
-        <div className="dropdownSelect three">
-          <Select
-            styles={customStyles}
-            options={[defaultValue, ...itemsType]}
-            onChange={handleItemsType}
-          />
-        </div>
-      ) : null}
     </div>
   );
 };

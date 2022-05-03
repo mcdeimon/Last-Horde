@@ -26,3 +26,7 @@ export const GET_ACCOUNT = "GET_ACCOUNT";
 export const RESET_ACCOUNT = "RESET_ACCOUNT";
 
 export const GET_MY_FAVORITES = "GET_MY_FAVORITES";
+
+////////////////////////////////////////////////////////////// on sell
+
+export const GET_ON_SELL = "GET_ON_SELL";

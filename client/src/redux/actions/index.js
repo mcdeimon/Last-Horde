@@ -12,6 +12,7 @@ import {
   RESET_ACCOUNT,
   FILTER_NAME,
   GET_MY_FAVORITES,
+  GET_ON_SELL,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import ContractNfts from "../../contracts/ContractNfts";
@@ -126,6 +127,38 @@ export const getRarity = () => async (dispatch) => {
   dispatch({
     type: GET_RARITY,
     payload: pack[1],
+  });
+};
+
+export const getOnSell = () => async (dispatch) => {
+  let onSell = [],
+    nftArr = [],
+    nft = {};
+
+  try {
+    onSell = await axios.get(`https://${REACT_APP_HOST_DB}/on-sell`);
+    onSell = onSell.data.all;
+
+    for (let i = 0; i < onSell.length; i++) {
+      if (
+        !onSell[i].sold ||
+        !onSell[i].expired ||
+        onSell[i].created_days == Date() + onSell[i].expiration_days
+      ) {
+        /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${onSell[i].id_nft}.json`);
+      nfts.push(nft.data); */
+
+        nft = await require(`../../../public/Nfts/${onSell[i].id_nft}.json`);
+        nftArr.push({ ...nft, ...onSell[i], id: onSell[i].id_nft });
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
+  dispatch({
+    type: GET_ON_SELL,
+    payload: nftArr,
   });
 };
 

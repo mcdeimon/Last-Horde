@@ -6,6 +6,7 @@ import TopFilterBar from "../components/TopFilterBar";
 import { StyledHeader } from "../Styles";
 import {
   getAllNFT,
+  getOnSell,
   getPackages,
   getRarity,
   isLoadingFunction,
@@ -28,6 +29,7 @@ const Explore = () => {
     dispatch(getAllNFT());
     dispatch(getPackages());
     dispatch(getRarity());
+    dispatch(getOnSell());
   }, [dispatch]);
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { StyledHeader } from "../Styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllNFT,
+  getOnSell,
   getPackages,
   getRarity,
   isLoadingFunction,
@@ -27,6 +28,7 @@ const Home = () => {
     dispatch(getAllNFT());
     dispatch(getPackages());
     dispatch(getRarity());
+    dispatch(getOnSell());
   }, [dispatch]);
 
   useEffect(() => {

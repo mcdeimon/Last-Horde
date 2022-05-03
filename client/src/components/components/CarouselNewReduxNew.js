@@ -10,6 +10,7 @@ import { getMyFavorites } from "../../redux/actions";
 import axios from "axios";
 import Arrow from "./ArrowCarrousel";
 import { address as addressNft } from "../../contracts/ContractNfts";
+import { web3 } from "../../utils/web3";
 
 const Outer = styled.div`
   display: flex;
@@ -26,11 +27,13 @@ const CarouselNewRedux = ({ allOrSale }) => {
   const nftsState = useSelector((state) => state.nfts);
   const myFavoritesState = useSelector((state) => state.myFavorites);
   const accountState = useSelector((state) => state.account);
+  const onSale = useSelector((state) => state.onSale);
 
   const [nfts, setNFTs] = useState([]);
   const [height, setHeight] = useState(0);
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
+  const [price, setPrice] = useState(0);
 
   const onImgLoad = ({ target: img }) => {
     let currentHeight = height;
@@ -63,8 +66,13 @@ const CarouselNewRedux = ({ allOrSale }) => {
 
   useEffect(() => {
     if (allOrSale === "all") setNFTs(nftsState.slice(-20));
-    else setNFTs(nftsState);
-  }, [nftsState, allOrSale]);
+    else setNFTs(onSale);
+  }, [nftsState, allOrSale, onSale]);
+
+  const fromWei = (price) => {
+    if (price) return `${web3.utils.fromWei(`${price}`, "ether")} HOR`;
+    else return "Calculating...";
+  };
 
   return (
     <div className="nft">
@@ -108,7 +116,9 @@ const CarouselNewRedux = ({ allOrSale }) => {
                           </Link>
                         </span>
 
-                        <div className="nft__item_price">10000 HOR</div>
+                        <div className="nft__item_price">
+                          {fromWei(nft.price)}
+                        </div>
 
                         <div className="nft__item_action">
                           <Link to={`/detail/${nft.id}`}>

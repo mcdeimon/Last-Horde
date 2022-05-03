@@ -2744,6 +2744,12 @@ $color_more: #FC202C;
   &:hover {
     color: pink;
   }
+
+  &.detail {
+    bottom: initial;
+    float: none;
+    margin: 0 1.5rem;
+  }
 }
 
 /*** countdown ***/
