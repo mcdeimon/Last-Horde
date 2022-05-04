@@ -2,7 +2,6 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { type, rarity, itemsType } from "./constants/filters";
-import { filterItemsType } from "../../store/actions";
 import { filterRarity, filterType, filterNftName } from "../../redux/actions";
 
 const TopFilterBar = () => {
@@ -27,14 +26,6 @@ const TopFilterBar = () => {
     [dispatch]
   );
 
-  const handleItemsType = useCallback(
-    (option) => {
-      const { value } = option;
-      dispatch(filterItemsType({ value, singleSelect: true }));
-    },
-    [dispatch]
-  );
-
   const handleNftName = useCallback(
     (e) => {
       dispatch(filterNftName(e.target.value));
@@ -45,14 +36,15 @@ const TopFilterBar = () => {
   const defaultValue = {
     value: null,
     label: "Select Filter",
+    isDisabled: true
   };
 
   const customStyles = {
-    option: (base, state) => ({
+    option: (base) => ({
       ...base,
       background: "#212428",
       color: "#fff",
-      borderRadius: state.isFocused ? "0" : 0,
+      borderRadius: "0",
       "&:hover": {
         background: "#141414",
       },
@@ -61,12 +53,14 @@ const TopFilterBar = () => {
       ...base,
       borderRadius: 0,
       marginTop: 0,
+      color: "#fff",
     }),
     menuList: (base) => ({
       ...base,
       padding: 0,
+      color: "#fff",
     }),
-    control: (base, state) => ({
+    control: (base) => ({
       ...base,
       padding: 2,
       background: "#212428",
@@ -75,6 +69,10 @@ const TopFilterBar = () => {
       "&:hover": {
         background: "solid 1px #ffffff1a",
       },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#fff",
     }),
   };
 
