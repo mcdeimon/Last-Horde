@@ -37,15 +37,17 @@ const ItemDetailRedux = () => {
   const myNftsState = useSelector((state) => state.myNfts);
   const accountState = useSelector((state) => state.account);
   const myFavoritesState = useSelector((state) => state.myFavorites);
+  const myOnSaleState = useSelector((state) => state.myOnSales);
 
   const { itemId } = useParams();
   const query = useQuery();
 
   const [item, setItem] = useState({});
 
-  const [myNfts, setMyNfts] = useState([]);
+  const [myNfts, setMyNfts] = useState(myNftsState);
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
+  const [myOnSale, setMyOnSale] = useState(myOnSaleState);
 
   const [openSell, setOpenSell] = useState(false);
   const [sellObject, setSellObject] = useState({
@@ -120,8 +122,31 @@ const ItemDetailRedux = () => {
     }
   };
 
+  const handleCancelSell = async () => {
+    try {
+      console.log(account);
+      const order_id = myOnSale?.find(
+        (nft) => nft.id === parseInt(itemId)
+      )?.order_id;
+      console.log(order_id);
+
+      let cancellOrder = await ContractMarket.methods
+        .cancelOrder(addressNft, order_id)
+        .send({
+          from: account,
+          gas: "300000",
+        });
+      console.log(cancellOrder);
+
+      dispatch(getOnSell());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     dispatch(getRarity());
+    dispatch(getOnSell());
 
     if (query.get("package")) dispatch(getPackagesById(itemId));
     else dispatch(getNFTById(itemId));
@@ -136,7 +161,8 @@ const ItemDetailRedux = () => {
     setMyNfts(myNftsState);
     setAccount(accountState);
     setMyFavorites(myFavoritesState);
-  }, [myNftsState, accountState, myFavoritesState]);
+    setMyOnSale(myOnSaleState);
+  }, [myNftsState, accountState, myFavoritesState, myOnSaleState]);
 
   return (
     <div className="greyscheme">
@@ -214,12 +240,21 @@ const ItemDetailRedux = () => {
                   {myNfts.find((nft) => nft.id === parseInt(itemId)) &&
                   !query.get("package") ? (
                     <div className="d-flex flex-row mt-5">
-                      <button
-                        className="btn-main lead mb-5 mr15"
-                        onClick={() => setOpenSell(true)}
-                      >
-                        Sell
-                      </button>
+                      {myOnSale?.find((nft) => nft.id === parseInt(itemId)) ? (
+                        <button
+                          className="btn-main lead mb-5 mr15"
+                          onClick={handleCancelSell}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <button
+                          className="btn-main lead mb-5 mr15"
+                          onClick={() => setOpenSell(true)}
+                        >
+                          Sell
+                        </button>
+                      )}
 
                       <button
                         className="btn-main btn2 lead mb-5 mr15"

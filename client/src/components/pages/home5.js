@@ -19,8 +19,10 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const filteredNfts = useSelector((state) => state.filteredNfts);
+  const onSaleState = useSelector((state) => state.onSale);
 
   const [nfts, setNFTs] = useState([]);
+  const [onSale, setOnSale] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -33,11 +35,12 @@ const Home = () => {
 
   useEffect(() => {
     setNFTs(filteredNfts);
-  }, [filteredNfts]);
+    setOnSale(onSaleState);
+  }, [filteredNfts, onSaleState]);
 
   useEffect(() => {
     setTimeout(() => {
-      if (nfts.length) setIsLoading(false);
+      if (nfts.length && onSale.length) setIsLoading(false);
       else setIsLoading(true);
     }, 3000);
   }, [nfts]);
@@ -71,8 +74,12 @@ const Home = () => {
                   </div>
                 </div>
 
-                <div className="col-lg-12">
-                  <CarouselNewRedux allOrSale="onSale" />
+                <div className="col-lg-12 text-center">
+                  {onSale?.length ? (
+                    <CarouselNewRedux allOrSale="onSale" />
+                  ) : (
+                    <h1>No nfts on sale</h1>
+                  )}
                 </div>
               </div>
             </section>
