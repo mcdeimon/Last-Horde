@@ -94,8 +94,8 @@ const ItemDetailRedux = () => {
         .createOrder(
           addressNft,
           `${itemId}`,
-          `${priceWei}`,
-          `${sellObject.expirationDays}`
+          `${priceWei}`
+          // `${sellObject.expirationDays}`
         )
         .send({ from: account, gas: "300000" });
 
@@ -103,11 +103,12 @@ const ItemDetailRedux = () => {
         account: account,
         id_nft: itemId,
         price: priceWei,
-        expiration_days: sellObject.expirationDays,
+        // expiration_days: sellObject.expirationDays,
         order_id: order.events.OrderCreated.returnValues.id,
         sold: false,
-        expired: false,
-        created_days: new Date(),
+        // expired: false,
+        // created_days: new Date(),
+        canceled: false,
       });
 
       setOpenSell(false);
@@ -124,11 +125,9 @@ const ItemDetailRedux = () => {
 
   const handleCancelSell = async () => {
     try {
-      console.log(account);
       const order_id = myOnSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
-      console.log(order_id);
 
       let cancellOrder = await ContractMarket.methods
         .cancelOrder(addressNft, order_id)
@@ -136,7 +135,13 @@ const ItemDetailRedux = () => {
           from: account,
           gas: "300000",
         });
-      console.log(cancellOrder);
+
+      await axios.put(
+        `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/order_id/${order_id}`,
+        {
+          canceled: true,
+        }
+      );
 
       dispatch(getOnSell());
     } catch (err) {

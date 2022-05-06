@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
 
-      expiration_days: {
+      /* expiration_days: {
         type: DataTypes.INTEGER,
-      },
+      }, */
 
       order_id: {
         type: DataTypes.INTEGER,
@@ -35,12 +35,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
       },
 
-      expired: {
+      /* expired: {
         type: DataTypes.BOOLEAN,
       },
 
       created_days: {
         type: DataTypes.DATE,
+      }, */
+
+      canceled: {
+        type: DataTypes.BOOLEAN,
       },
     },
 

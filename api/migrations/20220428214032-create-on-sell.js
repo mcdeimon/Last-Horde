@@ -17,20 +17,23 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
       },
-      expiration_days: {
+      /* expiration_days: {
         type: Sequelize.INTEGER,
-      },
+      }, */
       order_id: {
         type: Sequelize.INTEGER,
       },
       sold: {
         type: Sequelize.BOOLEAN,
       },
-      expired: {
+      /* expired: {
         type: Sequelize.BOOLEAN,
       },
       created_days: {
         type: DataTypes.DATE,
+      }, */
+      canceled: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,

@@ -9,18 +9,19 @@ module.exports = {
         account: req.body.account,
         id_nft: req.body.id_nft,
         price: req.body.price,
-        expiration_days: req.body.expiration_days,
+        // expiration_days: req.body.expiration_days,
         order_id: req.body.order_id,
         sold: req.body.sold,
-        expired: req.body.expired,
-        created_days: req.body.created_days,
+        // expired: req.body.expired,
+        // created_days: req.body.created_days,
+        canceled: req.body.canceled,
       })
       .then((on_sell) => {
-        setTimeout(() => {
+        /* setTimeout(() => {
           on_sell.update({
             expired: true,
           });
-        }, 200000 * req.body.expiration_days); // 86400000
+        }, 200000 * req.body.expiration_days); // 86400000 */
 
         res.status(200).send({ ...on_sell.dataValues, status: 200 });
       })
