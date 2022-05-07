@@ -43,7 +43,7 @@ const Home = () => {
       if (nfts.length && onSale.length) setIsLoading(false);
       else setIsLoading(true);
     }, 3000);
-  }, [nfts]);
+  }, [nfts, onSale]);
 
   return (
     <div className="greyscheme">

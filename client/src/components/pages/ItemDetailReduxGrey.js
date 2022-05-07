@@ -59,7 +59,7 @@ const ItemDetailRedux = () => {
 
   const handleCopyClipboard = () => {
     navigator.clipboard.writeText(
-      `https://app.lasthorde.com/detail/${itemId}${
+      `http://app.lasthorde.com/detail/${itemId}${
         query.get("package") ? "?package=true" : ""
       }`
     );
@@ -70,13 +70,13 @@ const ItemDetailRedux = () => {
       if (myFavorites.find((nft) => nft.id === itemId))
         await axios
           .delete(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
+            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
           )
           .then(() => dispatch(getMyFavorites()));
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
+            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }
@@ -99,7 +99,7 @@ const ItemDetailRedux = () => {
         )
         .send({ from: account, gas: "300000" });
 
-      await axios.post(`https://${REACT_APP_HOST_DB}/on-sell`, {
+      await axios.post(`http://${REACT_APP_HOST_DB}/on-sell`, {
         account: account,
         id_nft: itemId,
         price: priceWei,
@@ -129,15 +129,13 @@ const ItemDetailRedux = () => {
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
 
-      let cancellOrder = await ContractMarket.methods
-        .cancelOrder(addressNft, order_id)
-        .send({
-          from: account,
-          gas: "300000",
-        });
+      await ContractMarket.methods.cancelOrder(addressNft, order_id).send({
+        from: account,
+        gas: "300000",
+      });
 
       await axios.put(
-        `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/order_id/${order_id}`,
         {
           canceled: true,
         }
@@ -334,7 +332,7 @@ const ItemDetailRedux = () => {
               </div>
             </div>
 
-            <div className="detailcheckout mt-4">
+            {/* <div className="detailcheckout mt-4">
               <div className="listcheckout">
                 <h6>Enter number of expiration days.</h6>
 
@@ -351,7 +349,7 @@ const ItemDetailRedux = () => {
                   }
                 />
               </div>
-            </div>
+            </div> */}
 
             <button className="btn-main lead mb-5" onClick={handleSell}>
               Sell

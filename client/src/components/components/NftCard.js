@@ -43,21 +43,25 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
       if (myFavorites.find((nft) => nft.id === item.id))
         await axios
           .delete(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
+            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
           )
           .then(() => dispatch(getMyFavorites()));
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${addressNft}`
+            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }
   };
 
-  useEffect(async () => {
-    if (item?.price)
-      setPrice(await web3.utils.fromWei(`${item.price}`, "ether"));
+  useEffect(() => {
+    async function setPriceFromWei() {
+      if (item?.price)
+        setPrice(await web3.utils.fromWei(`${item.price}`, "ether"));
+    }
+
+    setPriceFromWei();
   }, [item]);
 
   return (

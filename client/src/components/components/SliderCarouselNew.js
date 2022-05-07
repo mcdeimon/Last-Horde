@@ -101,7 +101,7 @@ export default function Responsive() {
 
       <Slider {...settings}>
         {packages.map((item, index) => (
-          <CustomSlide className="itm" index={index + 1}>
+          <CustomSlide className="itm" index={index + 1} key={index}>
             <div className="nft__item_lg">
               <div className="row align-items-center">
                 <div className="col-lg-5 d-flex justify-content-center">

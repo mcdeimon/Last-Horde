@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
-import { type, rarity, itemsType } from "./constants/filters";
+import { type, rarity } from "./constants/filters";
 import { filterRarity, filterType, filterNftName } from "../../redux/actions";
 
 const TopFilterBar = () => {
@@ -36,7 +36,7 @@ const TopFilterBar = () => {
   const defaultValue = {
     value: null,
     label: "Select Filter",
-    isDisabled: true
+    isDisabled: true,
   };
 
   const customStyles = {

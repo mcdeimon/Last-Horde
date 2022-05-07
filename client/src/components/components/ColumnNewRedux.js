@@ -65,6 +65,7 @@ const ColumnNewRedux = ({ type }) => {
     type,
     typeExplorer,
     onSale,
+    myOnSaleState,
   ]);
 
   useEffect(() => {

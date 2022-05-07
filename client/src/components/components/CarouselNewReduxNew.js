@@ -32,8 +32,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
   const [nfts, setNFTs] = useState([]);
   const [height, setHeight] = useState(0);
   const [account, setAccount] = useState(accountState);
-  const [myFavorites, setMyFavorites] = useState(myFavoritesState);
-  const [price, setPrice] = useState(0);
+  const [myFavorites, setMyFavorites] = useState(myFavoritesState);;
 
   const onImgLoad = ({ target: img }) => {
     let currentHeight = height;
@@ -46,14 +45,12 @@ const CarouselNewRedux = ({ allOrSale }) => {
     if (account) {
       if (myFavorites.find((nft) => nft.id === id))
         await axios
-          .delete(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}`
-          )
+          .delete(`http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}`)
           .then(() => dispatch(getMyFavorites()));
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${addressNft}`
+            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }
