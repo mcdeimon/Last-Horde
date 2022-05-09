@@ -137,7 +137,7 @@ const ItemDetailRedux = () => {
 
       const price = onSale?.find((nft) => nft.id === parseInt(itemId))?.price;
 
-      const account = onSale?.find(
+      const accountOuner = onSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.account;
 
@@ -150,7 +150,7 @@ const ItemDetailRedux = () => {
         .send({ from: account, gas: "300000" });
 
       await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/on-sell/account/${accountOuner}/order_id/${order_id}`,
         {
           sold: true,
         }
