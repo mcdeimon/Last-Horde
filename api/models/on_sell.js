@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.CHAR,
       },
 
       /* expiration_days: {

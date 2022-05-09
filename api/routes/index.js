@@ -50,7 +50,7 @@ module.exports = (app) => {
 
   app.post("/on-sell", onSellController.create);
 
-  app.put(
+  app.post(
     "/on-sell/account/:account/order_id/:order_id",
     onSellController.update
   );

@@ -10,6 +10,7 @@ import ContractNfts, {
 import ContractMarket, {
   address as addressMarket,
 } from "../../contracts/ContractMarket";
+import ContractHorde from "../../contracts/ContractHorde";
 
 //IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
@@ -24,7 +25,7 @@ import { useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
 import axios from "axios";
 import { web3 } from "../../utils/web3";
-import ContractHorde from "../../contracts/ContractHorde";
+
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
@@ -39,6 +40,7 @@ const ItemDetailRedux = () => {
   const accountState = useSelector((state) => state.account);
   const myFavoritesState = useSelector((state) => state.myFavorites);
   const myOnSaleState = useSelector((state) => state.myOnSales);
+  const onSalesState = useSelector((state) => state.onSale);
 
   const { itemId } = useParams();
   const query = useQuery();
@@ -49,6 +51,7 @@ const ItemDetailRedux = () => {
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
   const [myOnSale, setMyOnSale] = useState(myOnSaleState);
+  const [onSale, setOnSale] = useState(onSalesState);
 
   const [openSell, setOpenSell] = useState(false);
   const [sellObject, setSellObject] = useState({
@@ -102,7 +105,7 @@ const ItemDetailRedux = () => {
       await axios.post(`http://${REACT_APP_HOST_DB}/on-sell`, {
         account: account,
         id_nft: itemId,
-        price: priceWei,
+        price: `${priceWei}`,
         // expiration_days: sellObject.expirationDays,
         order_id: order.events.OrderCreated.returnValues.id,
         sold: false,
@@ -128,21 +131,25 @@ const ItemDetailRedux = () => {
     try {
       setLoading(true);
 
-      const order_id = myOnSale?.find(
+      const order_id = onSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
 
-      await ContractHorde.methods.approve(addressMarket, `${itemId}`).send({
+      const price = onSale?.find((nft) => nft.id === parseInt(itemId))?.price;
+
+      const account = onSale?.find(
+        (nft) => nft.id === parseInt(itemId)
+      )?.account;
+
+      await ContractHorde.methods.approve(addressMarket, price).send({
         from: account,
       });
 
-      await ContractMarket.methods.safePayment(
-        addressNft,
-        account,
-        `${order_id}`
-      );
+      await ContractMarket.methods
+        .safePayment(addressNft, account, `${order_id}`)
+        .send({ from: account, gas: "300000" });
 
-      await axios.put(
+      await axios.post(
         `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
         {
           sold: true,
@@ -168,7 +175,7 @@ const ItemDetailRedux = () => {
         gas: "300000",
       });
 
-      await axios.put(
+      await axios.post(
         `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
         {
           canceled: true,
@@ -200,7 +207,14 @@ const ItemDetailRedux = () => {
     setAccount(accountState);
     setMyFavorites(myFavoritesState);
     setMyOnSale(myOnSaleState);
-  }, [myNftsState, accountState, myFavoritesState, myOnSaleState]);
+    setOnSale(onSalesState);
+  }, [
+    myNftsState,
+    accountState,
+    myFavoritesState,
+    myOnSaleState,
+    onSalesState,
+  ]);
 
   return (
     <div className="greyscheme">
