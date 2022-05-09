@@ -24,6 +24,7 @@ import { useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
 import axios from "axios";
 import { web3 } from "../../utils/web3";
+import ContractHorde from "../../contracts/ContractHorde";
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
@@ -55,6 +56,8 @@ const ItemDetailRedux = () => {
     expirationDays: 0,
   });
 
+  const [loading, setLoading] = useState(false);
+
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
   const handleCopyClipboard = () => {
@@ -84,6 +87,8 @@ const ItemDetailRedux = () => {
 
   const handleSell = async () => {
     try {
+      setLoading(true);
+
       await ContractNfts.methods
         .setApprovalForAll(addressMarket, true)
         .send({ from: account });
@@ -91,12 +96,7 @@ const ItemDetailRedux = () => {
       const priceWei = await web3.utils.toWei(sellObject.price, "ether");
 
       const order = await ContractMarket.methods
-        .createOrder(
-          addressNft,
-          `${itemId}`,
-          `${priceWei}`
-          // `${sellObject.expirationDays}`
-        )
+        .createOrder(addressNft, `${itemId}`, `${priceWei}`) // `${sellObject.expirationDays}`
         .send({ from: account, gas: "300000" });
 
       await axios.post(`http://${REACT_APP_HOST_DB}/on-sell`, {
@@ -112,6 +112,7 @@ const ItemDetailRedux = () => {
       });
 
       setOpenSell(false);
+      setLoading(false);
       setSellObject({
         price: 0,
         expirationDays: 0,
@@ -123,8 +124,41 @@ const ItemDetailRedux = () => {
     }
   };
 
+  const handleBuy = async () => {
+    try {
+      setLoading(true);
+
+      const order_id = myOnSale?.find(
+        (nft) => nft.id === parseInt(itemId)
+      )?.order_id;
+
+      await ContractHorde.methods.approve(addressMarket, `${itemId}`).send({
+        from: account,
+      });
+
+      await ContractMarket.methods.safePayment(
+        addressNft,
+        account,
+        `${order_id}`
+      );
+
+      await axios.put(
+        `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
+        {
+          sold: true,
+        }
+      );
+
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleCancelSell = async () => {
     try {
+      setLoading(true);
+
       const order_id = myOnSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
@@ -135,12 +169,13 @@ const ItemDetailRedux = () => {
       });
 
       await axios.put(
-        `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
         {
           canceled: true,
         }
       );
 
+      setLoading(false);
       dispatch(getOnSell());
     } catch (err) {
       console.log(err);
@@ -261,7 +296,7 @@ const ItemDetailRedux = () => {
 
                       <button
                         className="btn-main btn2 lead mb-5 mr15"
-                        onClick={() => setOpenCheckoutbid(true)}
+                        onClick={() => setOpenSell(false)}
                       >
                         Send
                       </button>
@@ -277,7 +312,8 @@ const ItemDetailRedux = () => {
                     <div className="d-flex flex-row mt-5">
                       <button
                         className="btn-main lead mb-5 mr15"
-                        onClick={() => setOpenCheckoutbid(true)}
+                        onClick={handleBuy}
+                        disabled={account ? false : true}
                       >
                         Buy Now
                       </button>
@@ -351,7 +387,11 @@ const ItemDetailRedux = () => {
               </div>
             </div> */}
 
-            <button className="btn-main lead mb-5" onClick={handleSell}>
+            <button
+              className="btn-main lead mb-5"
+              onClick={handleSell}
+              disabled={sellObject.price ? false : true}
+            >
               Sell
             </button>
           </div>
@@ -424,6 +464,16 @@ const ItemDetailRedux = () => {
           </div>
         </div>
       )}
+
+      {loading ? (
+        <div className="checkout">
+          <div className="maincheckout">
+            <div className="loading">
+              <h2>Wait to finish the transaction</h2>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

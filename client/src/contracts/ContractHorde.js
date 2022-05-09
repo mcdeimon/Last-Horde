@@ -279,4 +279,5 @@ const abi = [
     type: "function",
   },
 ];
+
 export default new web3.eth.Contract(abi, address);

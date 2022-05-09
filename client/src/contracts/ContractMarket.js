@@ -1,6 +1,6 @@
 import { web3 } from "../utils/web3";
 
-export const address = "0x283Bd2eb2755d1DF4753E2b1816C41eFa8c6a04a";
+export const address = "0x32DAd3c7c88F087E2b2FdA69D06eD54e74417e71";
 
 const abi = [
   {
@@ -34,12 +34,6 @@ const abi = [
         indexed: false,
         internalType: "uint256[]",
         name: "priceInWei",
-        type: "uint256[]",
-      },
-      {
-        indexed: false,
-        internalType: "uint256[]",
-        name: "expiresAt",
         type: "uint256[]",
       },
     ],
@@ -108,12 +102,6 @@ const abi = [
         indexed: false,
         internalType: "uint256",
         name: "priceInWei",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "expiresAt",
         type: "uint256",
       },
     ],
@@ -242,11 +230,6 @@ const abi = [
         name: "priceInWei",
         type: "uint256[]",
       },
-      {
-        internalType: "uint256[]",
-        name: "expiresAt",
-        type: "uint256[]",
-      },
     ],
     name: "createBatchOrder",
     outputs: [],
@@ -270,11 +253,6 @@ const abi = [
         name: "priceInWei",
         type: "uint256",
       },
-      {
-        internalType: "uint256",
-        name: "expiresAt",
-        type: "uint256",
-      },
     ],
     name: "createOrder",
     outputs: [],
@@ -284,19 +262,6 @@ const abi = [
   {
     inputs: [],
     name: "feeByTransaction",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "idexCount",
     outputs: [
       {
         internalType: "uint256",
@@ -414,11 +379,6 @@ const abi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
-        name: "expiresAt",
-        type: "uint256",
-      },
-      {
         internalType: "bool",
         name: "sold",
         type: "bool",
@@ -441,62 +401,6 @@ const abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "last",
-        type: "uint256",
-      },
-    ],
-    name: "orderList",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
-          },
-          {
-            internalType: "address",
-            name: "seller",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "nftAddress",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "price",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "expiresAt",
-            type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "sold",
-            type: "bool",
-          },
-        ],
-        internalType: "struct Market.Order[]",
-        name: "",
-        type: "tuple[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -542,11 +446,6 @@ const abi = [
           {
             internalType: "uint256",
             name: "price",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "expiresAt",
             type: "uint256",
           },
           {
@@ -664,4 +563,5 @@ const abi = [
     type: "function",
   },
 ];
+
 export default new web3.eth.Contract(abi, address);

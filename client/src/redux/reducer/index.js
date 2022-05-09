@@ -81,9 +81,20 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case GET_ON_SELL:
+      let myOnSales = [];
+
+      if (state.account)
+        myOnSales = payload.filter(
+          (nft) =>
+            nft.account.toLocaleLowerCase() ===
+            state.account.toLocaleLowerCase()
+        );
+      else myOnSales = state.myOnSales;
+
       return {
         ...state,
         onSale: payload,
+        myOnSales: myOnSales,
       };
 
     ////////////////////////////////////////////////////////////// filters

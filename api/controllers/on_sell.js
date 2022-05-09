@@ -33,7 +33,6 @@ module.exports = {
       .findOne({
         where: {
           account: req.params.account,
-          id_nft: req.params.id_nft,
           order_id: req.params.order_id,
         },
       })

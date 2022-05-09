@@ -50,5 +50,8 @@ module.exports = (app) => {
 
   app.post("/on-sell", onSellController.create);
 
-  app.put("/on-sell/account/:account/id_nft/:id_nft/order_id/:order_id", onSellController.update);
+  app.put(
+    "/on-sell/account/:account/order_id/:order_id",
+    onSellController.update
+  );
 };

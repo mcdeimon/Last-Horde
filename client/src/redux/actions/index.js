@@ -141,7 +141,7 @@ export const getOnSell = () => async (dispatch) => {
 
     for (let i = 0; i < onSell.length; i++) {
       if (
-        !onSell[i].sold ||
+        !onSell[i].sold &&
         !onSell[i].canceled
         /* !onSell[i].expired ||
         onSell[i].created_days === Date() + onSell[i].expiration_days */
