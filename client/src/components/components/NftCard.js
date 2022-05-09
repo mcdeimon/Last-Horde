@@ -22,22 +22,27 @@ const Outer = styled.div`
 const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const accountState = useSelector((state) => state.account);
   const myFavoritesState = useSelector((state) => state.myFavorites);
 
+  // Extra data of the NFT or PACKAGE
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
   const [price, setPrice] = useState(0);
 
+  // Function to load in the store the favorites of the user
   useEffect(() => {
     setAccount(accountState);
     setMyFavorites(myFavoritesState);
   }, [accountState, myFavoritesState]);
 
+  // Function to navigate to the NFT or PACKAGE
   const navigateTo = (link) => {
     navigate(link);
   };
 
+  // Function to set like or unlike
   const handleLike = async () => {
     if (account) {
       if (myFavorites.find((nft) => nft.id === item.id))
@@ -55,6 +60,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
     }
   };
 
+  // Function to set the price of the NFT or PACKAGE
   useEffect(() => {
     async function setPriceFromWei() {
       if (item?.price)
@@ -124,7 +130,8 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           )}
 
           {typeExplorer !== "packages" && (
-            <div
+            /* I like heart */
+            <div 
               className={`nft__item_like ${
                 myFavorites.find((nft) => nft.id === item.id)
                   ? "likedHeart"

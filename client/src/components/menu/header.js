@@ -7,6 +7,7 @@ import Breakpoint, {
   setDefaultBreakpoints,
 } from "react-socks";
 
+// Set default breakpoints
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
 
 const NavLink = (props) => (
@@ -25,20 +26,25 @@ const NavLink = (props) => (
 const Header = function ({ className }) {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const accountState = useSelector((state) => state.account);
 
+  // Extra data of the NFT or PACKAGE
   const [account, setAccount] = useState(accountState);
   const [showmenu, btn_icon] = useState(false);
 
+  // Function to load in the store the account
   useEffect(() => {
     setAccount(accountState);
   }, [accountState]);
 
+  // Function to set the account
   const handleConnectWallet = () => {
     if (!account) dispatch(getAccount());
     else dispatch(resetAccount());
   };
 
+  // Function to set styles of the menu
   useEffect(() => {
     const header = document.getElementById("myHeader");
     const totop = document.getElementById("scroll-to-top");
@@ -65,6 +71,7 @@ const Header = function ({ className }) {
             <div className="logo px-0">
               <div className="navbar-title navbar-item navbarContainerItems">
                 <NavLink to="/">
+                  {/* Big logo */}
                   <img
                     src="/img/logolight.png"
                     className="navbarImg d-inline"
@@ -72,6 +79,7 @@ const Header = function ({ className }) {
                     id="logo"
                   />
 
+                  {/* Small logo */}
                   <img
                     src="/img/logolightSmall.png"
                     className="navbarImg d-none"
@@ -83,6 +91,7 @@ const Header = function ({ className }) {
             </div>
 
             <BreakpointProvider>
+              {/* Menu in xl size */}
               <Breakpoint xl>
                 <div className="navbarContainerItems">
                   <ul className="navbarList">
@@ -111,6 +120,7 @@ const Header = function ({ className }) {
 
           <div className="navbarContainerItems">
             <BreakpointProvider>
+              {/* Menu in xl size */}
               <Breakpoint xl>
                 <ul className="navbarList">
                   <li className="navbarListItem">
@@ -142,6 +152,7 @@ const Header = function ({ className }) {
           </div>
 
           <BreakpointProvider>
+            {/* Menu in l size */}
             <Breakpoint l down>
               {showmenu && (
                 <div className="navbarContainerItemsSmall">

@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Arrow from "./ArrowCarrousel";
 
+// Set global styles
 const GlobalStyles = createGlobalStyle`
   .nft-big .slick-prev::before{
     left: 0;
@@ -31,14 +32,18 @@ const CustomSlide = (propsAux) => {
 };
 
 export default function Responsive() {
+  // Get params from global store
   const packagesState = useSelector((state) => state.packages);
 
+  // Extra data of the NFT or PACKAGE
   const [packages, setPackages] = React.useState([]);
 
+  // Function to load in the store the packages
   useEffect(() => {
     setPackages(packagesState);
   }, [packagesState]);
 
+  // Settings for the slider
   const settings = {
     infinite: true,
     speed: 1000,
@@ -97,11 +102,13 @@ export default function Responsive() {
 
   return (
     <div className="nft-big mb-5">
+      {/* Set global styles */}
       <GlobalStyles />
 
       <Slider {...settings}>
         {packages.map((item, index) => (
-          <CustomSlide className="itm" index={index + 1} key={index}>
+          {/* SLider showing all packages */}
+          <CustomSlide className="itm" index={index + 1} key={index}> 
             <div className="nft__item_lg">
               <div className="row align-items-center">
                 <div className="col-lg-5 d-flex justify-content-center">

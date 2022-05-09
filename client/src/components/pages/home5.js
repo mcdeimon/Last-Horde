@@ -13,18 +13,22 @@ import {
 } from "../../redux/actions";
 import Loading from "../components/Loading";
 
-const theme = "GREY";
+//SWITCH VARIABLE FOR PAGE STYLE
+const theme = "GREY"; //LIGHT, GREY, RETRO
 
 const Home = () => {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const filteredNfts = useSelector((state) => state.filteredNfts);
   const onSaleState = useSelector((state) => state.onSale);
 
+  // Extra data of the NFT or PACKAGE
   const [nfts, setNFTs] = useState([]);
   const [onSale, setOnSale] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Function to load in the store the NFTs and PACKAGES
   useEffect(() => {
     dispatch(isLoadingFunction(true));
     dispatch(getAllNFT());
@@ -33,11 +37,13 @@ const Home = () => {
     dispatch(getOnSell());
   }, [dispatch]);
 
+  // Function to set extra data
   useEffect(() => {
     setNFTs(filteredNfts);
     setOnSale(onSaleState);
   }, [filteredNfts, onSaleState]);
 
+  // Function to set the loading state
   useEffect(() => {
     setTimeout(() => {
       if (nfts.length && onSale.length) setIsLoading(false);
@@ -54,14 +60,14 @@ const Home = () => {
       >
         <div className="container w-100">
           <div className="row">
-            <SliderMain />
+            <SliderMain /> {/* Slider */}
           </div>
         </div>
       </section>
 
       <div className="homecarrousel">
         {isLoading ? (
-          <Loading />
+          <Loading /> // Loading component
         ) : (
           <>
             <section className="container no-bottom">
@@ -76,7 +82,7 @@ const Home = () => {
 
                 <div className="col-lg-12 text-center">
                   {onSale?.length ? (
-                    <CarouselNewRedux allOrSale="onSale" />
+                    <CarouselNewRedux allOrSale="onSale" /> // Carousel with the NFTs on sale
                   ) : (
                     <h1>No nfts on sale</h1>
                   )}
@@ -95,6 +101,7 @@ const Home = () => {
                 </div>
 
                 <div className="col-lg-12">
+                  {/* Carousel with all the NFTs*/}
                   <CarouselNewRedux allOrSale="all" />
                 </div>
               </div>
@@ -103,6 +110,7 @@ const Home = () => {
         )}
       </div>
 
+      {/* Footer */}
       <Footer />
     </div>
   );

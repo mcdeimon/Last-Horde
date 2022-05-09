@@ -11,8 +11,6 @@ import ContractMarket, {
   address as addressMarket,
 } from "../../contracts/ContractMarket";
 import ContractHorde from "../../contracts/ContractHorde";
-
-//IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
 import {
   getMyFavorites,
@@ -34,6 +32,7 @@ const { REACT_APP_HOST_DB } = process.env;
 const ItemDetailRedux = () => {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const nftItem = useSelector((state) => state.nft);
   const packageItem = useSelector((state) => state.package);
   const myNftsState = useSelector((state) => state.myNfts);
@@ -42,27 +41,34 @@ const ItemDetailRedux = () => {
   const myOnSaleState = useSelector((state) => state.myOnSales);
   const onSalesState = useSelector((state) => state.onSale);
 
+  // Get params from url
   const { itemId } = useParams();
   const query = useQuery();
 
+  // Data of the NFT or PACKAGE
   const [item, setItem] = useState({});
 
+  // Extra data of the NFT or PACKAGE
   const [myNfts, setMyNfts] = useState(myNftsState);
   const [account, setAccount] = useState(accountState);
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
   const [myOnSale, setMyOnSale] = useState(myOnSaleState);
   const [onSale, setOnSale] = useState(onSalesState);
 
+  // Information about the Sale
   const [openSell, setOpenSell] = useState(false);
   const [sellObject, setSellObject] = useState({
     price: 0,
     expirationDays: 0,
   });
 
+  // Variable for loading while waiting
   const [loading, setLoading] = useState(false);
 
+  // Variable for future sending of nfts
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
+  // Funciton to copy the address to clipboard
   const handleCopyClipboard = () => {
     navigator.clipboard.writeText(
       `http://app.lasthorde.com/detail/${itemId}${
@@ -71,37 +77,47 @@ const ItemDetailRedux = () => {
     );
   };
 
+  // Function set like or unlike a nft
   const handleLike = async () => {
+    // If there is an account connected
     if (account) {
+      // If the nft is not in my favorites
       if (myFavorites.find((nft) => nft.id === itemId))
         await axios
           .delete(
             `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
           )
           .then(() => dispatch(getMyFavorites()));
+      // Delete the nft from my favorites
       else
         await axios
           .post(
             `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
           )
-          .then(() => dispatch(getMyFavorites()));
+          .then(() => dispatch(getMyFavorites())); // Add the nft to my favorites
     }
   };
 
+  // Function set the nft on sale
   const handleSell = async () => {
     try {
+      // Open the modal to wait
       setLoading(true);
 
+      // Set the approval for all the nfts
       await ContractNfts.methods
         .setApprovalForAll(addressMarket, true)
         .send({ from: account });
 
+      // Get the price in HOR
       const priceWei = await web3.utils.toWei(sellObject.price, "ether");
 
+      // Get the if of order in the market
       const order = await ContractMarket.methods
         .createOrder(addressNft, `${itemId}`, `${priceWei}`) // `${sellObject.expirationDays}`
         .send({ from: account, gas: "300000" });
 
+      // Save the data in the database
       await axios.post(`http://${REACT_APP_HOST_DB}/on-sell`, {
         account: account,
         id_nft: itemId,
@@ -114,6 +130,7 @@ const ItemDetailRedux = () => {
         canceled: false,
       });
 
+      // Close the modal and reload the data
       setOpenSell(false);
       setLoading(false);
       setSellObject({
@@ -121,6 +138,7 @@ const ItemDetailRedux = () => {
         expirationDays: 0,
       });
 
+      // Reload the data in the store
       dispatch(getOnSell());
     } catch (err) {
       console.log(err);
@@ -129,33 +147,37 @@ const ItemDetailRedux = () => {
 
   const handleBuy = async () => {
     try {
+      // Open the modal to wait
       setLoading(true);
 
+      // Get the id of order, the price in wei and the account
       const order_id = onSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
-
       const price = onSale?.find((nft) => nft.id === parseInt(itemId))?.price;
-
-      const accountOuner = onSale?.find(
+      const accountOwner = onSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.account;
 
+      // Set the approval for the market
       await ContractHorde.methods.approve(addressMarket, price).send({
         from: account,
       });
 
+      // Buy the nft
       await ContractMarket.methods
         .safePayment(addressNft, account, `${order_id}`)
         .send({ from: account, gas: "300000" });
 
+      // Set the nft as sold in the database
       await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sell/account/${accountOuner}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/on-sell/account/${accountOwner}/order_id/${order_id}`,
         {
           sold: true,
         }
       );
 
+      // Close the modal
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -164,17 +186,21 @@ const ItemDetailRedux = () => {
 
   const handleCancelSell = async () => {
     try {
+      // Open the modal to wait
       setLoading(true);
 
+      // Get the id of order
       const order_id = myOnSale?.find(
         (nft) => nft.id === parseInt(itemId)
       )?.order_id;
 
+      // Cancel the sale of the nft
       await ContractMarket.methods.cancelOrder(addressNft, order_id).send({
         from: account,
         gas: "300000",
       });
 
+      // Set the nft as canceled in the database
       await axios.post(
         `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
         {
@@ -182,6 +208,7 @@ const ItemDetailRedux = () => {
         }
       );
 
+      // Close the modal and reload the data
       setLoading(false);
       dispatch(getOnSell());
     } catch (err) {
@@ -189,6 +216,7 @@ const ItemDetailRedux = () => {
     }
   };
 
+  // Function to load in the store the rarities, the nfts for sale, the packages and the nft
   useEffect(() => {
     dispatch(getRarity());
     dispatch(getOnSell());
@@ -197,11 +225,13 @@ const ItemDetailRedux = () => {
     else dispatch(getNFTById(itemId));
   }, [dispatch, query, itemId]);
 
+  // Function to set the information of the nft or the package
   useEffect(() => {
     if (query.get("package")) setItem(packageItem);
     else setItem(nftItem);
   }, [nftItem, packageItem, query]);
 
+  // Function to set extra data
   useEffect(() => {
     setMyNfts(myNftsState);
     setAccount(accountState);
@@ -222,12 +252,14 @@ const ItemDetailRedux = () => {
 
       <section className="container">
         <div className="row mt-md-5 pt-md-4">
+          {/* Image of the nft */}
           <div className="col-md-6 text-center">
             <img src={item?.image} className="img-fluid img-rounded" alt="" />
           </div>
 
           <div className="col-md-6">
             <div className="item_info">
+              {/* Name of the nft, id and like */}
               <div className="item_title">
                 <h2>{item?.name}</h2>
 
@@ -247,6 +279,7 @@ const ItemDetailRedux = () => {
                 </div>
               </div>
 
+              {/* Description of the amount of nft */}
               {!query.get("package") ? (
                 <div className="item_info_counts">
                   <div className="item_info_type">
@@ -263,6 +296,7 @@ const ItemDetailRedux = () => {
                 </div>
               ) : null}
 
+              {/* Description of the nft */}
               <p>{item?.description}</p>
 
               <div className="de_tab">
@@ -288,7 +322,7 @@ const ItemDetailRedux = () => {
                     </div>
                   ) : null}
 
-                  {/* button for checkout */}
+                  {/* Button for checkout */}
                   {myNfts.find((nft) => nft.id === parseInt(itemId)) &&
                   !query.get("package") ? (
                     <div className="d-flex flex-row mt-5">
@@ -349,6 +383,7 @@ const ItemDetailRedux = () => {
 
       <Footer />
 
+      {/* Modal to sell the nft */}
       {openSell && (
         <div className="checkout">
           <div className="maincheckout">
@@ -364,6 +399,7 @@ const ItemDetailRedux = () => {
               You are about to sell a <span className="bold">{item?.name}</span>
             </p>
 
+            {/* Input to save the price */}
             <div className="detailcheckout mt-4">
               <div className="listcheckout">
                 <h6>
@@ -479,6 +515,7 @@ const ItemDetailRedux = () => {
         </div>
       )}
 
+      {/* Modal to wait */}
       {loading ? (
         <div className="checkout">
           <div className="maincheckout">

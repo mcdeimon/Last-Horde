@@ -20,6 +20,7 @@ import axios from "axios";
 
 const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
 
+// Get the account
 const getAccountFunction = async () => {
   const accounts = await web3.eth.getAccounts();
   return accounts[0];
@@ -27,7 +28,9 @@ const getAccountFunction = async () => {
 
 ////////////////////////////////////////////////////////////// loading
 
+// Set the loading
 export const isLoadingFunction = (isLoading) => {
+  // Set the information in the store
   return {
     type: IS_LOADING,
     payload: isLoading,
@@ -36,6 +39,7 @@ export const isLoadingFunction = (isLoading) => {
 
 ////////////////////////////////////////////////////////////// get cards and packages
 
+// Get all the NFTs
 export const getAllNFT = () => async (dispatch) => {
   let nfts = [],
     nft = {},
@@ -43,10 +47,12 @@ export const getAllNFT = () => async (dispatch) => {
     amountAux = {};
 
   try {
+    // Get amount of nfts
     amountAux = await axios.get(`http://${REACT_APP_HOST_DB}/amount-nft`);
     amountNfts = amountAux.data.amount;
 
     for (let i = 1; i <= amountNfts; i++) {
+      // Save the nft in the array
       /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${i}.json`);
       nfts.push(nft.data); */
 
@@ -57,16 +63,19 @@ export const getAllNFT = () => async (dispatch) => {
     console.log(e);
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_ALL_NFT,
     payload: nfts,
   });
 };
 
+// Get the NFT by id
 export const getNFTById = (id) => async (dispatch) => {
   let nft = {};
 
   try {
+    // Get the nft
     /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${id}.json`);
     nft = nft.data; */
 
@@ -75,18 +84,21 @@ export const getNFTById = (id) => async (dispatch) => {
     console.log(e);
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_NFT_BY_ID,
     payload: nft,
   });
 };
 
+// Get all the packages
 export const getPackages = () => async (dispatch) => {
   let packages = [],
     packageCard = {};
 
   try {
     for (let i = 1; i <= 3; i++) {
+      // Get the packages
       /* packageCard = await axios.get(`http://app.lasthorde.com/Packages/${i}.json`);
       packages.push(packageCard.data); */
 
@@ -97,16 +109,19 @@ export const getPackages = () => async (dispatch) => {
     console.log(e);
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_PACKAGES,
     payload: packages,
   });
 };
 
+// Get the package by id
 export const getPackagesById = (id) => async (dispatch) => {
   let packageCard = {};
 
   try {
+    // Get the package
     /* packageCard = await axios.get(`http://app.lasthorde.com/Packages/${id}.json`);
     packageCard = packageCard.data; */
 
@@ -115,30 +130,36 @@ export const getPackagesById = (id) => async (dispatch) => {
     console.log(e);
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_PACKAGE_BY_ID,
     payload: packageCard,
   });
 };
 
+// Get the rarity of the NFTs
 export const getRarity = () => async (dispatch) => {
   const pack = await ContractNfts.methods.viewDeck2(REACT_APP_ACCOUNT).call();
 
+  // Set the information in the store
   dispatch({
     type: GET_RARITY,
     payload: pack[1],
   });
 };
 
+// Get all the NFTs on sale
 export const getOnSell = () => async (dispatch) => {
   let onSell = [],
     nftArr = [],
     nft = {};
 
   try {
+    // Get the nfts on sale
     onSell = await axios.get(`http://${REACT_APP_HOST_DB}/on-sell`);
     onSell = onSell.data.all;
 
+    // Filter nfts cancelled and sold
     for (let i = 0; i < onSell.length; i++) {
       if (
         !onSell[i].sold &&
@@ -157,6 +178,7 @@ export const getOnSell = () => async (dispatch) => {
     console.log(e);
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_ON_SELL,
     payload: nftArr,
@@ -165,21 +187,27 @@ export const getOnSell = () => async (dispatch) => {
 
 ////////////////////////////////////////////////////////////// filters
 
+// Filter the NFTs by rarity
 export const filterRarity = (rarity) => (dispatch) => {
+  // Set the information in the store
   dispatch({
     type: FILTER_RARITY,
     payload: rarity.value,
   });
 };
 
+// Filter the NFTs by type
 export const filterType = (type) => (dispatch) => {
+  // Set the information in the store
   dispatch({
     type: FILTER_TYPE,
     payload: type.value,
   });
 };
 
+// Filter the NFTs by name
 export const filterNftName = (name) => (dispatch) => {
+  // Set the information in the store
   dispatch({
     type: FILTER_NAME,
     payload: name,
@@ -188,6 +216,7 @@ export const filterNftName = (name) => (dispatch) => {
 
 ////////////////////////////////////////////////////////////// account
 
+// Get the account, my favorite cards and my nfts
 export const getAccount = () => async (dispatch) => {
   let account = {},
     pack = [],
@@ -196,14 +225,17 @@ export const getAccount = () => async (dispatch) => {
     favorites = [];
 
   try {
+    // Get the account
     account = await getAccountFunction();
 
+    // Get the favorites
     favoritesIDs = await axios.get(
       `http://${REACT_APP_HOST_DB}/account/${account}`
     );
     favoritesIDs = favoritesIDs.data.favorites;
 
     for (let i = 1; i < favoritesIDs.length; i++) {
+      // Get the favorites cards
       /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
       nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
 
@@ -212,8 +244,10 @@ export const getAccount = () => async (dispatch) => {
       favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
     }
 
+    // Get the deck
     pack = await ContractNfts.methods.viewDeck2(account).call();
 
+    // Get the nfts
     for (let i = 1; i <= pack[0].length; i++) {
       let nft = {};
 
@@ -225,8 +259,7 @@ export const getAccount = () => async (dispatch) => {
 
         nft = await require(`../../../public/Nfts/${i}.json`);
 
-        if (deck.length < 200)
-          for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i });
+        for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i });
       }
     }
   } catch (e) {
@@ -240,6 +273,7 @@ export const getAccount = () => async (dispatch) => {
     }
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_ACCOUNT,
     payload: {
@@ -250,7 +284,9 @@ export const getAccount = () => async (dispatch) => {
   });
 };
 
+// Reset the account
 export const resetAccount = () => (dispatch) => {
+  // Set the information in the store
   dispatch({
     type: RESET_ACCOUNT,
     payload: {
@@ -262,20 +298,24 @@ export const resetAccount = () => (dispatch) => {
   });
 };
 
+// Get the my favorite cards
 export const getMyFavorites = () => async (dispatch) => {
   let account = [],
     favoritesIDs = [],
     favorites = [];
 
   try {
+    // Get the account
     account = await getAccountFunction();
 
+    // Get the favorites
     favoritesIDs = await axios.get(
       `http://${REACT_APP_HOST_DB}/account/${account}`
     );
 
     favoritesIDs = favoritesIDs.data.favorites;
 
+    // Get the nfts
     for (let i = 1; i < favoritesIDs.length; i++) {
       /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
       nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
@@ -295,6 +335,7 @@ export const getMyFavorites = () => async (dispatch) => {
     }
   }
 
+  // Set the information in the store
   dispatch({
     type: GET_MY_FAVORITES,
     payload: favorites,

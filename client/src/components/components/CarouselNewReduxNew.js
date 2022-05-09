@@ -24,16 +24,19 @@ const { REACT_APP_HOST_DB } = process.env;
 const CarouselNewRedux = ({ allOrSale }) => {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const nftsState = useSelector((state) => state.nfts);
   const myFavoritesState = useSelector((state) => state.myFavorites);
   const accountState = useSelector((state) => state.account);
   const onSale = useSelector((state) => state.onSale);
 
+  // Extra data of the NFT or PACKAGE
   const [nfts, setNFTs] = useState([]);
   const [height, setHeight] = useState(0);
   const [account, setAccount] = useState(accountState);
-  const [myFavorites, setMyFavorites] = useState(myFavoritesState);;
+  const [myFavorites, setMyFavorites] = useState(myFavoritesState);
 
+  // Function set img height
   const onImgLoad = ({ target: img }) => {
     let currentHeight = height;
     if (currentHeight < img.offsetHeight) {
@@ -41,6 +44,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
     }
   };
 
+  // Function to set like or unlike
   const handleLike = async (id) => {
     if (account) {
       if (myFavorites.find((nft) => nft.id === id))
@@ -56,16 +60,19 @@ const CarouselNewRedux = ({ allOrSale }) => {
     }
   };
 
+  // Function to load in the store the favorites of the user
   useEffect(() => {
     setAccount(accountState);
     setMyFavorites(myFavoritesState);
   }, [accountState, myFavoritesState]);
 
+  // Function to show the NFT or NFT on sale
   useEffect(() => {
     if (allOrSale === "all") setNFTs(nftsState.slice(-20));
     else setNFTs(onSale);
   }, [nftsState, allOrSale, onSale]);
 
+  // Function to convert price to HOR
   const fromWei = (price) => {
     if (price) return `${web3.utils.fromWei(`${price}`, "ether")} HOR`;
     else return "Calculating...";
@@ -79,7 +86,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
           autoplaySpeed: allOrSale === "all" ? 3000 : 4000,
           prevArrow: <Arrow leftOrRighr="left" isBlack={true} />,
           nextArrow: <Arrow leftOrRighr="right" isBlack={true} />,
-        }}
+        }} /* Settings for the slider */
       >
         {nfts &&
           nfts.map((nft, index) => (
@@ -125,6 +132,7 @@ const CarouselNewRedux = ({ allOrSale }) => {
                       </>
                     )}
 
+                    {/* I like heart */}
                     <div
                       className={`nft__item_like ${
                         myFavorites.find((item) => item.id === nft.id)

@@ -6,10 +6,14 @@ import { filterRarity, filterType, filterNftName } from "../../redux/actions";
 
 const TopFilterBar = () => {
   const dispatch = useDispatch();
+
+  // Get params from global store
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
 
+  // Extra data of the filters
   const [typeExplorer, setTypeExplorer] = useState("nfts");
 
+  // Callbacks of the filters
   const handleType = useCallback(
     (option) => {
       const { value } = option;
@@ -17,7 +21,6 @@ const TopFilterBar = () => {
     },
     [dispatch]
   );
-
   const handleRarity = useCallback(
     (option) => {
       const { value } = option;
@@ -25,7 +28,6 @@ const TopFilterBar = () => {
     },
     [dispatch]
   );
-
   const handleNftName = useCallback(
     (e) => {
       dispatch(filterNftName(e.target.value));
@@ -33,12 +35,14 @@ const TopFilterBar = () => {
     [dispatch]
   );
 
+  // Default value of the filters
   const defaultValue = {
     value: null,
     label: "Select Filter",
     isDisabled: true,
   };
 
+  // Styles of the filters
   const customStyles = {
     option: (base) => ({
       ...base,
@@ -76,12 +80,14 @@ const TopFilterBar = () => {
     }),
   };
 
+  // Set the information of the filters
   useEffect(() => {
     setTypeExplorer(typeExplorerAux);
   }, [typeExplorerAux]);
 
   return (
     <div className="items_filter">
+      {/* Search bar */}
       <form
         className="row form-dark"
         id="form_quick_search"
@@ -104,6 +110,7 @@ const TopFilterBar = () => {
         </div>
       </form>
 
+      {/* Type filter */}
       <div className="dropdownSelect one">
         <Select
           styles={customStyles}
@@ -113,6 +120,7 @@ const TopFilterBar = () => {
         />
       </div>
 
+      {/* Rarity filter */}
       {typeExplorer !== "packages" ? (
         <div className="dropdownSelect two">
           <Select

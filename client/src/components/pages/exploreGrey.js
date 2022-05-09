@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ColumnNewRedux from "../components/ColumnNewRedux";
 import Footer from "../components/footer";
 import TopFilterBar from "../components/TopFilterBar";
-//IMPORT DYNAMIC STYLED COMPONENT
 import { StyledHeader } from "../Styles";
 import {
   getAllNFT,
@@ -13,17 +12,21 @@ import {
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
+
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
 const Explore = () => {
   const dispatch = useDispatch();
 
+  // Get params from global store
   const filteredNfts = useSelector((state) => state.filteredNfts);
 
+  // Extra data of the NFT or PACKAGE
   const [nfts, setNFTs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Function to load in the store the NFTs and PACKAGES
   useEffect(() => {
     dispatch(isLoadingFunction(true));
     dispatch(getAllNFT());
@@ -32,10 +35,12 @@ const Explore = () => {
     dispatch(getOnSell());
   }, [dispatch]);
 
+  // Function to set extra data
   useEffect(() => {
     setNFTs(filteredNfts);
   }, [filteredNfts]);
 
+  // Function to set the loading state
   useEffect(() => {
     setTimeout(() => {
       if (nfts.length) setIsLoading(false);
@@ -64,17 +69,20 @@ const Explore = () => {
       <section className="container">
         <div className="row">
           <div className="col-lg-12">
+            {/* Filters */}
             <TopFilterBar />
           </div>
         </div>
 
         <div className="row">
           <div className="col-lg-12">
+            {/* Show all nfts or packages */}
             {isLoading ? <Loading /> : <ColumnNewRedux type="explore" />}
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
