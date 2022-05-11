@@ -15,7 +15,7 @@ module.exports = {
         // expired: req.body.expired,
         // created_days: req.body.created_days,
         canceled: req.body.canceled,
-      })
+      }) // Create the on_sell
       .then((on_sell) => {
         /* setTimeout(() => {
           on_sell.update({
@@ -35,11 +35,11 @@ module.exports = {
           account: req.params.account,
           order_id: req.params.order_id,
         },
-      })
+      }) // Find the on_sell
       .then((on_sell) => {
         if (on_sell)
           on_sell
-            .update(req.body)
+            .update(req.body) // Update the on_sell
             .then((on_sell) =>
               res.status(200).send({ ...on_sell.dataValues, status: 200 })
             )
@@ -50,7 +50,7 @@ module.exports = {
 
   find(_, res) {
     return on_sell
-      .findAll({})
+      .findAll({}) // Find all the on_sell
       .then((on_sell) =>
         res.status(200).send({ all: [...on_sell], status: 200 })
       )

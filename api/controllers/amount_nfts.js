@@ -6,7 +6,7 @@ module.exports = {
     return amount_nfts
       .create({
         amount: req.params.amount,
-      })
+      }) // Create the amount_nfts
       .then((amount_nfts) =>
         res.status(200).send({ ...amount_nfts.dataValues, status: 200 })
       )
@@ -15,7 +15,7 @@ module.exports = {
 
   update(req, res) {
     return amount_nfts
-      .update({ amount: req.params.amount }, { where: { id: 1 } })
+      .update({ amount: req.params.amount }, { where: { id: 1 } }) // Update the amount_nfts
       .then((amount_nfts) =>
         res.status(200).send({ changed: amount_nfts[0], status: 200 })
       )
@@ -24,7 +24,7 @@ module.exports = {
 
   get(_, res) {
     return amount_nfts
-      .findAll({ where: { id: 1 } })
+      .findAll({ where: { id: 1 } }) // Find the amount_nfts
       .then((amount_nfts) =>
         res.status(200).send({ ...amount_nfts[0].dataValues, status: 200 })
       )

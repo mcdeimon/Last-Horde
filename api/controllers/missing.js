@@ -7,7 +7,7 @@ module.exports = {
       .create({
         account: req.params.account,
         missing: req.params.missing,
-      })
+      }) // Create the missing
       .then((missing) =>
         res.status(200).send({ ...missing.dataValues, status: 200 })
       )

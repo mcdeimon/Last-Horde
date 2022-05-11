@@ -7,7 +7,7 @@ module.exports = {
       .create({
         account: req.params.account,
         package: req.params.package,
-      })
+      }) // Create the purchase_packages
       .then((purchase_packages) =>
         res.status(200).send({ ...purchase_packages.dataValues, status: 200 })
       )
