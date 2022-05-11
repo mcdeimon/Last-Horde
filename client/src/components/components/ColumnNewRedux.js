@@ -11,7 +11,7 @@ const ColumnNewRedux = ({ type }) => {
   const packages = useSelector((state) => state.packages);
   const typeExplorerAux = useSelector((state) => state.typeExplorer);
   const myFavoritesState = useSelector((state) => state.myFavorites);
-  const onSale = useSelector((state) => state.onSale);
+  const filteredOnSale = useSelector((state) => state.filteredOnSale);
   const myOnSaleState = useSelector((state) => state.myOnSales);
 
   // Extra data of the NFT or PACKAGE
@@ -59,7 +59,7 @@ const ColumnNewRedux = ({ type }) => {
 
       default:
         if (typeExplorer === "nfts") setNFTs(filteredNfts);
-        else setNFTs(onSale);
+        else setNFTs(filteredOnSale);
         break;
     }
   }, [
@@ -69,7 +69,7 @@ const ColumnNewRedux = ({ type }) => {
     myFavoritesState,
     type,
     typeExplorer,
-    onSale,
+    filteredOnSale,
     myOnSaleState,
   ]);
 
@@ -91,26 +91,35 @@ const ColumnNewRedux = ({ type }) => {
         <Loading /> // Loading component
       ) : (
         <>
-          {typeExplorer === "packages"
-            ? packagesArr?.map((packageCards, index) => (
-                <NftCard
-                  item={{ ...packageCards, id: index + 1 }}
-                  typeExplorer={typeExplorer}
-                  key={index}
-                  onImgLoad={onImgLoad}
-                  height={height}
-                /> // NftCard component with the information of the Package
-              ))
-            : nfts?.map((nft, index) => (
-                <NftCard
-                  item={nft}
-                  typeExplorer={typeExplorer}
-                  key={index}
-                  onImgLoad={onImgLoad}
-                  height={height}
-                  sell={handleIsSell()}
-                /> // NftCard component with the information of the NFT
-              ))}
+          {typeExplorer === "packages" ? (
+            packagesArr?.map((packageCards, index) => (
+              <NftCard
+                item={{ ...packageCards, id: index + 1 }}
+                typeExplorer={typeExplorer}
+                key={index}
+                onImgLoad={onImgLoad}
+                height={height}
+              /> // NftCard component with the information of the Package
+            ))
+          ) : nfts.length ? (
+            nfts?.map((nft, index) => (
+              <NftCard
+                item={nft}
+                typeExplorer={typeExplorer}
+                key={index}
+                onImgLoad={onImgLoad}
+                height={height}
+                sell={handleIsSell()}
+              /> // NftCard component with the information of the NFT
+            ))
+          ) : (
+            <div id="zero5" className="onStep fadeIn noNftExplore">
+              <div className="d-flex justify-content-center align-items-center flex-column">
+                <h1>There are no NFTs for sale</h1>
+                <p>Wait for NFTs to be added before you can buy</p>
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

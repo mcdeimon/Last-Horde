@@ -54,6 +54,7 @@ const ItemDetailRedux = () => {
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
   const [myOnSale, setMyOnSale] = useState(myOnSaleState);
   const [onSale, setOnSale] = useState(onSalesState);
+  const [step, setStep] = useState(1);
 
   // Information about the Sale
   const [openSell, setOpenSell] = useState(false);
@@ -108,6 +109,7 @@ const ItemDetailRedux = () => {
       await ContractNfts.methods
         .setApprovalForAll(addressMarket, true)
         .send({ from: account });
+      setStep(2);
 
       // Get the price in HOR
       const priceWei = await web3.utils.toWei(sellObject.price, "ether");
@@ -133,6 +135,7 @@ const ItemDetailRedux = () => {
       // Close the modal and reload the data
       setOpenSell(false);
       setLoading(false);
+      setStep(1);
       setSellObject({
         price: 0,
         expirationDays: 0,
@@ -163,6 +166,7 @@ const ItemDetailRedux = () => {
       await ContractHorde.methods.approve(addressMarket, price).send({
         from: account,
       });
+      setStep(2);
 
       // Buy the nft
       await ContractMarket.methods
@@ -179,6 +183,7 @@ const ItemDetailRedux = () => {
 
       // Close the modal
       setLoading(false);
+      setStep(1);
     } catch (err) {
       console.log(err);
     }
@@ -521,6 +526,7 @@ const ItemDetailRedux = () => {
           <div className="maincheckout">
             <div className="loading">
               <h2>Wait to finish the transaction</h2>
+              <h3>Step:{` ${step}`}</h3>
             </div>
           </div>
         </div>

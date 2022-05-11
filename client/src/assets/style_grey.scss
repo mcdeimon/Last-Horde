@@ -4333,6 +4333,7 @@ img.img-rounded {
 
     .loading {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -5443,4 +5444,11 @@ img.img-rounded {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.noNftExplore {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -35,6 +35,7 @@ const initialState = {
   rarity: [], // All rarity
 
   onSale: [], // All on sale
+  filteredOnSale: [], // Filtered by rarity and type on sale
 };
 
 export const rootReducer = (state = initialState, { type, payload }) => {
@@ -95,6 +96,7 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         onSale: payload, // Set the on sale
+        filteredOnSale: payload, // Set the filtered on sale
         myOnSales: myOnSales, // Set the my on sale
       };
 
@@ -102,11 +104,16 @@ export const rootReducer = (state = initialState, { type, payload }) => {
 
     case FILTER_RARITY:
       let filteredNftsAux = []; // Filtered nfts aux
+      let filteredOnSaleAux = []; // Filtered on sale aux
 
       switch (payload) {
         case "silver":
           filteredNftsAux = [...state.nfts].filter(
             (nft) => state.rarity[nft.id] === "1"
+          ); // Filter by rarity 1
+
+          filteredOnSaleAux = [...state.onSale].filter(
+            (nft) => state.rarity[nft.id_nft] === "1"
           ); // Filter by rarity 1
           break;
 
@@ -114,11 +121,19 @@ export const rootReducer = (state = initialState, { type, payload }) => {
           filteredNftsAux = [...state.nfts].filter(
             (nft) => state.rarity[nft.id] === "2"
           ); // Filter by rarity 2
+
+          filteredOnSaleAux = [...state.onSale].filter(
+            (nft) => state.rarity[nft.id_nft] === "2"
+          ); // Filter by rarity 2
           break;
 
         case "gold":
           filteredNftsAux = [...state.nfts].filter(
             (nft) => state.rarity[nft.id] === "3"
+          ); // Filter by rarity 3
+
+          filteredOnSaleAux = [...state.onSale].filter(
+            (nft) => state.rarity[nft.id_nft] === "3"
           ); // Filter by rarity 3
           break;
 
@@ -126,22 +141,39 @@ export const rootReducer = (state = initialState, { type, payload }) => {
           filteredNftsAux = [...state.nfts].filter(
             (nft) => state.rarity[nft.id] === "4"
           ); // Filter by rarity 4
+
+          filteredOnSaleAux = [...state.onSale].filter(
+            (nft) => state.rarity[nft.id_nft] === "4"
+          ); // Filter by rarity 4
           break;
 
         case "purple":
           filteredNftsAux = [...state.nfts].filter(
             (nft) => state.rarity[nft.id] === "5"
           ); // Filter by rarity 5
+
+          filteredOnSaleAux = [...state.onSale].filter(
+            (nft) => state.rarity[nft.id_nft] === "5"
+          ); // Filter by rarity 5
           break;
 
-        default: // Filter by all rarity
+        case "all": // Filter by all rarity
           filteredNftsAux = [...state.nfts];
+
+          filteredOnSaleAux = [...state.onSale];
+          break;
+
+        default:
+          filteredNftsAux = [...state.nfts];
+
+          filteredOnSaleAux = [...state.onSale];
           break;
       }
 
       return {
         ...state,
         filteredNfts: filteredNftsAux, // Set the filtered nfts
+        filteredOnSale: filteredOnSaleAux, // Set the filtered on sale
       };
 
     case FILTER_TYPE:
@@ -151,13 +183,21 @@ export const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case FILTER_NAME:
+      let filteredNftsAux2 = [...state.nfts].filter((nft) => {
+        if (payload.length >= 3)
+          return nft.name.toLowerCase().includes(payload.toLowerCase());
+        else return true;
+      }); // Filter by name
+      let filteredOnSaleAux2 = [...state.onSale].filter((nft) => {
+        if (payload.length >= 3)
+          return nft.name.toLowerCase().includes(payload.toLowerCase());
+        else return true;
+      }); //Filter by name
+
       return {
         ...state,
-        filteredNfts: [...state.nfts].filter((nft) => {
-          if (payload.length >= 3)
-            return nft.name.toLowerCase().includes(payload.toLowerCase());
-          else return true;
-        }), // Filter by name
+        filteredNfts: filteredNftsAux2,
+        filteredOnSale: filteredOnSaleAux2,
       };
 
     ////////////////////////////////////////////////////////////// account

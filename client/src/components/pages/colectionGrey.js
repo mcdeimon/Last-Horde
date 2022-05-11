@@ -134,26 +134,53 @@ const Colection = function () {
             {/* Show my NFTs */}
             <ColumnNewRedux type="myNfts" />
           </div>
-        ) : openMenu1 && myOnSale.length ? (
+        ) : openMenu && !myNfts.length ? (
+          <div id="zero5" className="onStep fadeIn">
+            <div className="d-flex justify-content-center align-items-center flex-column">
+              <h1>No NFT found</h1>
+              <p>Connect your wallet or buy new NFT</p>
+            </div>
+          </div>
+        ) : null}
+
+        {openMenu1 && myOnSale.length ? (
           <div id="zero2" className="onStep fadeIn">
             {/* Show my NFTs on sale */}
             <ColumnNewRedux type="myOnSaleNfts" />
           </div>
-        ) : openMenu2 && myNfts.length ? (
+        ) : openMenu1 && !myOnSale.length ? (
+          <div id="zero5" className="onStep fadeIn">
+            <div className="d-flex justify-content-center align-items-center flex-column">
+              <h1>No NFT found</h1>
+              <p>Connect your account or list NFT for sale</p>
+            </div>
+          </div>
+        ) : null}
+
+        {openMenu2 && myNfts.length ? (
           <div id="zero3" className="onStep fadeIn">
             {/* Show my NFTs on rent */}
             <ColumnNewRedux type="myOnRentNfts" />
           </div>
-        ) : openMenu3 && myFavoritesNfts.length ? (
+        ) : openMenu2 && !myNfts.length ? (
+          <div id="zero5" className="onStep fadeIn">
+            <div className="d-flex justify-content-center align-items-center flex-column">
+              <h1>No NFT found</h1>
+              <p>Connect your account or rent NFT</p>
+            </div>
+          </div>
+        ) : null}
+
+        {openMenu3 && myFavoritesNfts.length ? (
           <div id="zero4" className="onStep fadeIn">
             {/* Show my favorite NFTs */}
             <ColumnNewRedux type="myFavoritesNfts" />
           </div>
-        ) : !myNfts.length || !myFavoritesNfts.length || !account ? (
+        ) : openMenu3 && !myFavoritesNfts.length ? (
           <div id="zero5" className="onStep fadeIn">
             <div className="d-flex justify-content-center align-items-center flex-column">
-              <h1>No NFTs found</h1>
-              <p>Connect your wallet or buy new nfts</p>
+              <h1>No NFT found</h1>
+              <p>Connect your account or add to my favorites NFT</p>
             </div>
           </div>
         ) : null}

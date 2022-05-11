@@ -46,7 +46,7 @@ const Home = () => {
   // Function to set the loading state
   useEffect(() => {
     setTimeout(() => {
-      if (nfts.length && onSale.length) setIsLoading(false);
+      if (nfts.length) setIsLoading(false);
       else setIsLoading(true);
     }, 3000);
   }, [nfts, onSale]);

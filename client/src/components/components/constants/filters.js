@@ -17,6 +17,11 @@ export const type = [
 
 export const rarity = [
   {
+    value: "all",
+    label: "All",
+  },
+
+  {
     value: "silver",
     label: "Silver",
   },
