@@ -396,6 +396,13 @@ const ItemDetailRedux = () => {
                       >
                         Buy Now
                       </button>
+
+                      <button
+                        className="btn-main lead mb-5 mr15"
+                        disabled={account ? false : true}
+                      >
+                        Claim Now
+                      </button>
                     </div>
                   )}
                 </div>
