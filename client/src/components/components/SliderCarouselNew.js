@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "@reach/router";
@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Arrow from "./ArrowCarrousel";
+import { web3 } from "../../utils/web3";
 
 // Set global styles
 const GlobalStyles = createGlobalStyle`
@@ -35,12 +36,16 @@ export default function Responsive() {
   // Get params from global store
   const packagesState = useSelector((state) => state.packages);
 
-  // Extra data of the NFT or PACKAGE
-  const [packages, setPackages] = React.useState([]);
+  // Extra data of the PACKAGE
+  const [packages, setPackages] = useState([]);
+  const [priceArr, setPriceArr] = useState([]);
 
   // Function to load in the store the packages
   useEffect(() => {
     setPackages(packagesState);
+
+    // Set the price of the packages
+    handleSetPrice(packagesState);
   }, [packagesState]);
 
   // Settings for the slider
@@ -100,6 +105,19 @@ export default function Responsive() {
     ],
   };
 
+  const handleSetPrice = async (packagesArr) => {
+    let priceAux = [];
+
+    for (let i = 0; i < packagesArr.length; i++) {
+      priceAux[i] = await web3.utils.fromWei(
+        `${packagesArr[i].price}`,
+        "ether"
+      );
+    }
+
+    setPriceArr(priceAux);
+  };
+
   return (
     <div className="nft-big mb-5">
       {/* Set global styles */}
@@ -124,7 +142,11 @@ export default function Responsive() {
                       <div className="col first">
                         <span className="d-title">Price</span>
 
-                        <h4>{item.price} HOR</h4>
+                        <h4>
+                          {priceArr[index]
+                            ? `${priceArr[index]} HOR`
+                            : "Calculating the price"}
+                        </h4>
                       </div>
 
                       <div className="line"></div>

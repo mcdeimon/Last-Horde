@@ -71,10 +71,14 @@ const ItemDetailRedux = () => {
 
   // Funciton to copy the address to clipboard
   const handleCopyClipboard = () => {
+    let auxOrderId = query.get("order_id");
+
     navigator.clipboard.writeText(
-      `http://app.lasthorde.com/detail/${itemId}${
-        query.get("package") ? "?package=true" : ""
-      }`
+      query.get("package")
+        ? `http://app.lasthorde.com/detail/${itemId}?package=true`
+        : auxOrderId
+        ? `http://localhost:3000/detail/${itemId}?order_id=${auxOrderId}`
+        : `http://app.lasthorde.com/detail/${itemId}`
     );
   };
 
@@ -148,18 +152,19 @@ const ItemDetailRedux = () => {
     }
   };
 
+  // Function buy the nft on sale
   const handleBuy = async () => {
     try {
       // Open the modal to wait
       setLoading(true);
 
       // Get the id of order, the price in wei and the account
-      const order_id = onSale?.find(
-        (nft) => nft.id === parseInt(itemId)
-      )?.order_id;
-      const price = onSale?.find((nft) => nft.id === parseInt(itemId))?.price;
+      const order_id = query.get("order_id");
+      const price = onSale?.find(
+        (nft) => nft.id === parseInt(itemId) && `${nft.order_id}` === order_id
+      )?.price;
       const accountOwner = onSale?.find(
-        (nft) => nft.id === parseInt(itemId)
+        (nft) => nft.id === parseInt(itemId) && `${nft.order_id}` === order_id
       )?.account;
 
       // Set the approval for the market
@@ -189,15 +194,14 @@ const ItemDetailRedux = () => {
     }
   };
 
+  // Function to cancel the nft on sale
   const handleCancelSell = async () => {
     try {
       // Open the modal to wait
       setLoading(true);
 
       // Get the id of order
-      const order_id = myOnSale?.find(
-        (nft) => nft.id === parseInt(itemId)
-      )?.order_id;
+      const order_id = query.get("order_id");
 
       // Cancel the sale of the nft
       await ContractMarket.methods.cancelOrder(addressNft, order_id).send({
@@ -328,31 +332,54 @@ const ItemDetailRedux = () => {
                   ) : null}
 
                   {/* Button for checkout */}
-                  {myNfts.find((nft) => nft.id === parseInt(itemId)) &&
-                  !query.get("package") ? (
+                  {!query.get("package") ? (
                     <div className="d-flex flex-row mt-5">
+                      {[...onSale]?.filter(
+                        (nft) =>
+                          `${nft.order_id}` === query.get("order_id") &&
+                          nft.account === account
+                      ).length ? (
+                        <button
+                          className="btn-main lead mb-5 mr15"
+                          onClick={handleBuy}
+                          disabled={
+                            account && query.get("order_id") ? false : true
+                          }
+                        >
+                          Buy Now
+                        </button>
+                      ) : null}
+
                       {myOnSale?.find((nft) => nft.id === parseInt(itemId)) ? (
                         <button
                           className="btn-main lead mb-5 mr15"
                           onClick={handleCancelSell}
                         >
-                          Cancel
+                          Cancel Sale
                         </button>
-                      ) : (
+                      ) : null}
+
+                      {[...myOnSale]?.filter(
+                        (nft) => nft.id === parseInt(itemId)
+                      ).length <
+                      [...myNfts]?.filter((nft) => nft.id === parseInt(itemId))
+                        .length ? (
                         <button
                           className="btn-main lead mb-5 mr15"
                           onClick={() => setOpenSell(true)}
                         >
                           Sell
                         </button>
-                      )}
+                      ) : null}
 
-                      <button
-                        className="btn-main btn2 lead mb-5 mr15"
-                        onClick={() => setOpenSell(false)}
-                      >
-                        Send
-                      </button>
+                      {myNfts.find((nft) => nft.id === parseInt(itemId)) ? (
+                        <button
+                          className="btn-main btn2 lead mb-5 mr15"
+                          onClick={() => setOpenSell(false)}
+                        >
+                          Send
+                        </button>
+                      ) : null}
 
                       {/* <button
                         className="btn-main btn2 lead mb-5 "
@@ -365,18 +392,10 @@ const ItemDetailRedux = () => {
                     <div className="d-flex flex-row mt-5">
                       <button
                         className="btn-main lead mb-5 mr15"
-                        onClick={handleBuy}
                         disabled={account ? false : true}
                       >
                         Buy Now
                       </button>
-
-                      {/* <button
-                        className="btn-main btn2 lead mb-5 "
-                        onClick={() => setOpenCheckoutbid(true)}
-                      >
-                        Rent
-                      </button> */}
                     </div>
                   )}
                 </div>

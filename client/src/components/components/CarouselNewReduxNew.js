@@ -99,7 +99,13 @@ const CarouselNewRedux = ({ allOrSale }) => {
                   >
                     <Outer>
                       <span>
-                        <Link to={`/detail/${nft.id}`}>
+                        <Link
+                          to={
+                            nft?.order_id
+                              ? `detail/${nft?.id}?order_id=${nft?.order_id}`
+                              : `detail/${nft?.id}`
+                          }
+                        >
                           <img
                             src={nft.image}
                             className="lazy nft__item_preview"
@@ -115,7 +121,13 @@ const CarouselNewRedux = ({ allOrSale }) => {
                     {allOrSale !== "all" && (
                       <>
                         <span>
-                          <Link to={`/detail/${nft.id}`}>
+                          <Link
+                            to={
+                              nft?.order_id
+                                ? `detail/${nft?.id}?order_id=${nft?.order_id}`
+                                : `detail/${nft?.id}`
+                            }
+                          >
                             <h4>{nft.name}</h4>
                           </Link>
                         </span>
@@ -125,7 +137,13 @@ const CarouselNewRedux = ({ allOrSale }) => {
                         </div>
 
                         <div className="nft__item_action">
-                          <Link to={`/detail/${nft.id}`}>
+                          <Link
+                            to={
+                              nft?.order_id
+                                ? `detail/${nft?.id}?order_id=${nft?.order_id}`
+                                : `detail/${nft?.id}`
+                            }
+                          >
                             <span>Buy now</span>
                           </Link>
                         </div>

@@ -86,9 +86,11 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
                 alt=""
                 onClick={() =>
                   navigateTo(
-                    `detail/${item?.id}${
-                      typeExplorer === "packages" ? "?package=true" : ""
-                    }`
+                    typeExplorer === "packages"
+                      ? `detail/${item?.id}?package=true`
+                      : item?.order_id
+                      ? `detail/${item?.id}?order_id=${item?.order_id}`
+                      : `detail/${item?.id}`
                   )
                 }
               />
@@ -100,9 +102,11 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
           <span
             onClick={() =>
               navigateTo(
-                `detail/${item?.id}${
-                  typeExplorer === "packages" ? "?package=true" : ""
-                }`
+                typeExplorer === "packages"
+                  ? `detail/${item?.id}?package=true`
+                  : item?.order_id
+                  ? `detail/${item?.id}?order_id=${item?.order_id}`
+                  : `detail/${item?.id}`
               )
             }
           >
@@ -111,15 +115,19 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
 
           {sell && (
             <>
-              <div className="nft__item_price">{price} HOR</div>
+              <div className="nft__item_price">
+                {price ? `${price} HOR` : "Computing the price"}
+              </div>
 
               <div className="nft__item_action">
                 <span
                   onClick={() =>
                     navigateTo(
-                      `detail/${item?.id}${
-                        typeExplorer === "packages" ? "?package=true" : ""
-                      }`
+                      typeExplorer === "packages"
+                        ? `detail/${item?.id}?package=true`
+                        : item?.order_id
+                        ? `detail/${item?.id}?order_id=${item?.order_id}`
+                        : `detail/${item?.id}`
                     )
                   }
                 >
@@ -131,7 +139,7 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
 
           {typeExplorer !== "packages" && (
             /* I like heart */
-            <div 
+            <div
               className={`nft__item_like ${
                 myFavorites.find((nft) => nft.id === item.id)
                   ? "likedHeart"
