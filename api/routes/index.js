@@ -46,12 +46,12 @@ module.exports = (app) => {
   app.post("/amount-nft/:amount", amountNftController.create);
 
   //////////////////////////////////////////////////////// On sale NFT routes
-  app.get("/on-sell", onSellController.find);
+  app.get("/on-sale", onSellController.find);
 
-  app.post("/on-sell", onSellController.create);
+  app.post("/on-sale", onSellController.create);
 
   app.post(
-    "/on-sell/account/:account/order_id/:order_id",
+    "/on-sale/account/:account/order_id/:order_id",
     onSellController.update
   );
 };

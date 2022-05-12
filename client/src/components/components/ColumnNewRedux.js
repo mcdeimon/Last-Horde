@@ -31,7 +31,12 @@ const ColumnNewRedux = ({ type }) => {
 
   // Function to set the information of the NFTs and PACKAGES
   const handleIsSell = () => {
-    if (typeExplorer === "nfts") return false;
+    if (
+      typeExplorer === "nfts" ||
+      type === "myNfts" ||
+      type === "myFavoritesNfts"
+    )
+      return false;
     if (type !== "explore") return true;
     else return true;
   };

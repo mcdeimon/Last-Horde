@@ -156,23 +156,16 @@ export const getOnSell = () => async (dispatch) => {
 
   try {
     // Get the nfts on sale
-    onSell = await axios.get(`http://${REACT_APP_HOST_DB}/on-sell`);
+    onSell = await axios.get(`http://${REACT_APP_HOST_DB}/on-sale`);
     onSell = onSell.data.all;
 
     // Filter nfts cancelled and sold
     for (let i = 0; i < onSell.length; i++) {
-      if (
-        !onSell[i].sold &&
-        !onSell[i].canceled
-        /* !onSell[i].expired ||
-        onSell[i].created_days === Date() + onSell[i].expiration_days */
-      ) {
-        /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${onSell[i].id_nft}.json`);
+      /* nft = await axios.get(`http://app.lasthorde.com/NFTs/${onSell[i].id_nft}.json`);
       nfts.push(nft.data); */
 
-        nft = await require(`../../../public/Nfts/${onSell[i].id_nft}.json`);
-        nftArr.push({ ...nft, ...onSell[i], id: onSell[i].id_nft });
-      }
+      nft = await require(`../../../public/Nfts/${onSell[i].id_nft}.json`);
+      nftArr.push({ ...nft, ...onSell[i], id: onSell[i].id_nft });
     }
   } catch (e) {
     console.log(e);

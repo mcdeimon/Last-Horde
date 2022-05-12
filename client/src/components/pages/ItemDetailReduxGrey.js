@@ -124,7 +124,7 @@ const ItemDetailRedux = () => {
         .send({ from: account, gas: "300000" });
 
       // Save the data in the database
-      await axios.post(`http://${REACT_APP_HOST_DB}/on-sell`, {
+      await axios.post(`http://${REACT_APP_HOST_DB}/on-sale`, {
         account: account,
         id_nft: itemId,
         price: `${priceWei}`,
@@ -180,7 +180,7 @@ const ItemDetailRedux = () => {
 
       // Set the nft as sold in the database
       await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sell/account/${accountOwner}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/on-sale/account/${accountOwner}/order_id/${order_id}`,
         {
           sold: true,
         }
@@ -189,6 +189,9 @@ const ItemDetailRedux = () => {
       // Close the modal
       setLoading(false);
       setStep(1);
+
+      // Reload the data in the store
+      dispatch(getOnSell());
     } catch (err) {
       console.log(err);
     }
@@ -211,7 +214,7 @@ const ItemDetailRedux = () => {
 
       // Set the nft as canceled in the database
       await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sell/account/${account}/order_id/${order_id}`,
+        `http://${REACT_APP_HOST_DB}/on-sale/account/${account}/order_id/${order_id}`,
         {
           canceled: true,
         }
@@ -219,6 +222,8 @@ const ItemDetailRedux = () => {
 
       // Close the modal and reload the data
       setLoading(false);
+
+      // Reload the data in the store
       dispatch(getOnSell());
     } catch (err) {
       console.log(err);
@@ -332,12 +337,12 @@ const ItemDetailRedux = () => {
                   ) : null}
 
                   {/* Button for checkout */}
-                  {!query.get("package") ? (
+                  {account ? (
                     <div className="d-flex flex-row mt-5">
                       {[...onSale]?.filter(
                         (nft) =>
                           `${nft.order_id}` === query.get("order_id") &&
-                          nft.account === account
+                          nft.account !== account
                       ).length ? (
                         <button
                           className="btn-main lead mb-5 mr15"
@@ -350,7 +355,11 @@ const ItemDetailRedux = () => {
                         </button>
                       ) : null}
 
-                      {myOnSale?.find((nft) => nft.id === parseInt(itemId)) ? (
+                      {[...onSale]?.find(
+                        (nft) =>
+                          `${nft.order_id}` === query.get("order_id") &&
+                          nft.account === account
+                      ) ? (
                         <button
                           className="btn-main lead mb-5 mr15"
                           onClick={handleCancelSell}
@@ -388,23 +397,29 @@ const ItemDetailRedux = () => {
                         Rent
                       </button> */}
                     </div>
-                  ) : (
+                  ) : null}
+
+                  {query.get("package") && account ? (
                     <div className="d-flex flex-row mt-5">
-                      <button
-                        className="btn-main lead mb-5 mr15"
-                        disabled={account ? false : true}
-                      >
+                      <button className="btn-main lead mb-5 mr15">
                         Buy Now
                       </button>
 
-                      <button
-                        className="btn-main lead mb-5 mr15"
-                        disabled={account ? false : true}
-                      >
-                        Claim Now
+                      {false ? (
+                        <button className="btn-main lead mb-5 mr15">
+                          Claim Now
+                        </button>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  {!account ? (
+                    <div className="d-flex flex-row mt-5">
+                      <button className="btn-main lead mb-5 mr15">
+                        Buy Now
                       </button>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </div>

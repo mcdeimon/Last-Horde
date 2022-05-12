@@ -51,9 +51,13 @@ module.exports = {
   find(_, res) {
     return on_sell
       .findAll({}) // Find all the on_sell
-      .then((on_sell) =>
-        res.status(200).send({ all: [...on_sell], status: 200 })
-      )
+      .then((on_sell) => {
+        let auxArr = [...on_sell]
+          .filter((nft) => !nft.sold && !nft.canceled)
+          .reverse();
+
+        res.status(200).send({ all: [...auxArr], status: 200 });
+      })
       .catch((error) => res.status(400).send({ ...error, status: 400 }));
   },
 };
