@@ -38,6 +38,8 @@ module.exports = (app) => {
     purchasePackageController.create
   );
 
+  app.get("/purchage_packages/account/:account", purchasePackageController.find);
+
   //////////////////////////////////////////////////////// Amount NFTs routes
   app.get("/amount-nft", amountNftController.get);
 
