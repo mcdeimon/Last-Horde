@@ -1,6 +1,6 @@
-const web3 = require("./web3");
+const { web3 } = require("./web3");
 
-const address = "0x24e7652118782F21457DbAA8FD238064244cfe0C";
+const addressMarket = "0x24e7652118782F21457DbAA8FD238064244cfe0C";
 
 const abi = [
   {
@@ -422,7 +422,9 @@ const abi = [
   },
 ];
 
+let ContractMarket = new web3.eth.Contract(abi, addressMarket);
+
 module.exports = {
-  ContractMarket: new web3b.eth.Contract(abi, address),
-  address,
+  ContractMarket,
+  addressMarket,
 };

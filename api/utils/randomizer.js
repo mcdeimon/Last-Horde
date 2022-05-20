@@ -1,4 +1,5 @@
-const {ContractMarket, account} = require('./ContractQuickMarketU');
+const { ContractNfts } = require("./ContractNfts");
+const { addressMarket } = require("./ContractQuickMarketU");
 
 const PROBABILITY = {
   0: 0,
@@ -17,24 +18,48 @@ const probability = (rarity) => {
   );
 };
 
-const randomizer = (raritys, length) => {
+const randomizer = async (raritys, length) => {
   const randomCards = [];
 
-  while (randomCards.length < length - 1) {
-    let randomCard = Math.floor(Math.random() * raritys.length);
+  try {
+    while (randomCards.length < length) {
+      let randomCard = Math.floor(Math.random() * raritys.length);
 
-    for (let rarity = parseInt(raritys[randomCard]); rarity > 0; rarity--) {
-      if (rarity === 1 && await ContractMarket.methods.balanceOf(account, `${randomCard}`).call()) 
-        randomCards.push(randomCard);
-      else if (rarity === 1 && !await ContractMarket.methods.balanceOf(account, `${randomCard}`).call() && cards[1])
-        randomCards.push(1);
-      else if (rarity !== 1 && probability(rarity) && await ContractMarket.methods.balanceOf(account,`${randomCard}`).call())
-        randomCards.push(randomCard);
-      else randomCard -= 1;
+      for (let rarity = parseInt(raritys[randomCard]); rarity > 0; rarity--) {
+        if (
+          rarity === 1 &&
+          (await ContractNfts.methods
+            .balanceOf(addressMarket, `${randomCard}`)
+            .call())
+        ) {
+          randomCards.push(randomCard);
+          break;
+        } else if (
+          rarity === 1 &&
+          !(await ContractNfts.methods
+            .balanceOf(addressMarket, `${randomCard}`)
+            .call()) &&
+          (await ContractNfts.methods.balanceOf(addressMarket, `${1}`).call())
+        ) {
+          randomCards.push(1);
+          break;
+        } else if (
+          rarity !== 1 &&
+          probability(rarity) &&
+          (await ContractNfts.methods
+            .balanceOf(addressMarket, `${randomCard}`)
+            .call())
+        ) {
+          randomCards.push(randomCard);
+          break;
+        } else randomCard -= 1;
+      }
     }
-  }
 
-  return randomCards;
+    return randomCards;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export default randomizer;
+module.exports = randomizer;

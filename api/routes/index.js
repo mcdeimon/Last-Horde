@@ -4,6 +4,7 @@ const missingController = require("../controllers/missing");
 const purchasePackageController = require("../controllers/purchase_packages");
 const amountNftController = require("../controllers/amount_nfts");
 const onSellController = require("../controllers/on_sell");
+const raritysController = require("../controllers/raritys");
 
 module.exports = (app) => {
   app.get("/", (req, res) =>
@@ -38,7 +39,10 @@ module.exports = (app) => {
     purchasePackageController.create
   );
 
-  app.get("/purchage_packages/account/:account", purchasePackageController.find);
+  app.get(
+    "/purchage_packages/account/:account",
+    purchasePackageController.find
+  );
 
   //////////////////////////////////////////////////////// Amount NFTs routes
   app.get("/amount-nft", amountNftController.get);
@@ -56,4 +60,7 @@ module.exports = (app) => {
     "/on-sale/account/:account/order_id/:order_id",
     onSellController.update
   );
+
+  //////////////////////////////////////////////////////// Raritys routes
+  app.get("/raritys", raritysController.raritys);
 };
