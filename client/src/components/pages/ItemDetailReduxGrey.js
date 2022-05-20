@@ -4,33 +4,30 @@ import Footer from "../components/footer";
 import { IoGrid } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
 import { FaShareSquare } from "react-icons/fa";
-import ContractNfts, {
-  address as addressNft,
-} from "../../contracts/ContractNfts";
-import ContractMarket, {
-  address as addressMarket,
-} from "../../contracts/ContractMarket";
-import ContractHorde from "../../contracts/ContractHorde";
 import { StyledHeader } from "../Styles";
 import {
+  getAccount,
   getMyFavorites,
   getNFTById,
   getOnSell,
   getPackagesById,
   getRarity,
 } from "../../redux/actions";
-import { useParams } from "@reach/router";
+import { useNavigate, useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
-import axios from "axios";
-import { web3 } from "../../utils/web3";
+import {
+  handleBuy,
+  handleCancelSell,
+  handleLike,
+  handleSell,
+} from "../../utils/itemDetailFunctions";
 
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
 
-const { REACT_APP_HOST_DB } = process.env;
-
 const ItemDetailRedux = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get params from global store
   const nftItem = useSelector((state) => state.nft);
@@ -83,152 +80,49 @@ const ItemDetailRedux = () => {
     );
   };
 
-  // Function set like or unlike a nft
-  const handleLike = async () => {
-    // If there is an account connected
-    if (account) {
-      // If the nft is not in my favorites
-      if (myFavorites.find((nft) => nft.id === itemId))
-        await axios
-          .delete(
-            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
-          )
-          .then(() => dispatch(getMyFavorites()));
-      // Delete the nft from my favorites
-      else
-        await axios
-          .post(
-            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
-          )
-          .then(() => dispatch(getMyFavorites())); // Add the nft to my favorites
-    }
+  // Function to handle the like
+  const handleLikes = async () => {
+    handleLike(account, itemId, myFavorites).then(() =>
+      dispatch(getMyFavorites())
+    );
   };
 
   // Function set the nft on sale
-  const handleSell = async () => {
-    try {
-      // Open the modal to wait
-      setLoading(true);
+  const handleSellNft = async () => {
+    const order_id = await handleSell(
+      account,
+      itemId,
+      sellObject,
+      setLoading,
+      setOpenSell,
+      setStep,
+      setSellObject
+    );
 
-      // Set the approval for all the nfts
-      await ContractNfts.methods
-        .setApprovalForAll(addressMarket, true)
-        .send({ from: account });
-      setStep(2);
+    // Reload the data in the store
+    dispatch(getOnSell());
+    dispatch(getAccount());
 
-      // Get the price in HOR
-      const priceWei = await web3.utils.toWei(sellObject.price, "ether");
-
-      // Get the if of order in the market
-      const order = await ContractMarket.methods
-        .createOrder(addressNft, `${itemId}`, `${priceWei}`) // `${sellObject.expirationDays}`
-        .send({ from: account, gas: "300000" });
-
-      // Save the data in the database
-      await axios.post(`http://${REACT_APP_HOST_DB}/on-sale`, {
-        account: account,
-        id_nft: itemId,
-        price: `${priceWei}`,
-        // expiration_days: sellObject.expirationDays,
-        order_id: order.events.OrderCreated.returnValues.id,
-        sold: false,
-        // expired: false,
-        // created_days: new Date(),
-        canceled: false,
-      });
-
-      // Close the modal and reload the data
-      setOpenSell(false);
-      setLoading(false);
-      setStep(1);
-      setSellObject({
-        price: 0,
-        expirationDays: 0,
-      });
-
-      // Reload the data in the store
-      dispatch(getOnSell());
-    } catch (err) {
-      console.log(err);
-    }
+    // Navigate to the order page
+    navigate(`/detail/${itemId}?order_id=${order_id}`);
   };
 
-  // Function buy the nft on sale
-  const handleBuy = async () => {
-    try {
-      // Open the modal to wait
-      setLoading(true);
+  // Function to cancel the sell
+  const handleCancelSellNft = async () => {
+    await handleCancelSell(account, query, setLoading);
 
-      // Get the id of order, the price in wei and the account
-      const order_id = query.get("order_id");
-      const price = onSale?.find(
-        (nft) => nft.id === parseInt(itemId) && `${nft.order_id}` === order_id
-      )?.price;
-      const accountOwner = onSale?.find(
-        (nft) => nft.id === parseInt(itemId) && `${nft.order_id}` === order_id
-      )?.account;
-
-      // Set the approval for the market
-      await ContractHorde.methods.approve(addressMarket, price).send({
-        from: account,
-      });
-      setStep(2);
-
-      // Buy the nft
-      await ContractMarket.methods
-        .safePayment(addressNft, account, `${order_id}`)
-        .send({ from: account, gas: "300000" });
-
-      // Set the nft as sold in the database
-      await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sale/account/${accountOwner}/order_id/${order_id}`,
-        {
-          sold: true,
-        }
-      );
-
-      // Close the modal
-      setLoading(false);
-      setStep(1);
-
-      // Reload the data in the store
-      dispatch(getOnSell());
-    } catch (err) {
-      console.log(err);
-    }
+    // Reload the data in the store
+    dispatch(getOnSell());
+    dispatch(getAccount());
   };
 
-  // Function to cancel the nft on sale
-  const handleCancelSell = async () => {
-    try {
-      // Open the modal to wait
-      setLoading(true);
+  // Function to buy the nft
+  const handleBuyNft = async () => {
+    await handleBuy(account, itemId, onSale, query, setLoading, setStep);
 
-      // Get the id of order
-      const order_id = query.get("order_id");
-
-      // Cancel the sale of the nft
-      await ContractMarket.methods.cancelOrder(addressNft, order_id).send({
-        from: account,
-        gas: "300000",
-      });
-
-      // Set the nft as canceled in the database
-      await axios.post(
-        `http://${REACT_APP_HOST_DB}/on-sale/account/${account}/order_id/${order_id}`,
-        {
-          canceled: true,
-        }
-      );
-
-      // Close the modal and reload the data
-      setLoading(false);
-
-      // Reload the data in the store
-      dispatch(getOnSell());
-    } catch (err) {
-      console.log(err);
-    }
+    // Reload the data in the store
+    dispatch(getOnSell());
+    dispatch(getAccount());
   };
 
   // Function to load in the store the rarities, the nfts for sale, the packages and the nft
@@ -288,7 +182,7 @@ const ItemDetailRedux = () => {
                       ? "likedHeart"
                       : ""
                   }`}
-                  onClick={handleLike}
+                  onClick={handleLikes}
                 >
                   <i className="fa fa-heart"></i>
                 </div>
@@ -347,7 +241,7 @@ const ItemDetailRedux = () => {
                       ).length ? (
                         <button
                           className="btn-main lead mb-5 mr15"
-                          onClick={handleBuy}
+                          onClick={handleBuyNft}
                           disabled={
                             account && query.get("order_id") ? false : true
                           }
@@ -363,7 +257,7 @@ const ItemDetailRedux = () => {
                       ) ? (
                         <button
                           className="btn-main lead mb-5 mr15"
-                          onClick={handleCancelSell}
+                          onClick={handleCancelSellNft}
                         >
                           Cancel Sale
                         </button>
@@ -489,7 +383,7 @@ const ItemDetailRedux = () => {
 
             <button
               className="btn-main lead mb-5"
-              onClick={handleSell}
+              onClick={handleSellNft}
               disabled={sellObject.price ? false : true}
             >
               Sell
