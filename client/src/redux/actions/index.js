@@ -13,6 +13,7 @@ import {
   FILTER_NAME,
   GET_MY_FAVORITES,
   GET_ON_SELL,
+  FILTER_PRICE,
 } from "../constants/index";
 import { web3 } from "../../utils/web3";
 import ContractNfts from "../../contracts/ContractNfts";
@@ -204,6 +205,15 @@ export const filterNftName = (name) => (dispatch) => {
   dispatch({
     type: FILTER_NAME,
     payload: name,
+  });
+};
+
+// Filter the NFTs by price
+export const filterPrice = (price) => (dispatch) => {
+  // Set the information in the store
+  dispatch({
+    type: FILTER_PRICE,
+    payload: price,
   });
 };
 

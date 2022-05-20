@@ -47,14 +47,19 @@ export const rarity = [
   },
 ];
 
-export const itemsType = [
+export const price = [
   {
-    value: "single_items",
-    label: "Single Items",
+    value: "default",
+    label: "Default",
   },
 
   {
-    value: "bundles",
-    label: "Bundles",
+    value: "ascendant",
+    label: "Ascendant",
+  },
+
+  {
+    value: "descendant",
+    label: "Descendant",
   },
 ];

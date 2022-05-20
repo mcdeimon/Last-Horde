@@ -62,6 +62,7 @@ const ItemDetailRedux = () => {
     price: 0,
     expirationDays: 0,
   });
+  const [noAccount, setNoAccount] = useState(false);
 
   // Variable for loading while waiting
   const [loading, setLoading] = useState(false);
@@ -415,7 +416,10 @@ const ItemDetailRedux = () => {
 
                   {!account ? (
                     <div className="d-flex flex-row mt-5">
-                      <button className="btn-main lead mb-5 mr15">
+                      <button
+                        className="btn-main lead mb-5 mr15"
+                        onClick={() => setNoAccount(true)}
+                      >
                         Buy Now
                       </button>
                     </div>
@@ -434,7 +438,7 @@ const ItemDetailRedux = () => {
         <div className="checkout">
           <div className="maincheckout">
             <button className="btn-close" onClick={() => setOpenSell(false)}>
-              x
+              X
             </button>
 
             <div className="heading">
@@ -501,7 +505,7 @@ const ItemDetailRedux = () => {
               className="btn-close"
               onClick={() => setOpenCheckoutbid(false)}
             >
-              x
+              X
             </button>
 
             <div className="heading">
@@ -568,6 +572,21 @@ const ItemDetailRedux = () => {
             <div className="loading">
               <h2>Wait to finish the transaction</h2>
               <h3>Step:{` ${step}`}</h3>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Modal when no account is connected */}
+      {noAccount ? (
+        <div className="checkout">
+          <div className="maincheckout">
+            <button className="btn-close" onClick={() => setNoAccount(false)}>
+              X
+            </button>
+
+            <div className="noAccount">
+              <h3>Please connect your Smart Chain account to buy the NFT</h3>
             </div>
           </div>
         </div>

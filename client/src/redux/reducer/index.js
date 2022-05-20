@@ -1,5 +1,6 @@
 import {
   FILTER_NAME,
+  FILTER_PRICE,
   FILTER_RARITY,
   FILTER_TYPE,
   GET_ACCOUNT,
@@ -198,6 +199,26 @@ export const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         filteredNfts: filteredNftsAux2,
         filteredOnSale: filteredOnSaleAux2,
+      };
+
+    case FILTER_PRICE:
+      let filteredNftsAux3 = [...state.filteredOnSale].sort((nft, nft2) => {
+        if (payload.value === "descendant") {
+          if (parseInt(nft.price) > parseInt(nft2.price)) return 1;
+          else if (parseInt(nft.price) < parseInt(nft2.price)) return -1;
+          else return 0;
+        } // Sort by asc
+        else {
+          if (parseInt(nft.price) > parseInt(nft2.price)) return -1;
+          else if (parseInt(nft.price) < parseInt(nft2.price)) return 1;
+          else return 0;
+        } // Sort by desc
+      }); // Sort by price
+
+      return {
+        ...state,
+        filteredOnSale:
+          payload.value === "default" ? state.onSale : filteredNftsAux3,
       };
 
     ////////////////////////////////////////////////////////////// account

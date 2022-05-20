@@ -20,6 +20,8 @@ export const FILTER_RARITY = "FILTER_RARITY";
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_NAME = "FILTER_NAME";
 
+export const FILTER_PRICE = "FILTER_PRICE";
+
 export const FILTER_MY_NFT = "FILTER_MY_NFT";
 
 ////////////////////////////////////////////////////////////// account

@@ -1,8 +1,13 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
-import { type, rarity } from "./constants/filters";
-import { filterRarity, filterType, filterNftName } from "../../redux/actions";
+import { type, rarity, price } from "./constants/filters";
+import {
+  filterRarity,
+  filterType,
+  filterNftName,
+  filterPrice,
+} from "../../redux/actions";
 
 const TopFilterBar = () => {
   const dispatch = useDispatch();
@@ -31,6 +36,13 @@ const TopFilterBar = () => {
   const handleNftName = useCallback(
     (e) => {
       dispatch(filterNftName(e.target.value));
+    },
+    [dispatch]
+  );
+  const handlePrice = useCallback(
+    (option) => {
+      const { value } = option;
+      dispatch(filterPrice({ value }));
     },
     [dispatch]
   );
@@ -127,6 +139,17 @@ const TopFilterBar = () => {
             styles={customStyles}
             options={[defaultValue, ...rarity]}
             onChange={handleRarity}
+          />
+        </div>
+      ) : null}
+
+      {/* Price filter */}
+      {typeExplorer === "sale" ? (
+        <div className="dropdownSelect three">
+          <Select
+            styles={customStyles}
+            options={[defaultValue, ...price]}
+            onChange={handlePrice}
           />
         </div>
       ) : null}
