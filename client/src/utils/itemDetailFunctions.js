@@ -75,7 +75,7 @@ export const handleSell = async (
       expirationDays: 0,
     });
 
-    return order.events.OrderCreated.returnValues.id
+    return order.events.OrderCreated.returnValues.id;
   } catch (err) {
     console.log(err);
   }
@@ -155,6 +155,44 @@ export const handleCancelSell = async (account, query, setLoading) => {
 
     // Close the modal and reload the data
     setLoading(false);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Function to buy packs
+export const handleBuyPacks = async (
+  account,
+  feed,
+  code,
+  pkg_type,
+  setLoading,
+  setStep
+) => {
+  try {
+    // Open the modal to wait
+    setLoading(true);
+
+    // Set the approval for the market
+    await ContractNfts.methods
+      .approve(addressMarket, web3.utils.toWei(feed, "ether"))
+      .send({ from: account });
+    setStep(2);
+
+    // Buy the nft
+    await ContractMarket.methods.buy(code).send({
+      from: account,
+      gas: "300000",
+    });
+
+    // Set the sale in the database
+    await axios.post(
+      `http://${REACT_APP_HOST_DB}/account/${account}/package/${pkg_type}`
+    );
+
+    // Close the modal
+    setLoading(false);
+    setStep(1);
   } catch (err) {
     console.log(err);
   }

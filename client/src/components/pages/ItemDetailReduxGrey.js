@@ -17,6 +17,7 @@ import { useNavigate, useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
 import {
   handleBuy,
+  handleBuyPacks,
   handleCancelSell,
   handleLike,
   handleSell,
@@ -122,6 +123,21 @@ const ItemDetailRedux = () => {
 
     // Reload the data in the store
     dispatch(getOnSell());
+    dispatch(getAccount());
+  };
+
+  // Function to buy the package
+  const handleBuyPackage = async () => {
+    await handleBuyPacks(
+      account,
+      item.fee,
+      itemId - 1,
+      item.value,
+      setLoading,
+      setStep
+    );
+
+    // Reload the data in the store
     dispatch(getAccount());
   };
 
@@ -296,7 +312,10 @@ const ItemDetailRedux = () => {
 
                   {query.get("package") && account ? (
                     <div className="d-flex flex-row mt-5">
-                      <button className="btn-main lead mb-5 mr15">
+                      <button
+                        className="btn-main lead mb-5 mr15"
+                        onClick={handleBuyPackage}
+                      >
                         Buy Now
                       </button>
 
