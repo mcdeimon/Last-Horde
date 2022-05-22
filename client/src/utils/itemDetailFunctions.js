@@ -197,3 +197,30 @@ export const handleBuyPacks = async (
     console.log(err);
   }
 };
+
+// Function to claim packs
+export const handleClaimPacks = async (account, code, raritys, setLoading) => {
+  try {
+    // Open the modal to wait
+    setLoading(true);
+
+    // Get random cards
+    const cards = axios.get(`http://${REACT_APP_HOST_DB}/raritys`, {
+      raritys,
+      length: code === 0 ? 3 : code === 1 ? 7 : 11,
+    });
+    cards = cards.data;
+
+    await ContratoMarket.methods
+      .unbox(code, account, cards.cards, cards.quantitys)
+      .send({
+        from: account,
+        gas: "3000000",
+      });
+
+    // Close the modal
+    setLoading(false);
+  } catch (err) {
+    console.log(err);
+  }
+};

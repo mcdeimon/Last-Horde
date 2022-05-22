@@ -19,6 +19,7 @@ import {
   handleBuy,
   handleBuyPacks,
   handleCancelSell,
+  handleClaimPacks,
   handleLike,
   handleSell,
 } from "../../utils/itemDetailFunctions";
@@ -38,6 +39,7 @@ const ItemDetailRedux = () => {
   const myFavoritesState = useSelector((state) => state.myFavorites);
   const myOnSaleState = useSelector((state) => state.myOnSales);
   const onSalesState = useSelector((state) => state.onSale);
+  const myPackagesState = useSelector((state) => state.myPackages);
 
   // Get params from url
   const { itemId } = useParams();
@@ -52,6 +54,7 @@ const ItemDetailRedux = () => {
   const [myFavorites, setMyFavorites] = useState(myFavoritesState);
   const [myOnSale, setMyOnSale] = useState(myOnSaleState);
   const [onSale, setOnSale] = useState(onSalesState);
+  const [myPackages, setMyPackages] = useState(myPackagesState);
   const [step, setStep] = useState(1);
 
   // Information about the Sale
@@ -141,6 +144,14 @@ const ItemDetailRedux = () => {
     dispatch(getAccount());
   };
 
+  // Function to claim the package
+  const handleClaimPackage = async () => {
+    await handleClaimPacks(account, itemId - 1, raritys, setLoading);
+
+    // Reload the data in the store
+    dispatch(getAccount());
+  };
+
   // Function to load in the store the rarities, the nfts for sale, the packages and the nft
   useEffect(() => {
     dispatch(getRarity());
@@ -163,12 +174,14 @@ const ItemDetailRedux = () => {
     setMyFavorites(myFavoritesState);
     setMyOnSale(myOnSaleState);
     setOnSale(onSalesState);
+    setMyPackages(myPackagesState);
   }, [
     myNftsState,
     accountState,
     myFavoritesState,
     myOnSaleState,
     onSalesState,
+    myPackagesState,
   ]);
 
   return (
@@ -319,8 +332,11 @@ const ItemDetailRedux = () => {
                         Buy Now
                       </button>
 
-                      {false ? (
-                        <button className="btn-main lead mb-5 mr15">
+                      {myPackages.find((pkg) => pkg.id === parseInt(itemId)) ? (
+                        <button
+                          className="btn-main lead mb-5 mr15"
+                          onClick={handleClaimPackage}
+                        >
                           Claim Now
                         </button>
                       ) : null}

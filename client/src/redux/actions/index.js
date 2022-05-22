@@ -225,7 +225,10 @@ export const getAccount = () => async (dispatch) => {
     pack = [],
     deck = [],
     favoritesIDs = [],
-    favorites = [];
+    favorites = [],
+    packsQuantity = [],
+    packs = [],
+    pkg = {};
 
   try {
     // Get the account
@@ -265,6 +268,20 @@ export const getAccount = () => async (dispatch) => {
         for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i });
       }
     }
+
+    // Get the packs
+    packsQuantity = await ContractMarket.methods.getPacks(account).call();
+
+    packsQuantity.forEach(async (element) => {
+      for (let i = 0; i < element; i++) {
+        // Get the packages
+        /* pkg = await axios.get(`http://app.lasthorde.com/Packages/${i}.json`);
+      packs.push(pkg.data); */
+
+        pkg = await require(`../../../public/Packages/${i}.json`);
+        packs.push(pkg);
+      }
+    });
   } catch (e) {
     console.log(e);
 
@@ -283,6 +300,7 @@ export const getAccount = () => async (dispatch) => {
       account,
       deck,
       favorites,
+      packs,
     },
   });
 };

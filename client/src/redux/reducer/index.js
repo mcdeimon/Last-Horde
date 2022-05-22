@@ -29,6 +29,7 @@ const initialState = {
   filteredMyNfts: [], // Filtered by rarity and type my nfts
   myFavorites: [], // My favorites
   myOnSales: [], // My on sales
+  myPackages: [], // My packages
 
   nft: {}, // Detail of nft
   package: {}, // Detail of package
@@ -235,6 +236,7 @@ export const rootReducer = (state = initialState, { type, payload }) => {
             nft.account.toLocaleLowerCase() ===
             payload.account.toLocaleLowerCase()
         ), // Set the my on sales
+        myPackages: payload.packs, // Set the my packages
       };
 
     case RESET_ACCOUNT:
