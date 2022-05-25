@@ -18,6 +18,7 @@ import {
 import { web3 } from "../../utils/web3";
 import ContractNfts from "../../contracts/ContractNfts";
 import axios from "axios";
+import ContractQuickMarket from "../../contracts/ContractQuickMarket";
 
 const { REACT_APP_ACCOUNT, REACT_APP_HOST_DB } = process.env;
 
@@ -270,7 +271,7 @@ export const getAccount = () => async (dispatch) => {
     }
 
     // Get the packs
-    packsQuantity = await ContractMarket.methods.getPacks(account).call();
+    packsQuantity = await ContractQuickMarket.methods.getPacks(account).call();
 
     packsQuantity.forEach(async (element) => {
       for (let i = 0; i < element; i++) {
@@ -278,7 +279,7 @@ export const getAccount = () => async (dispatch) => {
         /* pkg = await axios.get(`http://app.lasthorde.com/Packages/${i}.json`);
       packs.push(pkg.data); */
 
-        pkg = await require(`../../../public/Packages/${i}.json`);
+        pkg = await require(`../../../public/Packages/${element}.json`);
         packs.push(pkg);
       }
     });

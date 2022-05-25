@@ -62,5 +62,5 @@ module.exports = (app) => {
   );
 
   //////////////////////////////////////////////////////// Raritys routes
-  app.get("/raritys", raritysController.raritys);
+  app.post("/raritys", raritysController.raritys);
 };

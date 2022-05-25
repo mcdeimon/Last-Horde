@@ -40,6 +40,7 @@ const ItemDetailRedux = () => {
   const myOnSaleState = useSelector((state) => state.myOnSales);
   const onSalesState = useSelector((state) => state.onSale);
   const myPackagesState = useSelector((state) => state.myPackages);
+  const raritysState = useSelector((state) => state.rarity);
 
   // Get params from url
   const { itemId } = useParams();
@@ -55,6 +56,7 @@ const ItemDetailRedux = () => {
   const [myOnSale, setMyOnSale] = useState(myOnSaleState);
   const [onSale, setOnSale] = useState(onSalesState);
   const [myPackages, setMyPackages] = useState(myPackagesState);
+  const [raritys, setRaritys] = useState(raritysState);
   const [step, setStep] = useState(1);
 
   // Information about the Sale
@@ -141,7 +143,7 @@ const ItemDetailRedux = () => {
     );
 
     // Reload the data in the store
-    dispatch(getAccount());
+    // dispatch(getAccount());
   };
 
   // Function to claim the package
@@ -175,6 +177,7 @@ const ItemDetailRedux = () => {
     setMyOnSale(myOnSaleState);
     setOnSale(onSalesState);
     setMyPackages(myPackagesState);
+    setRaritys(raritysState);
   }, [
     myNftsState,
     accountState,
@@ -182,6 +185,7 @@ const ItemDetailRedux = () => {
     myOnSaleState,
     onSalesState,
     myPackagesState,
+    raritysState,
   ]);
 
   return (
@@ -261,7 +265,7 @@ const ItemDetailRedux = () => {
                   ) : null}
 
                   {/* Button for checkout */}
-                  {account ? (
+                  {account && !query.get("package") ? (
                     <div className="d-flex flex-row mt-5">
                       {[...onSale]?.filter(
                         (nft) =>

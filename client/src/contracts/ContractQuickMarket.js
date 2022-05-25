@@ -1,4 +1,4 @@
-import { web3b } from "../utils/web3b";
+import web3b from "../utils/web3b";
 
 export const address = "0x24e7652118782F21457DbAA8FD238064244cfe0C";
 

@@ -4,6 +4,9 @@ import ContractMarket, {
   address as addressMarket,
 } from "../contracts/ContractMarket";
 import ContractNfts, { address as addressNft } from "../contracts/ContractNfts";
+import ContractQuickMarket, {
+  address as addressQuickMarket,
+} from "../contracts/ContractQuickMarket";
 import { web3 } from "./web3";
 
 const { REACT_APP_HOST_DB } = process.env;
@@ -174,13 +177,13 @@ export const handleBuyPacks = async (
     setLoading(true);
 
     // Set the approval for the market
-    await ContractNfts.methods
-      .approve(addressMarket, web3.utils.toWei(feed, "ether"))
+    await ContractHorde.methods
+      .approve(addressQuickMarket, web3.utils.toWei(feed, "ether"))
       .send({ from: account });
     setStep(2);
 
     // Buy the nft
-    await ContractMarket.methods.buy(code).send({
+    await ContractQuickMarket.methods.buy(`${code}`).send({
       from: account,
       gas: "300000",
     });
@@ -203,18 +206,29 @@ export const handleClaimPacks = async (account, code, raritys, setLoading) => {
   try {
     // Open the modal to wait
     setLoading(true);
+    let lengthCards = code === 0 ? 3 : code === 1 ? 7 : 11;
 
     // Get random cards
-    const cards = axios.get(`http://${REACT_APP_HOST_DB}/raritys`, {
-      raritys,
-      length: code === 0 ? 3 : code === 1 ? 7 : 11,
+    let cards = await axios.post(`http://${REACT_APP_HOST_DB}/raritys`, {
+      raritys: ["0", "1", "2", "3", "4", "5"],
+      lengthCards,
     });
     cards = cards.data;
 
-    await ContratoMarket.methods
-      .unbox(code, account, cards.cards, cards.quantitys)
+    let cards_ids = cards.cards,
+      quantitys = cards.quantitys;
+
+    console.log(cards_ids, "cards_ids", typeof cards_ids, cards_ids[0], "cards_ids[0]", typeof cards_ids[0]);
+    console.log(quantitys, "quantitys", typeof quantitys, quantitys[0], "quantitys[0]", typeof quantitys[0]);
+    console.log(account, "account", typeof account);
+    console.log(`${code}`, "code", typeof `${code}`);
+
+    console.log(web3.eth.accounts[0], "web3.eth.accounts[0]");
+
+    await ContractQuickMarket.methods
+      .unbox(`${code}`, account, cards_ids, quantitys)
       .send({
-        from: account,
+        from: "0xccd665A7114960cccc42De2258C8C8cCaBd90dC6",
         gas: "3000000",
       });
 
