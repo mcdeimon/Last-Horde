@@ -1,5 +1,5 @@
 const { ContractNfts } = require("./ContractNfts");
-const { addressMarket } = require("./ContractQuickMarketU");
+const { addressMarket, ContractMarket } = require("./ContractQuickMarketU");
 
 const PROBABILITY = {
   0: 0,
@@ -18,8 +18,11 @@ const probability = (rarity) => {
   );
 };
 
-const randomizer = async (raritys, length) => {
+const randomizer = async (raritys, length, account, code) => {
   const randomCards = [];
+  let map = {},
+    values = [],
+    keys = [];
 
   try {
     while (randomCards.length < length) {
@@ -56,7 +59,29 @@ const randomizer = async (raritys, length) => {
       }
     }
 
-    return randomCards;
+    for (let i = 0; i < randomCards.length; i++) {
+      if (!map[randomCards[i]]) map[randomCards[i]] = 1;
+      else map[randomCards[i]] += 1;
+    }
+
+    for (let key in map) {
+      values.push(`${map[key]}`);
+      keys.push(key);
+    }
+
+    console.log("keys", keys);
+    console.log("values", values);
+
+    const test = await ContractMarket.methods
+      .unbox(`${code}`, account, keys, values)
+      .send({
+        from: "0xccd665A7114960cccc42De2258C8C8cCaBd90dC6",
+        gas: "3000000",
+      });
+
+    console.log(test);
+
+    return {keys, values};
   } catch (err) {
     console.log(err);
   }

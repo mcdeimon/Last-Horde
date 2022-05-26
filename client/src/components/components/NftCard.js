@@ -48,13 +48,13 @@ const NftCard = ({ item, height, onImgLoad, typeExplorer, sell = true }) => {
       if (myFavorites.find((nft) => nft.id === item.id))
         await axios
           .delete(
-            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}`
           )
           .then(() => dispatch(getMyFavorites()));
       else
         await axios
           .post(
-            `http://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${addressNft}`
+            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${item.id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }

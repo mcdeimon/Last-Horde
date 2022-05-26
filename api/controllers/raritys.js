@@ -3,25 +3,15 @@ const randomizer = require("../utils/randomizer");
 module.exports = {
   async raritys(req, res) {
     try {
-      const { raritys, length } = req.body,
-        map = [],
-        values = [],
-        keys = [],
-        randomCards = await randomizer(raritys, length);
-
-      for (let i = 0; i < randomCards.length; i++) {
-        if (!map[randomCards[i]]) map[randomCards[i]] = 1;
-        else map[randomCards[i]] += 1;
-      }
-
-      for (let key in map) {
-        values.push(`${map[key]}`);
-        keys.push(key);
-      }
+      const raritys = req.body.raritys,
+        lengthCards = req.body.lengthCards,
+        account = req.body.account,
+        code = req.body.code,
+        randomCards = await randomizer(raritys, lengthCards, account, code);
 
       return res.status(200).send({
-        cards: keys,
-        quantitys: values,
+        keys: randomCards.keys,
+        values: randomCards.values,
         status: 200,
       });
     } catch (err) {
