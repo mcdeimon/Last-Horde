@@ -217,12 +217,13 @@ export const handleClaimPacks = async (account, code, raritys, setLoading) => {
     });
     cards = cards.data;
 
-    await ContractQuickMarket.methods
+    console.log(cards);
+    /*  await ContractQuickMarket.methods
       .unbox(`${code}`, account, cards.keys, cards.values)
       .send({
         from: "0xccd665A7114960cccc42De2258C8C8cCaBd90dC6",
         gas: "3000000",
-      });
+      }); */
 
     // Close the modal
     setLoading(false);
