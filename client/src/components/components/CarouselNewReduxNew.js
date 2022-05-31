@@ -49,12 +49,12 @@ const CarouselNewRedux = ({ allOrSale }) => {
     if (account) {
       if (myFavorites.find((nft) => nft.id === id))
         await axios
-          .delete(`https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}`)
+          .delete(`${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}`)
           .then(() => dispatch(getMyFavorites()));
       else
         await axios
           .post(
-            `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${addressNft}`
+            `${REACT_APP_HOST_DB}/account/${account}/id_nft/${id}/contract/${addressNft}`
           )
           .then(() => dispatch(getMyFavorites()));
     }

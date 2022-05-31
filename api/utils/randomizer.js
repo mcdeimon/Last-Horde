@@ -1,7 +1,7 @@
 const { ContractNfts } = require("./ContractNfts");
 const { addressMarket, ContractMarket } = require("./ContractQuickMarketU");
 
-const { MY_PRIVATE_KEY_HEX } = process.env;
+const { MY_ACCOUNT } = process.env;
 
 const PROBABILITY = {
   0: 0,
@@ -71,19 +71,11 @@ const randomizer = async (raritys, length, account, code) => {
       keys.push(key);
     }
 
-    console.log("keys", keys);
-    console.log("values", values);
+    await ContractMarket.methods.getPacks(account).call();
 
-    const myAccount = web3.eth.accounts.privateKeyToAccount(MY_PRIVATE_KEY_HEX);
-
-    const test = await ContractMarket.methods
+    await ContractMarket.methods
       .unbox(`${code}`, account, keys, values)
-      .send({
-        from: myAccount.address,
-        gas: "3000000",
-      });
-
-    console.log(test);
+      .send({ from: `${MY_ACCOUNT}` });
 
     return { keys, values };
   } catch (err) {

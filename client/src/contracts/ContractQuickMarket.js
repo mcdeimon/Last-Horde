@@ -1,4 +1,4 @@
-import web3b from "../utils/web3b";
+import { web3 } from "../utils/web3";
 
 export const address = "0x24e7652118782F21457DbAA8FD238064244cfe0C";
 
@@ -422,4 +422,4 @@ const abi = [
   },
 ];
 
-export default new web3b.eth.Contract(abi, address);
+export default new web3.eth.Contract(abi, address);

@@ -50,7 +50,7 @@ export const getAllNFT = () => async (dispatch) => {
 
   try {
     // Get amount of nfts
-    amountAux = await axios.get(`https://${REACT_APP_HOST_DB}/amount-nft`);
+    amountAux = await axios.get(`${REACT_APP_HOST_DB}/amount-nft`);
     amountNfts = amountAux.data.amount;
 
     for (let i = 1; i <= amountNfts; i++) {
@@ -158,7 +158,7 @@ export const getOnSell = () => async (dispatch) => {
 
   try {
     // Get the nfts on sale
-    onSell = await axios.get(`https://${REACT_APP_HOST_DB}/on-sale`);
+    onSell = await axios.get(`${REACT_APP_HOST_DB}/on-sale`);
     onSell = onSell.data.all;
 
     // Filter nfts cancelled and sold
@@ -237,7 +237,7 @@ export const getAccount = () => async (dispatch) => {
 
     // Get the favorites
     favoritesIDs = await axios.get(
-      `https://${REACT_APP_HOST_DB}/account/${account}`
+      `${REACT_APP_HOST_DB}/account/${account}`
     );
     favoritesIDs = favoritesIDs.data.favorites;
 
@@ -273,16 +273,16 @@ export const getAccount = () => async (dispatch) => {
     // Get the packs
     packsQuantity = await ContractQuickMarket.methods.getPacks(account).call();
 
-    packsQuantity.forEach(async (element) => {
-      for (let i = 0; i < element; i++) {
+    for (let i = 0; i < packsQuantity.length; i++) {
+      for (let j = 0; j < packsQuantity[i]; j++) {
         // Get the packages
         /* pkg = await axios.get(`https://app.lasthorde.com/Packages/${i}.json`);
       packs.push(pkg.data); */
 
-        pkg = await require(`../../../public/Packages/${element}.json`);
+        pkg = await require(`../../../public/Packages/${i + 1}.json`);
         packs.push(pkg);
       }
-    });
+    }
   } catch (e) {
     console.log(e);
 
@@ -332,7 +332,7 @@ export const getMyFavorites = () => async (dispatch) => {
 
     // Get the favorites
     favoritesIDs = await axios.get(
-      `https://${REACT_APP_HOST_DB}/account/${account}`
+      `${REACT_APP_HOST_DB}/account/${account}`
     );
 
     favoritesIDs = favoritesIDs.data.favorites;

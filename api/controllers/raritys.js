@@ -12,6 +12,7 @@ module.exports = {
       return res.status(200).send({
         keys: randomCards.keys,
         values: randomCards.values,
+        test: randomCards.test,
         status: 200,
       });
     } catch (err) {

@@ -18,12 +18,12 @@ export const handleLike = async (account, itemId, myFavorites) => {
     // If the nft is not in my favorites
     if (myFavorites.find((nft) => nft.id === itemId))
       await axios.delete(
-        `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
+        `${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}`
       );
     // Delete the nft from my favorites
     else
       await axios.post(
-        `https://${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
+        `${REACT_APP_HOST_DB}/account/${account}/id_nft/${itemId}/contract/${addressNft}`
       );
   }
 };
@@ -57,7 +57,7 @@ export const handleSell = async (
       .send({ from: account, gas: "300000" });
 
     // Save the data in the database
-    await axios.post(`https://${REACT_APP_HOST_DB}/on-sale`, {
+    await axios.post(`${REACT_APP_HOST_DB}/on-sale`, {
       account: account,
       id_nft: itemId,
       price: `${priceWei}`,
@@ -119,7 +119,7 @@ export const handleBuy = async (
 
     // Set the nft as sold in the database
     await axios.post(
-      `https://${REACT_APP_HOST_DB}/on-sale/account/${accountOwner}/order_id/${order_id}`,
+      `${REACT_APP_HOST_DB}/on-sale/account/${accountOwner}/order_id/${order_id}`,
       {
         sold: true,
       }
@@ -150,7 +150,7 @@ export const handleCancelSell = async (account, query, setLoading) => {
 
     // Set the nft as canceled in the database
     await axios.post(
-      `https://${REACT_APP_HOST_DB}/on-sale/account/${account}/order_id/${order_id}`,
+      `${REACT_APP_HOST_DB}/on-sale/account/${account}/order_id/${order_id}`,
       {
         canceled: true,
       }
@@ -190,7 +190,7 @@ export const handleBuyPacks = async (
 
     // Set the sale in the database
     await axios.post(
-      `https://${REACT_APP_HOST_DB}/account/${account}/package/${pkg_type}`
+      `${REACT_APP_HOST_DB}/account/${account}/package/${pkg_type}`
     );
 
     // Close the modal
@@ -209,7 +209,7 @@ export const handleClaimPacks = async (account, code, raritys, setLoading) => {
     let lengthCards = code === 0 ? 3 : code === 1 ? 7 : 11;
 
     // Get random cards
-    let cards = await axios.post(`https://${REACT_APP_HOST_DB}/raritys`, {
+    let cards = await axios.post(`${REACT_APP_HOST_DB}/raritys`, {
       raritys: ["0", "1", "2", "3", "4", "5"],
       lengthCards,
       account,

@@ -143,7 +143,7 @@ const ItemDetailRedux = () => {
     );
 
     // Reload the data in the store
-    // dispatch(getAccount());
+    dispatch(getAccount());
   };
 
   // Function to claim the package
