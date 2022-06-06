@@ -23,6 +23,7 @@ import {
   handleLike,
   handleSell,
 } from "../../utils/itemDetailFunctions";
+import { useToasts } from "react-toast-notifications";
 
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
@@ -30,6 +31,7 @@ const theme = "GREY"; //LIGHT, GREY, RETRO
 const ItemDetailRedux = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { addToast } = useToasts();
 
   // Get params from global store
   const nftItem = useSelector((state) => state.nft);
@@ -73,6 +75,38 @@ const ItemDetailRedux = () => {
   // Variable for future sending of nfts
   const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
 
+  // Functions to create a toast
+  const toastError = (err) => {
+    console.log(err);
+
+    if (err.code === 4001)
+      addToast("The request was rejected", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    else if (err.code === -32602)
+      addToast("The parameters were invalid", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    else if (err.code === -32603)
+      addToast("Internal error", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    else
+      addToast("An error occurred during the transaction", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+  };
+  const toastSuccess = (msg) => {
+    addToast(msg, {
+      appearance: "success",
+      autoDismiss: true,
+    });
+  };
+
   // Funciton to copy the address to clipboard
   const handleCopyClipboard = () => {
     let auxOrderId = query.get("order_id");
@@ -95,52 +129,127 @@ const ItemDetailRedux = () => {
 
   // Function set the nft on sale
   const handleSellNft = async () => {
-    const order_id = await handleSell(
-      account,
-      itemId,
-      sellObject,
-      setLoading,
-      setOpenSell,
-      setStep,
-      setSellObject
-    );
+    let order_id;
+
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      order_id = await handleSell(
+        account,
+        itemId,
+        sellObject,
+        setLoading,
+        setStep
+      );
+
+      toastSuccess("The nft was put up for sale!");
+    } catch (err) {
+      toastError(err);
+    }
+
+    console.log(order_id);
+
+    // Close the modal and reload the data
+    setOpenSell(false);
+    setLoading(false);
+    setStep(1);
+    setSellObject({
+      price: 0,
+      expirationDays: 0,
+    });
 
     // Reload the data in the store
     dispatch(getOnSell());
     dispatch(getAccount());
 
     // Navigate to the order page
-    navigate(`/detail/${itemId}?order_id=${order_id}`);
+    if (order_id) navigate(`/detail/${itemId}?order_id=${order_id}`);
   };
 
   // Function to cancel the sell
   const handleCancelSellNft = async () => {
-    await handleCancelSell(account, query, setLoading);
+    let respose;
+
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      respose = await handleCancelSell(account, query, setLoading);
+
+      toastSuccess("The sale was successfully canceled!");
+    } catch (err) {
+      toastError(err);
+    }
 
     // Reload the data in the store
     dispatch(getOnSell());
     dispatch(getAccount());
+
+    // Close the modal and reload the data
+    setLoading(false);
+
+    // Navigate to the order page
+    if (respose) navigate(`/detail/${itemId}`);
   };
 
   // Function to buy the nft
   const handleBuyNft = async () => {
-    await handleBuy(account, itemId, onSale, query, setLoading, setStep);
+    let respose;
+
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      respose = await handleBuy(
+        account,
+        itemId,
+        onSale,
+        query,
+        setLoading,
+        setStep
+      );
+
+      toastSuccess("The sale was successfully canceled!");
+    } catch (err) {
+      toastError(err);
+    }
+
+    // Close the modal
+    setLoading(false);
+    setStep(1);
 
     // Reload the data in the store
     dispatch(getOnSell());
     dispatch(getAccount());
+
+    // Navigate to the order page
+    if (respose) navigate(`/detail/${itemId}`);
   };
 
   // Function to buy the package
   const handleBuyPackage = async () => {
-    await handleBuyPacks(
-      account,
-      item.fee,
-      itemId - 1,
-      item.value,
-      setLoading,
-      setStep
-    );
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      await handleBuyPacks(
+        account,
+        item.fee,
+        itemId - 1,
+        item.value,
+        setLoading,
+        setStep
+      );
+
+      toastSuccess("The purchase of the package concluded correctly!");
+    } catch (err) {
+      toastError(err);
+    }
+
+    // Close the modal
+    setLoading(false);
+    setStep(1);
 
     // Reload the data in the store
     dispatch(getAccount());
@@ -148,7 +257,19 @@ const ItemDetailRedux = () => {
 
   // Function to claim the package
   const handleClaimPackage = async () => {
-    await handleClaimPacks(account, itemId - 1, raritys, setLoading);
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      await handleClaimPacks(account, itemId - 1, raritys, setLoading);
+
+      toastSuccess("The claim of the package concluded correctly!");
+    } catch (err) {
+      toastError(err);
+    }
+
+    // Close the modal
+    setLoading(false);
 
     // Reload the data in the store
     dispatch(getAccount());

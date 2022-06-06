@@ -13,14 +13,17 @@ import * as serviceWorker from "./serviceWorker";
 
 //redux store
 import { Provider } from "react-redux";
+import { ToastProvider } from "react-toast-notifications";
 import store from "./redux/store/index.js";
 
 require("dotenv").config();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ToastProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ToastProvider>,
   document.getElementById("root")
 );
 
