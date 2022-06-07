@@ -210,7 +210,7 @@ const ItemDetailRedux = () => {
         setStep
       );
 
-      toastSuccess("The sale was successfully canceled!");
+      toastSuccess("The purchase was completed successfully!");
     } catch (err) {
       toastError(err);
     }
