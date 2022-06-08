@@ -61,9 +61,8 @@ export const handleSell = async (account, itemId, sellObject, setStep) => {
 };
 
 // Function buy the nft on sale
-export const handleBuy = async (account, itemId, onSale, query, setStep) => {
+export const handleBuy = async (account, itemId, onSale, order_id, setStep) => {
   // Get the id of order, the price in wei and the account
-  const order_id = query.get("order_id");
   const price = onSale?.find(
     (nft) => nft.id === parseInt(itemId) && `${nft.order_id}` === order_id
   )?.price;

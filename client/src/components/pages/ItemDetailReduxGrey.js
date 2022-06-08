@@ -139,7 +139,6 @@ const ItemDetailRedux = () => {
         account,
         itemId,
         sellObject,
-        setLoading,
         setStep
       );
 
@@ -147,8 +146,6 @@ const ItemDetailRedux = () => {
     } catch (err) {
       toastError(err);
     }
-
-    console.log(order_id);
 
     // Close the modal and reload the data
     setOpenSell(false);
@@ -175,7 +172,7 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      respose = await handleCancelSell(account, query, setLoading);
+      respose = await handleCancelSell(account, query);
 
       toastSuccess("The sale was successfully canceled!");
     } catch (err) {
@@ -205,8 +202,7 @@ const ItemDetailRedux = () => {
         account,
         itemId,
         onSale,
-        query,
-        setLoading,
+        query.get("order_id"),
         setStep
       );
 
@@ -238,7 +234,6 @@ const ItemDetailRedux = () => {
         item.fee,
         itemId - 1,
         item.value,
-        setLoading,
         setStep
       );
 
@@ -261,7 +256,7 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      await handleClaimPacks(account, itemId - 1, raritys, setLoading);
+      await handleClaimPacks(account, itemId - 1, raritys);
 
       toastSuccess("The claim of the package concluded correctly!");
     } catch (err) {
