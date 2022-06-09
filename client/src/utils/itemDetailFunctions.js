@@ -93,10 +93,7 @@ export const handleBuy = async (account, itemId, onSale, order_id, setStep) => {
 };
 
 // Function to cancel the nft on sale
-export const handleCancelSell = async (account, query) => {
-  // Get the id of order
-  const order_id = query.get("order_id");
-
+export const handleCancelSell = async (account, order_id) => {
   // Cancel the sale of the nft
   await ContractMarket.methods.cancelOrder(addressNft, order_id).send({
     from: account,

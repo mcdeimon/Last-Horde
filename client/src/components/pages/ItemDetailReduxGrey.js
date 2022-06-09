@@ -135,12 +135,7 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      order_id = await handleSell(
-        account,
-        itemId,
-        sellObject,
-        setStep
-      );
+      order_id = await handleSell(account, itemId, sellObject, setStep);
 
       toastSuccess("The nft was put up for sale!");
     } catch (err) {
@@ -172,7 +167,7 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      respose = await handleCancelSell(account, query);
+      respose = await handleCancelSell(account, query.get("order_id"));
 
       toastSuccess("The sale was successfully canceled!");
     } catch (err) {
@@ -229,13 +224,7 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      await handleBuyPacks(
-        account,
-        item.fee,
-        itemId - 1,
-        item.value,
-        setStep
-      );
+      await handleBuyPacks(account, item.fee, itemId - 1, item.value, setStep);
 
       toastSuccess("The purchase of the package concluded correctly!");
     } catch (err) {
