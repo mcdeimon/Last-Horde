@@ -79,7 +79,12 @@ const ItemDetailRedux = () => {
   const toastError = (err) => {
     console.log(err);
 
-    if (err.code === 4001)
+    if (err.code === "invalid_price")
+      addToast("The price is not valid", {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    else if (err.code === 4001)
       addToast("The request was rejected", {
         appearance: "error",
         autoDismiss: true,
@@ -135,9 +140,13 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      order_id = await handleSell(account, itemId, sellObject, setStep);
+      if (/^[0-9]+$/.test(sellObject.price)) {
+        order_id = await handleSell(account, itemId, sellObject, setStep);
 
-      toastSuccess("The nft was put up for sale!");
+        toastSuccess("The nft was put up for sale!");
+      } else {
+        toastError({ code: "invalid_price" });
+      }
     } catch (err) {
       toastError(err);
     }
@@ -257,6 +266,15 @@ const ItemDetailRedux = () => {
 
     // Reload the data in the store
     dispatch(getAccount());
+  };
+
+  // Function on Change the price
+  const handleChangePrice = (e) => {
+    let price = e.target.value;
+
+    if (/^[0-9]+$/.test(price)) {
+      setSellObject({ ...sellObject, price: e.target.value });
+    }
   };
 
   // Function to load in the store the rarities, the nfts for sale, the packages and the nft
@@ -499,9 +517,7 @@ const ItemDetailRedux = () => {
                   name="sellPrice"
                   id="sellPrice"
                   className="form-control"
-                  onChange={(e) =>
-                    setSellObject({ ...sellObject, price: e.target.value })
-                  }
+                  onChange={handleChangePrice}
                 />
               </div>
             </div>
