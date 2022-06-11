@@ -6,10 +6,10 @@ module.exports = {
     const { raritys, lengthCards, account, code } = req.body;
 
     if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(lengthCards) &&
-      regularExpressions.number.test(code) &&
-      regularExpressions.array.test(raritys)
+      /^0x[a-fA-F0-9]{40}$/g.test(account) &&
+      /^[0-9]+$/.test(lengthCards) &&
+      /^[0-9]+$/.test(code) &&
+      /^[0-5]+([0-5,])+[0-5]+$/.test(raritys)
     )
       try {
         randomCards = await randomizer(raritys, lengthCards, account, code);
@@ -17,12 +17,15 @@ module.exports = {
         return res.status(200).send({
           keys: randomCards.keys,
           values: randomCards.values,
-          test: randomCards.test,
+          quantity: randomCards.quantity,
           status: 200,
         });
       } catch (err) {
         return res.status(400).send({ err, status: 400 });
       }
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 };

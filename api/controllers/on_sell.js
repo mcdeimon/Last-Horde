@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const on_sell = require("../models").on_sell;
-const my_favorites = require("../models");
 const regularExpressions = require("../utils/regularExpressions");
 
 module.exports = {
@@ -15,12 +14,12 @@ module.exports = {
     } = req.body;
 
     if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(id_nft) &&
-      regularExpressions.number.test(price) &&
-      regularExpressions.number.test(order_id) &&
-      regularExpressions.boolean.test(sold) &&
-      regularExpressions.boolean.test(canceled)
+      /^0x[a-fA-F0-9]{40}$/g.test(account) &&
+      /^[0-9]+$/.test(id_nft) &&
+      /^[0-9]+$/.test(price) &&
+      /^[0-9]+$/.test(order_id) &&
+      /^(true|false)$/.test(sold) &&
+      /^(true|false)$/.test(canceled)
     )
       return on_sell
         .create({
@@ -44,16 +43,16 @@ module.exports = {
           res.status(200).send({ ...on_sell.dataValues, status: 200 });
         })
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   update(req, res) {
     const { account, order_id } = req.params;
 
-    if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(order_id)
-    )
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account) && /^[0-9]+$/.test(order_id))
       return on_sell
         .findOne({
           where: {
@@ -73,7 +72,10 @@ module.exports = {
               );
         })
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   find(_, res) {

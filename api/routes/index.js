@@ -31,7 +31,7 @@ module.exports = (app) => {
   app.get("/contract/:contract", myFavoritesController.findByContract);
 
   //////////////////////////////////////////////////////// Missing HORs routes
-  app.post("/account/:account/missing/:missing", missingController.create);
+  app.post("/account/:account/missing/:missings", missingController.create);
 
   //////////////////////////////////////////////////////// Purchase packages routes
   app.post(

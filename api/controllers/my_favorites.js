@@ -7,9 +7,9 @@ module.exports = {
     const { account, id_nft, contract } = req.params;
 
     if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(id_nft) &&
-      regularExpressions.account.test(contract)
+      /^0x[a-fA-F0-9]{40}$/g.test(account) &&
+      /^[0-9]+$/.test(id_nft) &&
+      /^0x[a-fA-F0-9]{40}$/g.test(contract)
     )
       return my_favorites
         .create({
@@ -21,16 +21,16 @@ module.exports = {
           res.status(200).send({ ...my_favorites.dataValues, status: 200 })
         )
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   delete(req, res) {
     const { account, id_nft } = req.params;
 
-    if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(id_nft)
-    )
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account) && /^[0-9]+$/.test(id_nft))
       return my_favorites
         .destroy({
           where: {
@@ -42,16 +42,16 @@ module.exports = {
           res.status(200).send({ deleted: [...my_favorites], status: 200 })
         )
         .catch((error) => res.status(200).send({ ...error, status: 200 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   search(req, res) {
     const { account, id_nft } = req.params;
 
-    if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(id_nft)
-    )
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account) && /^[0-9]+$/.test(id_nft))
       return my_favorites
         .findAll({
           where: {
@@ -66,7 +66,10 @@ module.exports = {
             .send({ isFavorite: isFavorite || false, status: 200 });
         })
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   list(_, res) {
@@ -81,7 +84,7 @@ module.exports = {
   find(req, res) {
     const { account } = req.params;
 
-    if (regularExpressions.account.test(account))
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account))
       return my_favorites
         .findAll({
           where: {
@@ -92,13 +95,16 @@ module.exports = {
           res.status(200).send({ favorites: [...my_favorites], status: 200 })
         )
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   findByContract(req, res) {
     const { contract } = req.params;
 
-    if (regularExpressions.account.test(contract))
+    if (/^0x[a-fA-F0-9]{40}$/g.test(contract))
       return my_favorites
         .findAll({
           where: {
@@ -109,6 +115,9 @@ module.exports = {
           res.status(200).send({ all: [...my_favorites], status: 200 })
         )
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 };

@@ -21,13 +21,26 @@ const probability = (rarity) => {
 };
 
 const randomizer = async (raritys, length, account, code) => {
-  const randomCards = [];
   let map = {},
     values = [],
-    keys = [];
+    keys = [],
+    quantity = 0;
+
+  const mapper = async (cardId) => {
+    if (
+      (map[cardId] ? map[cardId] : 0) + 1 <=
+      parseInt(
+        await ContractNfts.methods.balanceOf(addressMarket, `${cardId}`).call()
+      )
+    ) {
+      if (!map[cardId]) map[cardId] = 1;
+      else map[cardId] += 1;
+      quantity++;
+    }
+  };
 
   try {
-    while (randomCards.length < length) {
+    while (quantity < length) {
       let randomCard = Math.floor(Math.random() * raritys.length);
 
       for (let rarity = parseInt(raritys[randomCard]); rarity > 0; rarity--) {
@@ -37,7 +50,7 @@ const randomizer = async (raritys, length, account, code) => {
             .balanceOf(addressMarket, `${randomCard}`)
             .call())
         ) {
-          randomCards.push(randomCard);
+          await mapper(randomCard);
           break;
         } else if (
           rarity === 1 &&
@@ -46,7 +59,7 @@ const randomizer = async (raritys, length, account, code) => {
             .call()) &&
           (await ContractNfts.methods.balanceOf(addressMarket, `${1}`).call())
         ) {
-          randomCards.push(1);
+          await mapper(1);
           break;
         } else if (
           rarity !== 1 &&
@@ -55,15 +68,10 @@ const randomizer = async (raritys, length, account, code) => {
             .balanceOf(addressMarket, `${randomCard}`)
             .call())
         ) {
-          randomCards.push(randomCard);
+          await mapper(randomCard);
           break;
         } else randomCard -= 1;
       }
-    }
-
-    for (let i = 0; i < randomCards.length; i++) {
-      if (!map[randomCards[i]]) map[randomCards[i]] = 1;
-      else map[randomCards[i]] += 1;
     }
 
     for (let key in map) {
@@ -77,7 +85,7 @@ const randomizer = async (raritys, length, account, code) => {
       .unbox(`${code}`, account, keys, values)
       .send({ from: `${MY_ACCOUNT}` });
 
-    return { keys, values };
+    return { keys, values, quantity };
   } catch (err) {
     console.log(err);
   }

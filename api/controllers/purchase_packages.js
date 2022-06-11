@@ -6,10 +6,7 @@ module.exports = {
   create(req, res) {
     const { account, package } = req.params;
 
-    if (
-      regularExpressions.account.test(account) &&
-      regularExpressions.number.test(package)
-    )
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account) && /^[0-9]+$/.test(package))
       return purchase_packages
         .create({
           account,
@@ -19,13 +16,16 @@ module.exports = {
           res.status(200).send({ ...purchase_packages.dataValues, status: 200 })
         )
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 
   find(req, res) {
     const { account } = req.params;
 
-    if (regularExpressions.account.test(account))
+    if (/^0x[a-fA-F0-9]{40}$/g.test(account))
       return purchase_packages
         .findOne({
           where: {
@@ -39,6 +39,9 @@ module.exports = {
             .send({ bought: purchase_packages ? true : false, status: 200 })
         )
         .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else return res.status(400).send({ err, status: 400 });
+    else
+      return res
+        .status(400)
+        .send({ error: "The data is not of the required type", status: 400 });
   },
 };
