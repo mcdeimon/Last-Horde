@@ -24,6 +24,7 @@ import {
   handleSell,
 } from "../../utils/itemDetailFunctions";
 import { useToasts } from "react-toast-notifications";
+import { web3 } from "../../utils/web3";
 
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
@@ -60,6 +61,7 @@ const ItemDetailRedux = () => {
   const [myPackages, setMyPackages] = useState(myPackagesState);
   const [raritys, setRaritys] = useState(raritysState);
   const [step, setStep] = useState(1);
+  const [price, setPrice] = useState(null);
 
   // Information about the Sale
   const [openSell, setOpenSell] = useState(false);
@@ -311,6 +313,22 @@ const ItemDetailRedux = () => {
     raritysState,
   ]);
 
+  // Function to get the price
+  useEffect(() => {
+    if (query.get("order_id")) {
+      let aux = [...onSale]?.find(
+        (nft) => `${nft.order_id}` === query.get("order_id")
+      );
+
+      async function setPriceFromWei() {
+        if (aux?.price)
+          setPrice(await web3.utils.fromWei(`${aux.price}`, "ether"));
+      }
+
+      setPriceFromWei();
+    }
+  }, [onSale, query]);
+
   return (
     <div className="greyscheme">
       <StyledHeader theme={theme} />
@@ -326,7 +344,9 @@ const ItemDetailRedux = () => {
             <div className="item_info">
               {/* Name of the nft, id and like */}
               <div className="item_title">
-                <h2>{item?.name}</h2>
+                <h2>
+                  {item?.name} <span className="price">{price && `${price} HOR`}</span>
+                </h2>
 
                 <p>#{itemId}</p>
 
