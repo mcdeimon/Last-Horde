@@ -3519,6 +3519,7 @@ $color_more: #FC202C;
 
     .price {
       color: #FF343F;
+      font-size: 22px;
     }
   }
 
@@ -4253,6 +4254,10 @@ img.img-rounded {
     margin: 40px 0 0;
     color: $gray;
 
+    &.borderRed {
+      border: #FF343F 2px solid;
+    }
+
     .heading {
       display: flex;
       justify-content: space-between;
@@ -4261,6 +4266,7 @@ img.img-rounded {
 
       h3 {
         color: $white;
+        width: 100%;
       }
 
       p {
@@ -4273,6 +4279,10 @@ img.img-rounded {
       .subtotal {
         color: $white;
         font-size: 15px;
+      }
+
+      &.claimed {
+        text-align: center;
       }
     }
 
@@ -4350,6 +4360,7 @@ img.img-rounded {
       top: 0;
       left: 0;
       padding: 11rem 1rem;
+      border: #FF343F 2px solid;
     }
 
     .noAccount {
@@ -4362,6 +4373,28 @@ img.img-rounded {
       height: 100%;
       border-radius: 8px;
       padding: 4rem 1rem;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .card {
+        display: flex;
+        justify-content: center;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin: 5px;
+
+        img {
+          height: 200px;
+          width: auto;
+          object-fit: contain;
+        }
+      }
     }
   }
 }

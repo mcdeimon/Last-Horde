@@ -16,6 +16,7 @@ import {
 import { useNavigate, useParams } from "@reach/router";
 import { useQuery } from "../../utils/useQuery";
 import {
+  getImg,
   handleBuy,
   handleBuyPacks,
   handleCancelSell,
@@ -74,8 +75,17 @@ const ItemDetailRedux = () => {
   // Variable for loading while waiting
   const [loading, setLoading] = useState(false);
 
-  // Variable for future sending of nfts
-  const [openCheckoutbid, setOpenCheckoutbid] = useState(false);
+  // Variable for sending of nfts
+  const [openSend, setSend] = useState(false);
+  const [wallet, setWallet] = useState(null);
+  const [confirmation, setConfirmation] = useState({
+    open: false,
+    apruved: false,
+  });
+
+  // Variable for claiming of nfts
+  const [claimedCards, setClaimedCards] = useState(null);
+  const [openClaimedCards, setOpenClaimedCards] = useState(false);
 
   // Functions to create a toast
   const toastError = (err) => {
@@ -256,7 +266,10 @@ const ItemDetailRedux = () => {
     setLoading(true);
 
     try {
-      await handleClaimPacks(account, itemId - 1, raritys);
+      const cards = await handleClaimPacks(account, itemId - 1, raritys);
+      const cardsImgs = await getImg(cards.keys);
+
+      setClaimedCards({ ...cards, imgs: cardsImgs });
 
       toastSuccess("The claim of the package concluded correctly!");
     } catch (err) {
@@ -265,6 +278,7 @@ const ItemDetailRedux = () => {
 
     // Close the modal
     setLoading(false);
+    setOpenClaimedCards(true);
 
     // Reload the data in the store
     dispatch(getAccount());
@@ -276,6 +290,15 @@ const ItemDetailRedux = () => {
 
     if (/^[0-9]+$/.test(price)) {
       setSellObject({ ...sellObject, price: e.target.value });
+    }
+  };
+
+  // Function on Change the wallet
+  const handleChangeWallet = (e) => {
+    let wallet = e.target.value;
+
+    if (/^0x[a-fA-F0-9]{40}$/g.test(wallet)) {
+      setWallet(wallet);
     }
   };
 
@@ -345,7 +368,8 @@ const ItemDetailRedux = () => {
               {/* Name of the nft, id and like */}
               <div className="item_title">
                 <h2>
-                  {item?.name} <span className="price">{price && `${price} HOR`}</span>
+                  {item?.name}{" "}
+                  <span className="price">{price && `${price} HOR`}</span>
                 </h2>
 
                 <p>#{itemId}</p>
@@ -484,7 +508,7 @@ const ItemDetailRedux = () => {
                           className="btn-main lead mb-5 mr15"
                           onClick={handleClaimPackage}
                         >
-                          Claim Now
+                          Open your pack
                         </button>
                       ) : null}
                     </div>
@@ -512,7 +536,7 @@ const ItemDetailRedux = () => {
       {/* Modal to sell the nft */}
       {openSell && (
         <div className="checkout">
-          <div className="maincheckout">
+          <div className="maincheckout borderRed">
             <button className="btn-close" onClick={() => setOpenSell(false)}>
               X
             </button>
@@ -572,69 +596,45 @@ const ItemDetailRedux = () => {
         </div>
       )}
 
-      {openCheckoutbid && (
+      {openSend && (
         <div className="checkout">
-          <div className="maincheckout">
-            <button
-              className="btn-close"
-              onClick={() => setOpenCheckoutbid(false)}
-            >
+          <div className="maincheckout borderRed">
+            <button className="btn-close" onClick={() => setSend(false)}>
               X
             </button>
 
             <div className="heading">
-              <h3>Place a Bid</h3>
+              <h3>Send</h3>
             </div>
 
             <p>
-              You are about to purchase a{" "}
-              <span className="bold">AnimeSailorClub #304</span>
-              <span className="bold">from Monica Lucas</span>
+              You are about to send <span className="bold">{item?.name}</span>
             </p>
 
             <div className="detailcheckout mt-4">
               <div className="listcheckout">
-                <h6>Your bid (ETH)</h6>
-
-                <input type="text" className="form-control" />
-              </div>
-            </div>
-
-            <div className="detailcheckout mt-3">
-              <div className="listcheckout">
                 <h6>
-                  Enter quantity.
-                  <span className="color">10 available</span>
+                  Enter wallet. <span className="color">BNB wallet</span>
                 </h6>
 
                 <input
                   type="text"
-                  name="buy_now_qty"
-                  id="buy_now_qty"
                   className="form-control"
+                  name="walletInput"
+                  id="walletInput"
+                  onChange={handleChangeWallet}
                 />
               </div>
             </div>
 
-            <div className="heading mt-3">
-              <p>Your balance</p>
-
-              <div className="subtotal">10.67856 ETH</div>
-            </div>
-
-            <div className="heading">
-              <p>Service fee 2.5%</p>
-
-              <div className="subtotal">0.00325 ETH</div>
-            </div>
-
-            <div className="heading">
-              <p>You will pay</p>
-
-              <div className="subtotal">0.013325 ETH</div>
-            </div>
-
-            <button className="btn-main lead mb-5">Checkout</button>
+            <button
+              className="btn-main lead mb-5"
+              onClick={() => {
+                setConfirmation({ ...confirmation, apruved: true });
+              }}
+            >
+              Send
+            </button>
           </div>
         </div>
       )}
@@ -654,13 +654,44 @@ const ItemDetailRedux = () => {
       {/* Modal when no account is connected */}
       {noAccount ? (
         <div className="checkout">
-          <div className="maincheckout">
+          <div className="maincheckout borderRed">
             <button className="btn-close" onClick={() => setNoAccount(false)}>
               X
             </button>
 
             <div className="noAccount">
               <h3>Please connect your Smart Chain account to buy the NFT</h3>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Modal to see claimed cards */}
+      {openClaimedCards ? (
+        <div className="checkout">
+          <div className="maincheckout borderRed">
+            <button
+              className="btn-close"
+              onClick={() => setOpenClaimedCards(false)}
+            >
+              X
+            </button>
+
+            <div className="heading claimed">
+              <h3>Cards you got</h3>
+            </div>
+
+            <div className="cards">
+              {claimedCards?.imgs?.map((link, index) => (
+                <div className="card" key={index}>
+                  <img src={link} />
+
+                  <p>
+                    {claimedCards.values[index]}{" "}
+                    {claimedCards.values[index] > 1 ? "cards" : "card"}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

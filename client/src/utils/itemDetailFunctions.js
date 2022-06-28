@@ -148,11 +148,36 @@ export const handleClaimPacks = async (account, code, raritys) => {
   });
   cards = cards.data;
 
-  console.log(cards);
+  return cards;
   /*  await ContractQuickMarket.methods
       .unbox(`${code}`, account, cards.keys, cards.values)
       .send({
         from: "0xccd665A7114960cccc42De2258C8C8cCaBd90dC6",
         gas: "3000000",
       }); */
+};
+
+// Function to get the img of the nft
+export const getImg = async (itemId) => {
+  let cards = [],
+    nft = {};
+
+  console.log(itemId);
+
+  try {
+    for (let i = 0; i < itemId.length; i++) {
+      // Get the packages
+      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${itemId[i]}.json`);
+      cards.push(nft.data.image); */
+
+      console.log(itemId[i]);
+      nft = await require(`../../public/Nfts/${parseInt(itemId[i])}.json`);
+      console.log(nft);
+      cards.push(nft.image);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
+  return cards;
 };
