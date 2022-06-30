@@ -181,3 +181,15 @@ export const getImg = async (itemId) => {
 
   return cards;
 };
+
+// Function to send the nft to the wallet
+export const handleSend = async (account, idNft, newAccount) => {
+  let safeTransfer = await ContractNfts.methods
+    .safeTransferFrom(account, newAccount, idNft, "1", "0x0")
+    .send({
+      from: account,
+      gas: "300000",
+    });
+
+  console.log("safeTransfer:", safeTransfer);
+};

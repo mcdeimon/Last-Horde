@@ -23,6 +23,7 @@ import {
   handleClaimPacks,
   handleLike,
   handleSell,
+  handleSend,
 } from "../../utils/itemDetailFunctions";
 import { useToasts } from "react-toast-notifications";
 import { web3 } from "../../utils/web3";
@@ -76,12 +77,9 @@ const ItemDetailRedux = () => {
   const [loading, setLoading] = useState(false);
 
   // Variable for sending of nfts
-  const [openSend, setSend] = useState(false);
+  const [openSend, setOpenSend] = useState(false);
   const [wallet, setWallet] = useState(null);
-  const [confirmation, setConfirmation] = useState({
-    open: false,
-    apruved: false,
-  });
+  const [openConfirmation, setOpenConfirmation] = useState(false);
 
   // Variable for claiming of nfts
   const [claimedCards, setClaimedCards] = useState(null);
@@ -288,18 +286,47 @@ const ItemDetailRedux = () => {
   const handleChangePrice = (e) => {
     let price = e.target.value;
 
-    if (/^[0-9]+$/.test(price)) {
+    if (/^[0-9]+$/.test(price))
       setSellObject({ ...sellObject, price: e.target.value });
-    }
   };
 
   // Function on Change the wallet
   const handleChangeWallet = (e) => {
     let wallet = e.target.value;
 
-    if (/^0x[a-fA-F0-9]{40}$/g.test(wallet)) {
-      setWallet(wallet);
+    if (/^0x[a-fA-F0-9]{40}$/g.test(wallet)) setWallet(wallet);
+  };
+
+  // Function to open the modal to send the nft
+  const handleOpenSend = () => {
+    if (/^0x[a-fA-F0-9]{40}$/g.test(wallet)) setOpenConfirmation(true);
+  };
+
+  // Function to close the modal to send the nft
+  const handleCloseSend = () => {
+    setOpenConfirmation(false);
+    setOpenSend(false);
+  };
+
+  // Function to send the nft
+  const handleSendNft = async () => {
+    // Open the modal to wait
+    setLoading(true);
+
+    try {
+      await handleSend(account, itemId, wallet);
+
+      toastSuccess("The nft was sent successfully!");
+    } catch (err) {
+      toastError(err);
     }
+
+    // Close the modal
+    setLoading(false);
+    handleCloseSend();
+
+    // Reload the data in the store
+    dispatch(getAccount());
   };
 
   // Function to load in the store the rarities, the nfts for sale, the packages and the nft
@@ -479,7 +506,7 @@ const ItemDetailRedux = () => {
                       {myNfts.find((nft) => nft.id === parseInt(itemId)) ? (
                         <button
                           className="btn-main btn2 lead mb-5 mr15"
-                          onClick={() => setOpenSell(false)}
+                          onClick={() => setOpenSend(true)}
                         >
                           Send
                         </button>
@@ -599,7 +626,7 @@ const ItemDetailRedux = () => {
       {openSend && (
         <div className="checkout">
           <div className="maincheckout borderRed">
-            <button className="btn-close" onClick={() => setSend(false)}>
+            <button className="btn-close" onClick={handleCloseSend}>
               X
             </button>
 
@@ -629,9 +656,8 @@ const ItemDetailRedux = () => {
 
             <button
               className="btn-main lead mb-5"
-              onClick={() => {
-                setConfirmation({ ...confirmation, apruved: true });
-              }}
+              onClick={handleOpenSend}
+              disabled={wallet ? false : true}
             >
               Send
             </button>
@@ -684,7 +710,7 @@ const ItemDetailRedux = () => {
             <div className="cards">
               {claimedCards?.imgs?.map((link, index) => (
                 <div className="card" key={index}>
-                  <img src={link} />
+                  <img src={link} alt={`id ${index}`} />
 
                   <p>
                     {claimedCards.values[index]}{" "}
@@ -692,6 +718,35 @@ const ItemDetailRedux = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Modal to confirmation */}
+      {openConfirmation ? (
+        <div className="checkout">
+          <div className="maincheckout borderRed">
+            <div className="confirmation">
+              <h3>Are you sure to send this nft to the next wallet?</h3>
+
+              <p className="color">{wallet}</p>
+
+              <div className="div-btn">
+                <button
+                  className="btn-main lead btn-approve"
+                  onClick={handleSendNft}
+                >
+                  Send
+                </button>
+
+                <button
+                  className="btn-main lead btn-reject"
+                  onClick={handleCloseSend}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>

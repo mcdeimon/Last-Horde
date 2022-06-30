@@ -50,10 +50,9 @@ export const getAllNFT = () => async (dispatch) => {
 
   try {
     // Get amount of nfts
-    amountAux = await axios.get(`${REACT_APP_HOST_DB}/amount-nft`);
-    amountNfts = amountAux.data.amount;
+    amountAux = await ContractNfts.methods.poolIde().call();
 
-    for (let i = 1; i <= amountNfts; i++) {
+    for (let i = 1; i <= amountAux; i++) {
       // Save the nft in the array
       /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
       nfts.push(nft.data); */
@@ -236,9 +235,7 @@ export const getAccount = () => async (dispatch) => {
     account = await getAccountFunction();
 
     // Get the favorites
-    favoritesIDs = await axios.get(
-      `${REACT_APP_HOST_DB}/account/${account}`
-    );
+    favoritesIDs = await axios.get(`${REACT_APP_HOST_DB}/account/${account}`);
     favoritesIDs = favoritesIDs.data.favorites;
 
     for (let i = 1; i < favoritesIDs.length; i++) {
@@ -331,9 +328,7 @@ export const getMyFavorites = () => async (dispatch) => {
     account = await getAccountFunction();
 
     // Get the favorites
-    favoritesIDs = await axios.get(
-      `${REACT_APP_HOST_DB}/account/${account}`
-    );
+    favoritesIDs = await axios.get(`${REACT_APP_HOST_DB}/account/${account}`);
 
     favoritesIDs = favoritesIDs.data.favorites;
 

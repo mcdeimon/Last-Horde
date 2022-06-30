@@ -4396,6 +4396,23 @@ img.img-rounded {
         }
       }
     }
+
+    .confirmation {
+      text-align: center;
+
+      .div-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+
+        .btn-approve,
+        .btn-reject {
+          max-width: 120px;
+          margin: 10px;
+        }
+      }
+    }
   }
 }
 
