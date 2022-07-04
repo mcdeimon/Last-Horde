@@ -1,5 +1,4 @@
 const randomizer = require("../utils/randomizer");
-const regularExpressions = require("../utils/regularExpressions");
 
 module.exports = {
   async raritys(req, res) {

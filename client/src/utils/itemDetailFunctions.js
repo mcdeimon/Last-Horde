@@ -133,7 +133,7 @@ export const handleBuyPacks = async (
   await axios.post(
     `${REACT_APP_HOST_DB}/account/${account}/package/${pkg_type}`
   );
-};
+}; 
 
 // Function to claim packs
 export const handleClaimPacks = async (account, code, raritys) => {

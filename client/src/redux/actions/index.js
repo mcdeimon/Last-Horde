@@ -45,7 +45,6 @@ export const isLoadingFunction = (isLoading) => {
 export const getAllNFT = () => async (dispatch) => {
   let nfts = [],
     nft = {},
-    amountNfts = 0,
     amountAux = {};
 
   try {

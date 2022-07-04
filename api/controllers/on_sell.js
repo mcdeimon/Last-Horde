@@ -1,6 +1,4 @@
-const Sequelize = require("sequelize");
 const on_sell = require("../models").on_sell;
-const regularExpressions = require("../utils/regularExpressions");
 
 module.exports = {
   create(req, res) {

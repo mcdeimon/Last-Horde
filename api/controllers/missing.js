@@ -1,5 +1,3 @@
-const Sequelize = require("sequelize");
-const regularExpressions = require("../utils/regularExpressions");
 const missing = require("../models").missing;
 
 module.exports = {
