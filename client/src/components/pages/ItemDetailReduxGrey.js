@@ -311,6 +311,7 @@ const ItemDetailRedux = () => {
   // Function to send the nft
   const handleSendNft = async () => {
     // Open the modal to wait
+    handleCloseSend();
     setLoading(true);
 
     try {
@@ -323,7 +324,6 @@ const ItemDetailRedux = () => {
 
     // Close the modal
     setLoading(false);
-    handleCloseSend();
 
     // Reload the data in the store
     dispatch(getAccount());
@@ -695,7 +695,7 @@ const ItemDetailRedux = () => {
       {/* Modal to see claimed cards */}
       {openClaimedCards ? (
         <div className="checkout">
-          <div className="maincheckout borderRed">
+          <div className="maincheckout borderRed claimedCards">
             <button
               className="btn-close"
               onClick={() => setOpenClaimedCards(false)}

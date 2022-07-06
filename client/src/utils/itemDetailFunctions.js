@@ -133,7 +133,7 @@ export const handleBuyPacks = async (
   await axios.post(
     `${REACT_APP_HOST_DB}/account/${account}/package/${pkg_type}`
   );
-}; 
+};
 
 // Function to claim packs
 export const handleClaimPacks = async (account, code, raritys) => {
@@ -141,7 +141,7 @@ export const handleClaimPacks = async (account, code, raritys) => {
 
   // Get random cards
   let cards = await axios.post(`${REACT_APP_HOST_DB}/raritys`, {
-    raritys: ["0", "1", "2", "3", "4", "5"],
+    raritys,
     lengthCards,
     account,
     code,

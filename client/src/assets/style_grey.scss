@@ -4251,11 +4251,19 @@ img.img-rounded {
     width: 100%;
     max-width: 500px;
     height: max-content;
-    margin: 40px 0 0;
+    margin: 40px;
     color: $gray;
 
     &.borderRed {
       border: #FF343F 2px solid;
+    }
+
+    &.claimedCards {
+      padding-top: 15px;
+      padding-bottom: 5px;
+      margin: 20px;
+      width: max-content;
+      max-width: 80%;
     }
 
     .heading {
