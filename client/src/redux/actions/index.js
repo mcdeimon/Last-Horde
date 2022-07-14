@@ -139,7 +139,13 @@ export const getPackagesById = (id) => async (dispatch) => {
 
 // Get the rarity of the NFTs
 export const getRarity = () => async (dispatch) => {
-  const pack = await ContractNfts.methods.viewDeck2(REACT_APP_ACCOUNT).call();
+  let pack;
+
+  try {
+    pack = await ContractNfts.methods.viewDeck2(REACT_APP_ACCOUNT).call();
+  } catch (e) {
+    console.log(e);
+  }
 
   // Set the information in the store
   dispatch({
