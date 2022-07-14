@@ -31,7 +31,7 @@ app.use((_, res, next) => {
 require("./routes")(app);
 app.get("*", (_, res) =>
   res.status(200).send({
-    message: "Welcome to the beginning of nothingness.",
+    message: "Welcome to the back-end.",
   })
 );
 
