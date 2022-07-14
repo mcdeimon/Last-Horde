@@ -6,13 +6,6 @@ const onSellController = require("../controllers/on_sell");
 const raritysController = require("../controllers/raritys");
 
 module.exports = (app) => {
-  app.get("/", (req, res) =>
-    res.status(200).send({
-      message:
-        "Example project did not give you access to the api web services",
-    })
-  );
-
   ////////////////////////////////////////////////////// My favorites routes
   app.post(
     "/account/:account/id_nft/:id_nft/contract/:contract",
