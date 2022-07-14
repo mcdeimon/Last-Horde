@@ -183,6 +183,7 @@ const ItemDetailRedux = () => {
     let respose;
 
     // Open the modal to wait
+    setStep(null);
     setLoading(true);
 
     try {
@@ -199,6 +200,7 @@ const ItemDetailRedux = () => {
 
     // Close the modal and reload the data
     setLoading(false);
+    setStep(1);
 
     // Navigate to the order page
     if (respose) navigate(`/detail/${itemId}`);
@@ -261,6 +263,7 @@ const ItemDetailRedux = () => {
   // Function to claim the package
   const handleClaimPackage = async () => {
     // Open the modal to wait
+    setStep(null);
     setLoading(true);
 
     try {
@@ -276,6 +279,7 @@ const ItemDetailRedux = () => {
 
     // Close the modal
     setLoading(false);
+    setStep(1);
     setOpenClaimedCards(true);
 
     // Reload the data in the store
@@ -312,6 +316,7 @@ const ItemDetailRedux = () => {
   const handleSendNft = async () => {
     // Open the modal to wait
     handleCloseSend();
+    setStep(null);
     setLoading(true);
 
     try {
@@ -324,6 +329,7 @@ const ItemDetailRedux = () => {
 
     // Close the modal
     setLoading(false);
+    setStep(1);
 
     // Reload the data in the store
     dispatch(getAccount());
@@ -403,34 +409,38 @@ const ItemDetailRedux = () => {
 
                 <FaShareSquare onClick={handleCopyClipboard} />
 
-                <div
-                  className={`nft__item_like detail ${
-                    myFavorites.find((nft) => nft.id === item.id)
-                      ? "likedHeart"
-                      : ""
-                  }`}
-                  onClick={handleLikes}
-                >
-                  <i className="fa fa-heart"></i>
-                </div>
+                {!query.get("package") ? (
+                  <div
+                    className={`nft__item_like detail ${
+                      myFavorites.find((nft) => nft.id === item.id)
+                        ? "likedHeart"
+                        : ""
+                    }`}
+                    onClick={handleLikes}
+                  >
+                    <i className="fa fa-heart"></i>
+                  </div>
+                ) : null}
               </div>
 
               {/* Description of the amount of nft */}
-              {!query.get("package") ? (
-                <div className="item_info_counts">
-                  <div className="item_info_type">
-                    <HiUsers size="1rem" />
+              {
+                /* !query.get("package") */ false ? (
+                  <div className="item_info_counts">
+                    <div className="item_info_type">
+                      <HiUsers size="1rem" />
 
-                    <p>5 owners</p>
+                      <p>5 owners</p>
+                    </div>
+
+                    <div className="item_info_like">
+                      <IoGrid size="1rem" />
+
+                      <p>230 total</p>
+                    </div>
                   </div>
-
-                  <div className="item_info_like">
-                    <IoGrid size="1rem" />
-
-                    <p>230 total</p>
-                  </div>
-                </div>
-              ) : null}
+                ) : null
+              }
 
               {/* Description of the nft */}
               <p>{item?.description}</p>
@@ -671,7 +681,7 @@ const ItemDetailRedux = () => {
           <div className="maincheckout">
             <div className="loading">
               <h2>Wait to finish the transaction</h2>
-              <h3>Step:{` ${step}`}</h3>
+              {step && <h3>Step:{` ${step}`}</h3>}
             </div>
           </div>
         </div>
