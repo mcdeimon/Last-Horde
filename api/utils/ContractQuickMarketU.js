@@ -1,6 +1,6 @@
 const { web3 } = require("./web3");
 
-const addressMarket = "0x24e7652118782F21457DbAA8FD238064244cfe0C";
+const addressMarket = "0x068Fc4822D6cA49779a0D8b5CfD2aCdbaE4647Ee";
 
 const abi = [
   {

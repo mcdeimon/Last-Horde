@@ -1,6 +1,6 @@
 import { web3 } from "../utils/web3";
 
-export const address = "0x738a6BeB12E6D50e4cf858610369cd3312fE2A9F";
+export const address = "0x95368f2c269F1f3394f21d72662BFB8b00F1A7fD";
 
 const abi = [
   {

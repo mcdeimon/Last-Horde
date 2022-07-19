@@ -48,11 +48,23 @@ const TopFilterBar = () => {
   );
 
   // Default value of the filters
-  const defaultValue = {
-    value: null,
-    label: "Select Filter",
-    isDisabled: true,
-  };
+  const defaultValues = [
+    {
+      value: null,
+      label: "Select Filter",
+      isDisabled: true,
+    },
+    {
+      value: null,
+      label: "Select Color",
+      isDisabled: true,
+    },
+    {
+      value: null,
+      label: "Select Order",
+      isDisabled: true,
+    },
+  ];
 
   // Styles of the filters
   const customStyles = {
@@ -127,7 +139,7 @@ const TopFilterBar = () => {
         <Select
           styles={customStyles}
           menuContainerStyle={{ zIndex: 999 }}
-          options={[defaultValue, ...type]}
+          options={[defaultValues[0], ...type]}
           onChange={handleType}
         />
       </div>
@@ -137,7 +149,7 @@ const TopFilterBar = () => {
         <div className="dropdownSelect two">
           <Select
             styles={customStyles}
-            options={[defaultValue, ...rarity]}
+            options={[defaultValues[1], ...rarity]}
             onChange={handleRarity}
           />
         </div>
@@ -148,7 +160,7 @@ const TopFilterBar = () => {
         <div className="dropdownSelect three">
           <Select
             styles={customStyles}
-            options={[defaultValue, ...price]}
+            options={[defaultValues[2], ...price]}
             onChange={handlePrice}
           />
         </div>

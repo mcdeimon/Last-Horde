@@ -124,12 +124,6 @@ const Header = function ({ className }) {
               <Breakpoint xl>
                 <ul className="navbarList">
                   <li className="navbarListItem">
-                    <NavLink to="/explore">
-                      <p className="navbarLink">Explore</p>
-                    </NavLink>
-                  </li>
-
-                  <li className="navbarListItem">
                     <NavLink to="/my-account">
                       <p className="navbarLink">Account</p>
                     </NavLink>

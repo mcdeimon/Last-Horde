@@ -12,6 +12,8 @@ import {
   isLoadingFunction,
 } from "../../redux/actions";
 import Loading from "../components/Loading";
+import TopFilterBar from "../components/TopFilterBar";
+import ColumnNewRedux from "../components/ColumnNewRedux";
 
 //SWITCH VARIABLE FOR PAGE STYLE
 const theme = "GREY"; //LIGHT, GREY, RETRO
@@ -70,7 +72,7 @@ const Home = () => {
           <Loading /> // Loading component
         ) : (
           <>
-            <section className="container no-bottom">
+            {/* <section className="container no-bottom">
               <div className="row">
                 <div className="col-lg-12">
                   <div className="text-center">
@@ -101,8 +103,23 @@ const Home = () => {
                 </div>
 
                 <div className="col-lg-12">
-                  {/* Carousel with all the NFTs*/}
                   <CarouselNewRedux allOrSale="all" />
+                </div>
+              </div>
+            </section> */}
+
+            <section className="container">
+              <div className="row">
+                <div className="col-lg-12">
+                  {/* Filters */}
+                  <TopFilterBar />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-12">
+                  {/* Show all nfts or packages */}
+                  {isLoading ? <Loading /> : <ColumnNewRedux type="explore" />}
                 </div>
               </div>
             </section>

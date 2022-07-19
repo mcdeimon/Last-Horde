@@ -53,11 +53,11 @@ export const getAllNFT = () => async (dispatch) => {
 
     for (let i = 1; i <= amountAux; i++) {
       // Save the nft in the array
-      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
-      nfts.push(nft.data); */
+      nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
+      nfts.push(nft.data);
 
-      nft = await require(`../../../public/Nfts/${i}.json`);
-      nfts.push({ ...nft, id: i });
+      /* nft = await require(`../../../public/Nfts/${i}.json`);
+      nfts.push({ ...nft, id: i }); */
     }
   } catch (e) {
     console.log(e);
@@ -76,10 +76,10 @@ export const getNFTById = (id) => async (dispatch) => {
 
   try {
     // Get the nft
-    /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${id}.json`);
-    nft = nft.data; */
+    nft = await axios.get(`https://app.lasthorde.com/NFTs/${id}.json`);
+    nft = nft.data;
 
-    nft = await require(`../../../public/Nfts/${id}.json`);
+    /* nft = await require(`../../../public/Nfts/${id}.json`); */
   } catch (e) {
     console.log(e);
   }
@@ -99,11 +99,13 @@ export const getPackages = () => async (dispatch) => {
   try {
     for (let i = 1; i <= 3; i++) {
       // Get the packages
-      /* packageCard = await axios.get(`https://app.lasthorde.com/Packages/${i}.json`);
-      packages.push(packageCard.data); */
+      packageCard = await axios.get(
+        `https://app.lasthorde.com/Packages/${i}.json`
+      );
+      packages.push(packageCard.data);
 
-      packageCard = await require(`../../../public/Packages/${i}.json`);
-      packages.push(packageCard);
+      /* packageCard = await require(`../../../public/Packages/${i}.json`);
+      packages.push(packageCard); */
     }
   } catch (e) {
     console.log(e);
@@ -122,10 +124,12 @@ export const getPackagesById = (id) => async (dispatch) => {
 
   try {
     // Get the package
-    /* packageCard = await axios.get(`https://app.lasthorde.com/Packages/${id}.json`);
-    packageCard = packageCard.data; */
+    packageCard = await axios.get(
+      `https://app.lasthorde.com/Packages/${id}.json`
+    );
+    packageCard = packageCard.data;
 
-    packageCard = await require(`../../../public/Packages/${id}.json`);
+    /* packageCard = await require(`../../../public/Packages/${id}.json`); */
   } catch (e) {
     console.log(e);
   }
@@ -167,11 +171,13 @@ export const getOnSell = () => async (dispatch) => {
 
     // Filter nfts cancelled and sold
     for (let i = 0; i < onSell.length; i++) {
-      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${onSell[i].id_nft}.json`);
-      nfts.push(nft.data); */
+      nft = await axios.get(
+        `https://app.lasthorde.com/NFTs/${onSell[i].id_nft}.json`
+      );
+      nftArr.push({ ...nft.data, ...onSell[i], id: onSell[i].id_nft });
 
-      nft = await require(`../../../public/Nfts/${onSell[i].id_nft}.json`);
-      nftArr.push({ ...nft, ...onSell[i], id: onSell[i].id_nft });
+      /* nft = await require(`../../../public/Nfts/${onSell[i].id_nft}.json`);
+      nftArr.push({ ...nft, ...onSell[i], id: onSell[i].id_nft }); */
     }
   } catch (e) {
     console.log(e);
@@ -233,7 +239,8 @@ export const getAccount = () => async (dispatch) => {
     favorites = [],
     packsQuantity = [],
     packs = [],
-    pkg = {};
+    pkg = {},
+    nft = {};
 
   try {
     // Get the account
@@ -245,12 +252,14 @@ export const getAccount = () => async (dispatch) => {
 
     for (let i = 1; i < favoritesIDs.length; i++) {
       // Get the favorites cards
-      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
-      nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
+      nft = await axios.get(
+        `https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`
+      );
+      favorites.push({ ...nft.data, id: favoritesIDs[i].id_nft });
 
-      let nft =
+      /* nft =
         await require(`../../../public/Nfts/${favoritesIDs[i].id_nft}.json`);
-      favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
+      favorites.push({ ...nft, id: favoritesIDs[i].id_nft }); */
     }
 
     // Get the deck
@@ -261,14 +270,11 @@ export const getAccount = () => async (dispatch) => {
       let nft = {};
 
       if (pack[0][i]) {
-        /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
-        for (let j = 0; j < pack[0][i]; j++) {
-          deck.push({ ...nft.data, id: i });
-        } */
+        nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
+        for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft.data, id: i });
 
-        nft = await require(`../../../public/Nfts/${i}.json`);
-
-        for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i });
+        /* nft = await require(`../../../public/Nfts/${i}.json`);
+        for (let j = 0; j < pack[0][i]; j++) deck.push({ ...nft, id: i }); */
       }
     }
 
@@ -278,11 +284,11 @@ export const getAccount = () => async (dispatch) => {
     for (let i = 0; i < packsQuantity.length; i++) {
       for (let j = 0; j < packsQuantity[i]; j++) {
         // Get the packages
-        /* pkg = await axios.get(`https://app.lasthorde.com/Packages/${i}.json`);
-      packs.push(pkg.data); */
+        pkg = await axios.get(`https://app.lasthorde.com/Packages/${i}.json`);
+        packs.push(pkg.data);
 
-        pkg = await require(`../../../public/Packages/${i + 1}.json`);
-        packs.push(pkg);
+        /* pkg = await require(`../../../public/Packages/${i + 1}.json`);
+        packs.push(pkg); */
       }
     }
   } catch (e) {
@@ -326,7 +332,8 @@ export const resetAccount = () => (dispatch) => {
 export const getMyFavorites = () => async (dispatch) => {
   let account = [],
     favoritesIDs = [],
-    favorites = [];
+    favorites = [],
+    nft = {};
 
   try {
     // Get the account
@@ -339,12 +346,14 @@ export const getMyFavorites = () => async (dispatch) => {
 
     // Get the nfts
     for (let i = 1; i < favoritesIDs.length; i++) {
-      /* nft = await axios.get(`https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`);
-      nfts.push({ ...nft.data, id: favoritesIDs[i].id_nft }); */
+      nft = await axios.get(
+        `https://app.lasthorde.com/NFTs/${favoritesIDs[i].id_nft}.json`
+      );
+      favorites.push({ ...nft.data, id: favoritesIDs[i].id_nft });
 
-      let nft =
+      /* nft =
         await require(`../../../public/Nfts/${favoritesIDs[i].id_nft}.json`);
-      favorites.push({ ...nft, id: favoritesIDs[i].id_nft });
+      favorites.push({ ...nft, id: favoritesIDs[i].id_nft }); */
     }
   } catch (e) {
     console.log(e);

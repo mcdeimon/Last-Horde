@@ -1,6 +1,6 @@
 const { web3 } = require("./web3");
 
-const addressNfts = "0x8abA47457f1a4B9748432E0A08831ADFaBcA59cA";
+const addressNfts = "0x0916f70339A5fc73d83599CfC8aeFf6787683883";
 
 const abi = [
   {
