@@ -8,6 +8,8 @@ import Colectiongrey from "./pages/colectionGrey";
 import ItemDetailReduxgrey from "./pages/ItemDetailReduxGrey";
 
 import { createGlobalStyle } from "styled-components";
+import Stake from "./pages/stake";
+import OldToken from "./pages/oldToken";
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -47,6 +49,10 @@ const app = () => (
         <Colectiongrey path="/my-account" />
 
         <ItemDetailReduxgrey path="/detail/:itemId" />
+
+        <Stake path="/stake" />
+        
+        <OldToken path="/old-token" />
       </ScrollTop>
     </PosedRouter>
 

@@ -108,9 +108,9 @@ const Header = function ({ className }) {
                     </li>
 
                     <li className="navbarListItem">
-                      <a href="https://app.lasthorde.com/stake">
+                      <NavLink to="/stake">
                         <p className="navbarLink">Stake</p>
-                      </a>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
@@ -123,6 +123,12 @@ const Header = function ({ className }) {
               {/* Menu in xl size */}
               <Breakpoint xl>
                 <ul className="navbarList">
+                  <li className="navbarListItem">
+                    <NavLink to="/old-token">
+                      <p className="navbarLink">Old Token</p>
+                    </NavLink>
+                  </li>
+
                   <li className="navbarListItem">
                     <NavLink to="/my-account">
                       <p className="navbarLink">Account</p>
@@ -164,14 +170,14 @@ const Header = function ({ className }) {
                     </li>
 
                     <li className="navbarListItem">
-                      <a href="https://app.lasthorde.com/stake">
+                      <NavLink to="/stake">
                         <p className="navbarLink">Stake</p>
-                      </a>
+                      </NavLink>
                     </li>
 
                     <li className="navbarListItem">
-                      <NavLink to="/explore">
-                        <p className="navbarLink">Explore</p>
+                      <NavLink to="/old-token">
+                        <p className="navbarLink">Old Token</p>
                       </NavLink>
                     </li>
 

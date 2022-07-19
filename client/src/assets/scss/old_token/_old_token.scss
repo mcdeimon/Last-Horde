@@ -1,0 +1,70 @@
+
+
+.OldToken {
+    background-image: url("../../images/tokenchangeWithdraw.jpg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-color: black;
+    min-height: 1600px;
+    max-height: 1600px;
+    width: 100%;
+    font-size: 14px;
+
+    .App {
+        padding: 20% 0;
+        text-align: center;
+    }
+
+    .sidebar {
+        margin-top: 220px;
+    }
+
+    .available {
+        /*width: 90%;
+        height: 30px;
+        margin: 0.5rem;*/
+        height: 30px;
+    }
+
+    .Balance {
+        height: 30px;
+
+        /* width: 90%;
+        
+        margin: 0.5rem;*/
+    }
+
+    .fieldset {
+        width: 50%;
+        margin: 0 auto;
+        border: 1.5px solid white;
+    }
+
+    .form button {
+        padding: 0.5em 1em;
+        border: none;
+        background: rgb(100, 200, 255);
+        cursor: pointer;
+    }
+
+    .div-row-oldt {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+
+        .oldt-buttons {
+            width: 140px;
+            height: 30px;
+            margin: 0 10px;
+        }
+
+        .oldt-input {
+            width: 500px;
+            height: 30px;
+            margin: 0 10px;
+        }
+    }
+}

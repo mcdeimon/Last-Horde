@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SliderMain from "../components/SliderCarouselNew";
-import CarouselNewRedux from "../components/CarouselNewReduxNew";
+// import CarouselNewRedux from "../components/CarouselNewReduxNew";
 import Footer from "../components/footer";
 import { StyledHeader } from "../Styles";
 import { useDispatch, useSelector } from "react-redux";
