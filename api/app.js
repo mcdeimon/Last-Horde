@@ -4,7 +4,7 @@ const rfs = require("rotating-file-stream");
 const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
-const logFile = rfs.createStream("./sql.log", { interval: "2d" });
+const logFile = rfs.createStream("./loggsFile.log", { interval: "2d" });
 
 // This will be our application entry. We'll setup our server here.
 const http = require("http");
