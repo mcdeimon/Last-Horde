@@ -1,8 +1,10 @@
 require("dotenv").config();
 
+const rfs = require("rotating-file-stream");
 const express = require("express");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
+const logFile = rfs.createStream("./sql.log", { interval: "2d" });
 
 // This will be our application entry. We'll setup our server here.
 const http = require("http");
@@ -12,6 +14,7 @@ const app = express();
 
 // Log requests to the console.
 app.use(logger("dev"));
+app.use(logger("common", { stream: logFile }));
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());

@@ -1,4 +1,5 @@
 const on_sell = require("../models").on_sell;
+const logger = require("../utils/logger");
 
 module.exports = {
   create(req, res) {
@@ -40,11 +41,16 @@ module.exports = {
 
           res.status(200).send({ ...on_sell.dataValues, status: 200 });
         })
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   update(req, res) {
@@ -69,11 +75,16 @@ module.exports = {
                 res.status(400).send({ ...error, status: 400 })
               );
         })
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   find(_, res) {
@@ -86,6 +97,9 @@ module.exports = {
 
         res.status(200).send({ all: [...auxArr], status: 200 });
       })
-      .catch((error) => res.status(400).send({ ...error, status: 400 }));
+      .catch((error) => {
+        logger(error);
+        res.status(400).send({ ...error, status: 400 });
+      });
   },
 };

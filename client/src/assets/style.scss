@@ -943,6 +943,7 @@ a {
     color: $white;
     outline: none;
     transition: all 0.3s ease;
+    width: max-content;
 
     &:hover {
       color: inherit;

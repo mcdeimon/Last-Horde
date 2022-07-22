@@ -112,6 +112,12 @@ const Header = function ({ className }) {
                         <p className="navbarLink">Stake</p>
                       </NavLink>
                     </li>
+
+                    <li className="navbarListItem">
+                      <NavLink to="/old-token">
+                        <p className="navbarLink">Old Token</p>
+                      </NavLink>
+                    </li>
                   </ul>
                 </div>
               </Breakpoint>
@@ -123,12 +129,6 @@ const Header = function ({ className }) {
               {/* Menu in xl size */}
               <Breakpoint xl>
                 <ul className="navbarList">
-                  <li className="navbarListItem">
-                    <NavLink to="/old-token">
-                      <p className="navbarLink">Old Token</p>
-                    </NavLink>
-                  </li>
-
                   <li className="navbarListItem">
                     <NavLink to="/my-account">
                       <p className="navbarLink">Account</p>

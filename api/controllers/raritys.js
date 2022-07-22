@@ -1,4 +1,5 @@
 const randomizer = require("../utils/randomizer");
+const logger = require("../utils/logger");
 
 module.exports = {
   async raritys(req, res) {
@@ -20,11 +21,14 @@ module.exports = {
           status: 200,
         });
       } catch (err) {
+        logger(error);
         return res.status(400).send({ err, status: 400 });
       }
-    else
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 };

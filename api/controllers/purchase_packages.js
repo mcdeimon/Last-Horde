@@ -1,4 +1,5 @@
 const purchase_packages = require("../models").purchase_packages;
+const logger = require("../utils/logger");
 
 module.exports = {
   create(req, res) {
@@ -13,11 +14,16 @@ module.exports = {
         .then((purchase_packages) =>
           res.status(200).send({ ...purchase_packages.dataValues, status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   find(req, res) {
@@ -36,10 +42,15 @@ module.exports = {
             .status(200)
             .send({ bought: purchase_packages ? true : false, status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 };

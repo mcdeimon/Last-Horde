@@ -42,7 +42,7 @@ const app = () => (
 
     <PosedRouter>
       <ScrollTop path="/">
-        <Home5 path="/" />
+        <Home5 exact path="/" />
 
         <Exploregrey path="/explore" />
 
@@ -51,7 +51,7 @@ const app = () => (
         <ItemDetailReduxgrey path="/detail/:itemId" />
 
         <Stake path="/stake" />
-        
+
         <OldToken path="/old-token" />
       </ScrollTop>
     </PosedRouter>

@@ -5,24 +5,24 @@
       "value": 3,
       "img": "https://lasthorde.com/Packages/Images/3cardsbox.png",
       "description": "Get 3 random cards and fight now",
-      "price": "2650",
-      "fee": "2650000000000000000000"
+      "price": "5300",
+      "fee": "5300000000000000000000"
     },
     {
       "name": "7 Cards",
       "value": 7,
       "img": "https://lasthorde.com/Packages/Images/7cardsbox.png",
       "description": "Get 7 random cards and fight now",
-      "price": "5300",
-      "fee": "5300000000000000000000"
+      "price": "10600",
+      "fee": "10600000000000000000000"
     },
     {
       "name": "11 Cards",
       "value": 11,
       "img": "https://lasthorde.com/Packages/Images/11cardsbox.png",
       "description": "Get 11 random cards and fight now",
-      "price": "7950",
-      "fee": "7950000000000000000000"
+      "price": "15900",
+      "fee": "15900000000000000000000"
     }
   ]
 }

@@ -54,7 +54,7 @@ export const getAllNFT = () => async (dispatch) => {
     for (let i = 1; i <= amountAux; i++) {
       // Save the nft in the array
       nft = await axios.get(`https://app.lasthorde.com/NFTs/${i}.json`);
-      nfts.push(nft.data);
+      nfts.push({ ...nft.data, id: i });
 
       /* nft = await require(`../../../public/Nfts/${i}.json`);
       nfts.push({ ...nft, id: i }); */
@@ -284,7 +284,7 @@ export const getAccount = () => async (dispatch) => {
     for (let i = 0; i < packsQuantity.length; i++) {
       for (let j = 0; j < packsQuantity[i]; j++) {
         // Get the packages
-        pkg = await axios.get(`https://app.lasthorde.com/Packages/${i}.json`);
+        pkg = await axios.get(`https://app.lasthorde.com/Packages/${i + 1}.json`);
         packs.push(pkg.data);
 
         /* pkg = await require(`../../../public/Packages/${i + 1}.json`);

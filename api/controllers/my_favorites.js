@@ -1,4 +1,5 @@
 const my_favorites = require("../models").my_favorites;
+const logger = require("../utils/logger");
 
 module.exports = {
   create(req, res) {
@@ -18,11 +19,16 @@ module.exports = {
         .then((my_favorites) =>
           res.status(200).send({ ...my_favorites.dataValues, status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   delete(req, res) {
@@ -39,11 +45,16 @@ module.exports = {
         .then((my_favorites) =>
           res.status(200).send({ deleted: [...my_favorites], status: 200 })
         )
-        .catch((error) => res.status(200).send({ ...error, status: 200 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   search(req, res) {
@@ -63,11 +74,16 @@ module.exports = {
             .status(200)
             .send({ isFavorite: isFavorite || false, status: 200 });
         })
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   list(_, res) {
@@ -76,7 +92,10 @@ module.exports = {
       .then((my_favorites) =>
         res.status(200).send({ all: [...my_favorites], status: 200 })
       )
-      .catch((error) => res.status(400).send({ ...error, status: 400 }));
+      .catch((error) => {
+        logger(error);
+        res.status(400).send({ ...error, status: 400 });
+      });
   },
 
   find(req, res) {
@@ -92,11 +111,16 @@ module.exports = {
         .then((my_favorites) =>
           res.status(200).send({ favorites: [...my_favorites], status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 
   findByContract(req, res) {
@@ -112,10 +136,15 @@ module.exports = {
         .then((my_favorites) =>
           res.status(200).send({ all: [...my_favorites], status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 };

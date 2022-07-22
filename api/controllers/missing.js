@@ -1,4 +1,5 @@
 const missing = require("../models").missing;
+const logger = require("../utils/logger");
 
 module.exports = {
   create(req, res) {
@@ -13,10 +14,15 @@ module.exports = {
         .then((missing) =>
           res.status(200).send({ ...missing.dataValues, status: 200 })
         )
-        .catch((error) => res.status(400).send({ ...error, status: 400 }));
-    else
+        .catch((error) => {
+          logger(error);
+          res.status(400).send({ ...error, status: 400 });
+        });
+    else {
+      logger(error);
       return res
         .status(400)
         .send({ error: "The data is not of the required type", status: 400 });
+    }
   },
 };

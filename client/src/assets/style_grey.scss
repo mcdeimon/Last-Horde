@@ -3284,10 +3284,10 @@ $color_more: #FC202C;
       font-size: 16px;
       float: left;
       width: 60px;
-      background: $color;
+      background: $color !important;
       color: #ffffff;
       display: table-cell;
-      padding: 13px 0;
+      padding: 14px 0;
       border-radius: 0 5px 5px 0;
       cursor: pointer;
     }

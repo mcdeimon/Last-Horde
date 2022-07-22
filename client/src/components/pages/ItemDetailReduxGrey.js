@@ -273,8 +273,10 @@ const ItemDetailRedux = () => {
       setClaimedCards({ ...cards, imgs: cardsImgs });
 
       toastSuccess("The claim of the package concluded correctly!");
+      console.log(cards);
     } catch (err) {
       toastError(err);
+      console.log(err);
     }
 
     // Close the modal
@@ -651,7 +653,7 @@ const ItemDetailRedux = () => {
             <div className="detailcheckout mt-4">
               <div className="listcheckout">
                 <h6>
-                  Enter wallet. <span className="color">BNB wallet</span>
+                  Enter wallet. <span className="color">BSC wallet</span>
                 </h6>
 
                 <input

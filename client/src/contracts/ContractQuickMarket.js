@@ -1,6 +1,6 @@
 import { web3 } from "../utils/web3";
 
-export const address = "0x068Fc4822D6cA49779a0D8b5CfD2aCdbaE4647Ee";
+export const address = "0x19874DfFF84f2cFecDccC6266ad98B85da9F06ae";
 
 const abi = [
   {
@@ -102,24 +102,6 @@ const abi = [
     ],
     name: "TransferBatch",
     type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "raririty",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "probability",
-        type: "uint256",
-      },
-    ],
-    name: "addProbability",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
   },
   {
     inputs: [
